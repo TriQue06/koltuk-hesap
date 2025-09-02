@@ -2,8 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>✨ Koltuk Hesaplayıcı ✨</title>
   <style>
+    /*
+      Font İçe Aktarma:
+      Google'ın resmi renklerine yakın bir font olan Product Sans'ı içe aktardık.
+      Bu fontlar, koltuk-hesaplayıcı/font/ klasöründen yüklenir.
+    */
     @font-face {
       font-family: 'Product Sans';
       src: url('font/ProductSans-Regular.ttf') format('truetype');
@@ -210,8 +216,8 @@
     }
     
     .threshold-input {
-        width: 60px;
-        padding: 8px;
+        width: 80px; /* Genişletilmiş */
+        padding: 15px;
         font-size: 1em;
         box-sizing: border-box;
     }
@@ -225,6 +231,7 @@
       font-weight: 600;
       cursor: pointer;
       transition: background-color 0.3s, border-color 0.3s;
+      width: 140px; /* Sabit genişlik eklendi */
     }
     
     .threshold-button.active {
@@ -501,6 +508,65 @@
       font-size: 0.9em;
       margin-top: 20px;
     }
+
+    /* Mobil uyumluluk için Media Query */
+    @media (max-width: 768px) {
+        body {
+            padding: 10px;
+        }
+
+        .container {
+            padding: 30px 20px;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+        
+        .subtitle {
+            font-size: 1em;
+            margin-bottom: 20px;
+        }
+
+        .top-controls {
+            position: static;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .top-controls button {
+            width: 100%;
+        }
+
+        .seats-threshold-group {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .threshold-control {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 10px;
+        }
+
+        .threshold-button, .threshold-input {
+            width: 100%;
+            text-align: center;
+        }
+
+        .party-entry {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 10px;
+        }
+
+        .party-entry input, .party-entry button {
+            width: 100%;
+            box-sizing: border-box;
+        }
+    }
   </style>
 </head>
 <body>
@@ -516,7 +582,7 @@
         <div class="input-group">
             <label for="totalSeats">Toplam Koltuk Sayısı</label>
             <div class="seats-threshold-group">
-              <input type="text" id="totalSeats" placeholder="Örn: 550" value="">
+              <input type="text" id="totalSeats" placeholder="Örn: 600" value="">
               <div class="threshold-control">
                   <button id="thresholdButton" class="threshold-button">Baraj: Kapalı</button>
                   <input type="number" id="thresholdInput" class="threshold-input" placeholder="%" min="0" max="100" value="0">
@@ -536,7 +602,7 @@
         let currentThemeIndex = 0;
         const themeButton = document.getElementById('themeButton');
 
-        const methods = ['Hare Kotası', 'D\'Hondt', 'Sainte-Laguë'];
+        const methods = ['Hare Kotası', 'D\'Hondt', 'Sainte-Laguë', 'Küçük Parti Destekleme'];
         let currentMethodIndex = 0;
         const methodButton = document.getElementById('methodButton');
         const methodSubtitle = document.getElementById('methodSubtitle');
@@ -613,6 +679,8 @@
                 finalResults = calculateDhondt(eligibleParties, seats);
             } else if (currentMethod === 'Sainte-Laguë') {
                 finalResults = calculateSainteLague(eligibleParties, seats);
+            } else if (currentMethod === 'Küçük Parti Destekleme') {
+                finalResults = calculateSmallPartySupport(eligibleParties, seats);
             }
 
             // Sonuçları ekrana basma
@@ -700,6 +768,26 @@
                     results[winningPartyIndex].seats++;
                 }
             }
+            return results;
+        }
+
+        // YENİ: Küçük Parti Destekleme Yöntemi
+        function calculateSmallPartySupport(parties, seats) {
+            const smallPartyThreshold = 15; // %15'in altı küçük parti kabul ediliyor
+            
+            // Partilerin oy oranını hesapla
+            const totalVotes = parties.reduce((sum, p) => sum + p.votes, 0);
+            
+            // Oyları küçük partiler için ayarla
+            const adjustedParties = parties.map(p => {
+                const percentage = (p.votes / totalVotes) * 100;
+                const adjustedVotes = percentage < smallPartyThreshold ? p.votes * 1.5 : p.votes;
+                return { ...p, votes: adjustedVotes };
+            });
+            
+            // Ayarlanmış oylarla D'Hondt hesaplaması yap
+            const results = calculateDhondt(adjustedParties, seats);
+            
             return results;
         }
 
