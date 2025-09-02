@@ -514,9 +514,26 @@
         body {
             padding: 10px;
         }
+        
+        /* Mobil görünümde en üstteki kontrol butonları */
+        .top-controls {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: var(--bg-color);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            gap: 10px;
+        }
 
         .container {
             padding: 30px 20px;
+            margin-top: 80px; /* Sabit header için boşluk */
         }
 
         h1 {
@@ -526,18 +543,6 @@
         .subtitle {
             font-size: 1em;
             margin-bottom: 20px;
-        }
-
-        .top-controls {
-            position: static;
-            justify-content: center;
-            margin-bottom: 20px;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .top-controls button {
-            width: 100%;
         }
 
         .seats-threshold-group {
