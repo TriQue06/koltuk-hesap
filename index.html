@@ -221,6 +221,97 @@
             --button-hover-bg: #c0c0c0;
         }
 
+        body.autumn-theme {
+            --bg-color: #7d4d29;
+            --card-bg: rgba(125, 77, 41, 0.6);
+            --primary-color: #ff8c00;
+            --secondary-color: #ff4500;
+            --text-color: #fdf5e6;
+            --border-color: rgba(253, 245, 230, 0.3);
+            --input-bg: rgba(253, 245, 230, 0.1);
+            --result-bg: rgba(253, 245, 230, 0.05);
+            --button-bg: #b55d28;
+            --button-hover-bg: #8c4217;
+        }
+
+        body.matrix-theme {
+            --bg-color: #0a0a0a;
+            --card-bg: rgba(0, 0, 0, 0.8);
+            --primary-color: #00ff00;
+            --secondary-color: #00cc00;
+            --text-color: #00ff00;
+            --border-color: rgba(0, 255, 0, 0.3);
+            --input-bg: rgba(0, 255, 0, 0.1);
+            --result-bg: rgba(0, 255, 0, 0.05);
+            --button-bg: #006600;
+            --button-hover-bg: #003300;
+        }
+
+        body.ruby-theme {
+            --bg-color: #3d0000;
+            --card-bg: rgba(61, 0, 0, 0.6);
+            --primary-color: #e30b5c;
+            --secondary-color: #b2073e;
+            --text-color: #fdf5f8;
+            --border-color: rgba(253, 245, 248, 0.3);
+            --input-bg: rgba(253, 245, 248, 0.1);
+            --result-bg: rgba(253, 245, 248, 0.05);
+            --button-bg: #802020;
+            --button-hover-bg: #5a1717;
+        }
+
+        body.monochrome-theme {
+            --bg-color: #1c1c1c;
+            --card-bg: rgba(38, 38, 38, 0.6);
+            --primary-color: #a0a0a0;
+            --secondary-color: #707070;
+            --text-color: #e0e0e0;
+            --border-color: rgba(224, 224, 224, 0.3);
+            --input-bg: rgba(224, 224, 224, 0.1);
+            --result-bg: rgba(224, 224, 224, 0.05);
+            --button-bg: #5a5a5a;
+            --button-hover-bg: #4a4a4a;
+        }
+
+        body.coffee-theme {
+            --bg-color: #4b3832;
+            --card-bg: rgba(75, 56, 50, 0.6);
+            --primary-color: #a8764a;
+            --secondary-color: #7c583f;
+            --text-color: #f5f0e1;
+            --border-color: rgba(245, 240, 225, 0.3);
+            --input-bg: rgba(245, 240, 225, 0.1);
+            --result-bg: rgba(245, 240, 225, 0.05);
+            --button-bg: #674c43;
+            --button-hover-bg: #553e37;
+        }
+
+        body.grape-theme {
+            --bg-color: #3b2a50;
+            --card-bg: rgba(59, 42, 80, 0.6);
+            --primary-color: #c8a2c8;
+            --secondary-color: #8a79a2;
+            --text-color: #f0f0f5;
+            --border-color: rgba(240, 240, 245, 0.3);
+            --input-bg: rgba(240, 240, 245, 0.1);
+            --result-bg: rgba(240, 240, 245, 0.05);
+            --button-bg: #6b4d85;
+            --button-hover-bg: #594070;
+        }
+
+        body.cyberpunk-theme {
+            --bg-color: #0b0c10;
+            --card-bg: rgba(11, 12, 16, 0.7);
+            --primary-color: #ff00ff;
+            --secondary-color: #00ffff;
+            --text-color: #f0f0f0;
+            --border-color: rgba(255, 255, 255, 0.2);
+            --input-bg: rgba(255, 255, 255, 0.1);
+            --result-bg: rgba(255, 255, 255, 0.05);
+            --button-bg: #8e2de2;
+            --button-hover-bg: #4a00e0;
+        }
+
         body {
           font-family: 'Product Sans', sans-serif;
           background-color: var(--bg-color);
@@ -309,6 +400,7 @@
           cursor: pointer;
           transition: background-color 0.3s, border-color 0.3s;
           font-size: 1.1em;
+          width: 150px;
         }
 
         .threshold-button.active {
@@ -466,7 +558,7 @@
             border: 2px solid var(--border-color);
         }
         input[type="color"]::-moz-color-swatch {
-            border-radius: 8px;
+            border-radius: 8-px;
             border: 2px solid var(--border-color);
         }
 
@@ -477,11 +569,15 @@
           border: none;
           padding: 12px;
           border-radius: 10px;
+          width: 40px;
+          height: 40px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           cursor: pointer;
           font-size: 1.3em;
           transition: background-color 0.3s, transform 0.2s;
         }
-
         .party-entry button:hover {
           background: #c0392b;
           transform: scale(1.05);
@@ -499,16 +595,7 @@
           font-size: 1.2em;
           font-weight: 600;
           transition: background-color 0.3s, transform 0.2s;
-          box-shadow: 0 5px 15px rgba(37, 117, 252, 0.4);
         }
-
-        body.light-mode .add-party-btn {
-            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
-        }
-        body.oled-theme .add-party-btn {
-            box-shadow: 0 5px 15px rgba(0, 170, 255, 0.4);
-        }
-
 
         .add-party-btn:hover {
           background: #1a5acb;
@@ -699,6 +786,7 @@
 <div class="top-bar">
     <div class="top-controls left">
         <button id="themeButton">Cihaz Varsayılanı</button>
+        <button id="randomThemeButton">Rastgele Tema</button>
     </div>
     <div class="top-controls right">
         <button id="methodButton">D'Hondt</button>
@@ -707,21 +795,20 @@
 
 <div class="container">
     <h1>Koltuk Hesaplayıcı</h1>
-    <p class="subtitle" id="methodSubtitle">(D'Hondt Yöntemi)</p>
+    <p class="subtitle" id="methodSubtitle">D'Hondt Yöntemi</p>
 
     <div class="input-group">
-        <label for="totalSeats">Toplam Koltuk Sayısı</label>
         <div class="seats-threshold-group">
-            <input type="text" id="totalSeats" placeholder="Örn: 600" value="">
+            <input type="text" id="totalSeats" placeholder="Koltuk Sayısı" value="">
             <div class="threshold-control">
                 <button id="thresholdButton" class="threshold-button">Baraj: Kapalı</button>
-                <input type="number" id="thresholdInput" class="threshold-input" placeholder="%" min="0" max="100" value="0">
+                <input type="text" id="thresholdInput" class="threshold-input" placeholder="%" min="0" max="100" value="0">
             </div>
         </div>
     </div>
 
     <div id="parties"></div>
-    <button onclick="addParty()" class="add-party-btn">➕ Parti Ekle</button>
+    <button onclick="addParty()" class="add-party-btn">Parti Ekle</button>
 
     <div id="output" class="results"></div>
 
@@ -733,9 +820,7 @@
 </div>
 
 <script>
-    const themes = ['device', 'oled', 'light', 'dark', 'retro', 'vaporwave', 'forest', 'ocean', 'crimson', 'sunset', 'lavender', 'high-contrast'];
-    let currentThemeIndex = 0;
-    const themeButton = document.getElementById('themeButton');
+    const themes = ['device', 'oled', 'light', 'dark', 'retro', 'vaporwave', 'forest', 'ocean', 'crimson', 'sunset', 'lavender', 'high-contrast', 'autumn', 'matrix', 'ruby', 'monochrome', 'coffee', 'grape', 'cyberpunk'];
     const themeButtonLabels = {
         'device': 'Cihaz Varsayılanı',
         'oled': 'OLED',
@@ -748,8 +833,19 @@
         'crimson': 'Kızıl',
         'sunset': 'Gün Batımı',
         'lavender': 'Lavanta',
-        'high-contrast': 'Yüksek Kontrast'
+        'high-contrast': 'Yüksek Kontrast',
+        'autumn': 'Sonbahar',
+        'matrix': 'Matrix',
+        'ruby': 'Yakut',
+        'monochrome': 'Monokrom',
+        'coffee': 'Kahve',
+        'grape': 'Üzüm',
+        'cyberpunk': 'Siberpunk'
     };
+    let currentThemeIndex = 0;
+    let currentThemeName = 'device';
+    const themeButton = document.getElementById('themeButton');
+    const randomThemeButton = document.getElementById('randomThemeButton');
 
     const methods = ['D\'Hondt', 'Sainte-Laguë', 'Hare Kotası'];
     let currentMethodIndex = 0;
@@ -782,6 +878,13 @@
         return parseInt(value);
     }
 
+    function parseThresholdValue(value) {
+        if (typeof value === 'string') {
+            value = value.replace(',', '.');
+        }
+        return parseFloat(value);
+    }
+
     function addParty(name = '', votes = '', color = '#808080') {
         const div = document.createElement('div');
         div.className = 'party-entry';
@@ -792,7 +895,7 @@
                 <input type="color" class="party-color-picker" value="${color}">
                 <input type="text" class="party-color-hex" value="${color}" placeholder="#RRGGBB" maxlength="7">
             </div>
-            <button type="button" onclick="this.parentNode.remove(); calculate();">❌</button>
+            <button type="button" onclick="this.parentNode.remove(); calculate();">X</button>
         `;
         div.querySelector('.party-name').addEventListener('input', calculate);
         div.querySelector('.party-votes').addEventListener('input', calculate);
@@ -821,7 +924,7 @@
     }
 
     function calculate() {
-        methodSubtitle.textContent = `(${methods[currentMethodIndex]} Yöntemi)`;
+        methodSubtitle.textContent = `${methods[currentMethodIndex]} Yöntemi`;
 
         const seats = parseInt(document.getElementById('totalSeats').value);
         const partyEntries = document.getElementsByClassName('party-entry');
@@ -844,7 +947,7 @@
             return;
         }
 
-        const threshold = isThresholdEnabled ? parseVoteValue(thresholdInput.value) : 0;
+        const threshold = isThresholdEnabled ? parseThresholdValue(thresholdInput.value) : 0;
         const eligibleParties = [];
         allParties.forEach(p => {
             const percentage = (p.votes / totalVotes) * 100;
@@ -883,7 +986,7 @@
                           <div class="party-initial" style="background-color: ${r.color}; color: ${initialColor};">${initial}</div>
                           <span><strong>${r.name}</strong> (${percentage}%)</span>
                       </div>
-                      <span class="seat-count" style="color: var(--primary-color);">${r.seats} Koltuk</span>
+                      <span class="seat-count">${r.seats} Koltuk</span>
                     </li>`;
         }
         out += '</ul>';
@@ -958,6 +1061,7 @@
 
     function applyTheme(theme) {
         document.body.className = '';
+        currentThemeName = theme;
         if (theme === 'light') {
             document.body.classList.add('light-mode');
         } else if (theme === 'dark') {
@@ -972,6 +1076,7 @@
             document.body.classList.add(theme + '-theme');
         }
         themeButton.textContent = themeButtonLabels[theme];
+        calculate();
     }
 
     function downloadResults() {
@@ -979,10 +1084,12 @@
         const thresholdStatus = isThresholdEnabled ? 'Açık' : 'Kapalı';
         const thresholdValue = isThresholdEnabled ? thresholdInput.value : '';
         const calculationMethod = methods[currentMethodIndex];
+        const themeToSave = currentThemeName;
 
         let content = `Toplam Koltuk Sayısı: ${totalSeats}\n`;
         content += `Baraj Durumu: ${thresholdStatus}${thresholdValue ? ', ' + thresholdValue : ''}\n`;
         content += `Hesaplama Yöntemi: ${calculationMethod}\n`;
+        content += `Tema: ${themeToSave}\n`;
         content += '---\n';
 
         const partyEntries = document.getElementsByClassName('party-entry');
@@ -991,7 +1098,7 @@
             const votes = entry.querySelector('.party-votes').value;
             const color = entry.querySelector('.party-color-picker').value;
             if (name && votes) {
-                content += `${name}, ${votes}, ${color}\n`;
+                content += `${name}|${votes}|${color}\n`;
             }
         });
 
@@ -1016,37 +1123,52 @@
 
             if (lines.length > 0) {
                 const seatsLine = lines.shift();
-                const totalSeats = seatsLine.split(':')[1].trim();
-                document.getElementById('totalSeats').value = totalSeats;
+                if (seatsLine.startsWith('Toplam Koltuk Sayısı:')) {
+                    const totalSeats = seatsLine.split(':')[1].trim();
+                    document.getElementById('totalSeats').value = totalSeats;
+                }
             }
 
             if (lines.length > 0) {
                 const thresholdLine = lines.shift();
-                const thresholdParts = thresholdLine.split(':')[1].trim().split(',').map(p => p.trim());
-                const status = thresholdParts[0];
-                const value = thresholdParts[1] || '0';
+                if (thresholdLine.startsWith('Baraj Durumu:')) {
+                    const thresholdParts = thresholdLine.split(':')[1].trim().split(',').map(p => p.trim());
+                    const status = thresholdParts[0];
+                    const value = thresholdParts[1] || '0';
 
-                isThresholdEnabled = (status === 'Açık');
-                if (isThresholdEnabled) {
-                    thresholdButton.textContent = 'Baraj: Açık';
-                    thresholdButton.classList.add('active');
-                    thresholdInput.disabled = false;
-                    thresholdInput.value = value;
-                } else {
-                    thresholdButton.textContent = 'Baraj: Kapalı';
-                    thresholdButton.classList.remove('active');
-                    thresholdInput.disabled = true;
-                    thresholdInput.value = '0';
+                    isThresholdEnabled = (status === 'Açık');
+                    if (isThresholdEnabled) {
+                        thresholdButton.textContent = 'Baraj: Açık';
+                        thresholdButton.classList.add('active');
+                        thresholdInput.disabled = false;
+                        thresholdInput.value = value;
+                    } else {
+                        thresholdButton.textContent = 'Baraj: Kapalı';
+                        thresholdButton.classList.remove('active');
+                        thresholdInput.disabled = true;
+                        thresholdInput.value = '0';
+                    }
                 }
             }
 
             if (lines.length > 0) {
                 const methodLine = lines.shift();
-                const methodName = methodLine.split(':')[1].trim();
-                const methodIndex = methods.indexOf(methodName);
-                if (methodIndex !== -1) {
-                    currentMethodIndex = methodIndex;
-                    methodButton.textContent = methods[currentMethodIndex];
+                if (methodLine.startsWith('Hesaplama Yöntemi:')) {
+                    const methodName = methodLine.split(':')[1].trim();
+                    const methodIndex = methods.indexOf(methodName);
+                    if (methodIndex !== -1) {
+                        currentMethodIndex = methodIndex;
+                        methodButton.textContent = methods[currentMethodIndex];
+                    }
+                }
+            }
+
+            if (lines.length > 0) {
+                const themeLine = lines.shift();
+                if (themeLine.startsWith('Tema:')) {
+                    const themeName = themeLine.split(':')[1].trim();
+                    applyTheme(themeName);
+                    currentThemeIndex = themes.indexOf(themeName);
                 }
             }
 
@@ -1057,7 +1179,7 @@
             document.getElementById('parties').innerHTML = '';
 
             lines.forEach(line => {
-                const parts = line.split(',').map(part => part.trim());
+                const parts = line.split('|').map(part => part.trim());
                 if (parts.length >= 2) {
                     const name = parts[0];
                     const votes = parts[1];
@@ -1078,6 +1200,16 @@
         applyTheme(newTheme);
     });
 
+    randomThemeButton.addEventListener('click', () => {
+        let randomIndex;
+        do {
+            randomIndex = Math.floor(Math.random() * themes.length);
+        } while (randomIndex === currentThemeIndex && themes.length > 1);
+        currentThemeIndex = randomIndex;
+        const randomTheme = themes[randomIndex];
+        applyTheme(randomTheme);
+    });
+
     methodButton.addEventListener('click', () => {
         currentMethodIndex = (currentMethodIndex + 1) % methods.length;
         methodButton.textContent = methods[currentMethodIndex];
@@ -1090,18 +1222,19 @@
             thresholdButton.textContent = 'Baraj: Açık';
             thresholdButton.classList.add('active');
             thresholdInput.disabled = false;
+            thresholdInput.type = 'text';
         } else {
             thresholdButton.textContent = 'Baraj: Kapalı';
             thresholdButton.classList.remove('active');
             thresholdInput.disabled = true;
+            thresholdInput.value = '0';
         }
         calculate();
     });
 
     applyTheme('device');
     thresholdInput.disabled = true;
-    addParty();
-    addParty();
+    thresholdInput.type = 'text';
 </script>
 </body>
 </html>
