@@ -1,861 +1,1030 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>✨ Koltuk Hesaplayıcı ✨</title>
-  <style>
-    /*
-      Font İçe Aktarma:
-      Google'ın resmi renklerine yakın bir font olan Product Sans'ı içe aktardık.
-      Bu fontlar, koltuk-hesaplayıcı/font/ klasöründen yüklenir.
-    */
-    @font-face {
-      font-family: 'Product Sans';
-      src: url('font/ProductSans-Regular.ttf') format('truetype');
-      font-weight: normal;
-      font-style: normal;
-    }
-    @font-face {
-      font-family: 'Product Sans';
-      src: url('font/ProductSans-Bold.ttf') format('truetype');
-      font-weight: bold;
-      font-style: normal;
-    }
-    @font-face {
-      font-family: 'Product Sans';
-      src: url('font/ProductSans-Black.ttf') format('truetype');
-      font-weight: 900;
-      font-style: normal;
-    }
-    @font-face {
-      font-family: 'Product Sans';
-      src: url('font/ProductSans-Light.ttf') format('truetype');
-      font-weight: 300;
-      font-style: normal;
-    }
-    @font-face {
-      font-family: 'Product Sans';
-      src: url('font/ProductSans-Medium.ttf') format('truetype');
-      font-weight: 500;
-      font-style: normal;
-    }
-    @font-face {
-      font-family: 'Product Sans';
-      src: url('font/ProductSans-Thin.ttf') format('truetype');
-      font-weight: 100;
-      font-style: normal;
-    }
-    @font-face {
-      font-family: 'Product Sans';
-      src: url('font/ProductSans-Italic.ttf') format('truetype');
-      font-weight: normal;
-      font-style: italic;
-    }
-    @font-face {
-      font-family: 'Product Sans';
-      src: url('font/ProductSans-BoldItalic.ttf') format('truetype');
-      font-weight: bold;
-      font-style: italic;
-    }
-    @font-face {
-      font-family: 'Product Sans';
-      src: url('font/ProductSans-BlackItalic.ttf') format('truetype');
-      font-weight: 900;
-      font-style: italic;
-    }
-    @font-face {
-      font-family: 'Product Sans';
-      src: url('font/ProductSans-LightItalic.ttf') format('truetype');
-      font-weight: 300;
-      font-style: italic;
-    }
-    @font-face {
-      font-family: 'Product Sans';
-      src: url('font/ProductSans-MediumItalic.ttf') format('truetype');
-      font-weight: 500;
-      font-style: italic;
-    }
-    @font-face {
-      font-family: 'Product Sans';
-      src: url('font/ProductSans-ThinItalic.ttf') format('truetype');
-      font-weight: 100;
-      font-style: italic;
-    }
-    
-    :root {
-      /* Koyu Tema Varsayılan Renkler */
-      --bg-color: #1a1a2e;
-      --card-bg: rgba(26, 26, 46, 0.85);
-      --primary-color: #6a11cb;
-      --secondary-color: #2575fc;
-      --text-color: #f0f0f0;
-      --border-color: rgba(255, 255, 255, 0.2);
-      --input-bg: rgba(255, 255, 255, 0.1);
-      --result-bg: rgba(255, 255, 255, 0.05);
-      --button-bg: #4a4a6b;
-      --button-hover-bg: #5a5a7d;
-    }
-
-    /* Açık Tema */
-    body.light-mode {
-      --bg-color: #f4f7f9;
-      --card-bg: rgba(255, 255, 255, 0.95);
-      --primary-color: #007bff;
-      --secondary-color: #28a745;
-      --text-color: #333;
-      --border-color: rgba(0, 0, 0, 0.1);
-      --input-bg: #fff;
-      --result-bg: #f8f9fa;
-      --button-bg: #e2e6ea;
-      --button-hover-bg: #d4dae0;
-    }
-
-    /* Mavi Tema */
-    body.blue-theme {
-        --bg-color: #172d47;
-        --card-bg: rgba(23, 45, 71, 0.9);
-        --primary-color: #4285F4;
-        --secondary-color: #3367d6;
-        --text-color: #e8f0fe;
-        --border-color: rgba(255, 255, 255, 0.3);
-        --input-bg: rgba(255, 255, 255, 0.15);
-        --result-bg: rgba(255, 255, 255, 0.1);
-        --button-bg: #2d4c70;
-        --button-hover-bg: #3c6591;
-    }
-    
-    /* Kırmızı Tema */
-    body.red-theme {
-        --bg-color: #471d1b;
-        --card-bg: rgba(71, 29, 27, 0.9);
-        --primary-color: #DB4437;
-        --secondary-color: #a83129;
-        --text-color: #fff;
-        --border-color: rgba(255, 255, 255, 0.3);
-        --input-bg: rgba(255, 255, 255, 0.15);
-        --result-bg: rgba(255, 255, 255, 0.1);
-        --button-bg: #70302c;
-        --button-hover-bg: #913f38;
-    }
-
-    /* Yeşil Tema */
-    body.green-theme {
-        --bg-color: #1a3c30;
-        --card-bg: rgba(26, 60, 48, 0.9);
-        --primary-color: #0F9D58;
-        --secondary-color: #0c8a4d;
-        --text-color: #ecf0f1;
-        --border-color: rgba(255, 255, 255, 0.3);
-        --input-bg: rgba(255, 255, 255, 0.15);
-        --result-bg: rgba(255, 255, 255, 0.1);
-        --button-bg: #2d5e52;
-        --button-hover-bg: #3b7c6b;
-    }
-
-    /* Sarı Tema */
-    body.yellow-theme {
-        --bg-color: #4d4625;
-        --card-bg: rgba(77, 70, 37, 0.9);
-        --primary-color: #F4B400;
-        --secondary-color: #d49b00;
-        --text-color: #fff;
-        --border-color: rgba(255, 255, 255, 0.3);
-        --input-bg: rgba(255, 255, 255, 0.15);
-        --result-bg: rgba(255, 255, 255, 0.1);
-        --button-bg: #7d7249;
-        --button-hover-bg: #9b8c5a;
-    }
-
-    body {
-      font-family: 'Product Sans', 'Poppins', sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      margin: 0;
-      position: relative;
-      transition: background-color 0.5s, color 0.5s;
-    }
-    
-    .top-controls {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        z-index: 10;
-        display: flex;
-        gap: 10px;
-    }
-    
-    .top-controls button {
-        padding: 8px 12px;
-        border-radius: 8px;
-        background-color: var(--button-bg);
-        color: var(--text-color);
-        border: 1px solid var(--border-color);
-        font-size: 1em;
-        cursor: pointer;
-        transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
-    }
-
-    .top-controls button:hover {
-        background-color: var(--button-hover-bg);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-    
-    /* Baraj kontrolü için yeni stil */
-    .threshold-control {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        transition: opacity 0.5s ease-in-out;
-    }
-    
-    .threshold-input {
-        width: 80px; /* Genişletilmiş */
-        padding: 15px;
-        font-size: 1em;
-        box-sizing: border-box;
-    }
-    
-    .threshold-button {
-      padding: 15px 20px;
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      background-color: var(--input-bg);
-      color: var(--text-color);
-      font-weight: 600;
-      cursor: pointer;
-      transition: background-color 0.3s, border-color 0.3s;
-      width: 140px; /* Sabit genişlik eklendi */
-    }
-    
-    .threshold-button.active {
-      background-color: var(--primary-color);
-      border-color: var(--primary-color);
-      color: white;
-    }
-    .threshold-input:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
-    
-    .container {
-      background: var(--card-bg);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 50px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-      width: 100%;
-      max-width: 700px;
-      animation: fadeIn 1s ease-in-out;
-      border: 1px solid var(--border-color);
-      transition: background-color 0.5s, border-color 0.5s;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    h1 {
-      font-family: 'Product Sans', sans-serif; /* Product Sans olarak güncellendi */
-      font-weight: bold; /* Bold olarak ayarlandı */
-      text-align: center;
-      font-size: 3em;
-      margin-bottom: 5px;
-      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .subtitle {
-      text-align: center;
-      font-style: italic;
-      margin-bottom: 40px;
-      opacity: 0.7;
-      font-size: 1.1em;
-    }
-
-    .input-group {
-      margin-bottom: 30px;
-    }
-    
-    /* Yeni grup için stil ekledik */
-    .seats-threshold-group {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    .seats-threshold-group input[type="text"] {
-        flex: 1;
-    }
-
-    .input-group label {
-      display: block;
-      margin-bottom: 10px;
-      font-weight: 600;
-      font-size: 1.1em;
-    }
-
-    input[type="text"],
-    input[type="number"] {
-      padding: 15px;
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      background-color: var(--input-bg);
-      color: var(--text-color);
-      box-sizing: border-box;
-      font-size: 1em;
-      transition: all 0.3s;
-    }
-
-    input::placeholder {
-      color: var(--text-color);
-      opacity: 0.5;
-    }
-    
-    body.light-mode input::placeholder {
-        color: var(--text-color);
-        opacity: 0.8;
-    }
-
-    input:focus {
-      outline: none;
-      box-shadow: 0 0 10px var(--secondary-color);
-      border-color: var(--secondary-color);
-    }
-    body.light-mode input:focus {
-        box-shadow: 0 0 10px var(--primary-color);
-        border-color: var(--primary-color);
-    }
-
-    .party-entry {
-        display: flex;
-        gap: 15px;
-        margin-bottom: 20px;
-        align-items: center;
-    }
-    
-    .party-entry input[type="text"], .party-entry input[type="number"] {
-        flex: 1;
-    }
-
-    input[type="color"] {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        background: none;
-        border: none;
-        width: 40px;
-        height: 40px;
-        cursor: pointer;
-        padding: 0;
-        border-radius: 10px;
-        transition: transform 0.2s;
-    }
-    input[type="color"]:hover {
-        transform: scale(1.1);
-    }
-    input[type="color"]::-webkit-color-swatch-wrapper {
-        padding: 0;
-    }
-    input[type="color"]::-webkit-color-swatch {
-        border-radius: 8px;
-        border: 2px solid var(--border-color);
-    }
-    input[type="color"]::-moz-color-swatch {
-        border-radius: 8px;
-        border: 2px solid var(--border-color);
-    }
-
-    .party-entry button {
-      background: #e74c3c;
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 1.2em;
-      transition: background-color 0.3s, transform 0.2s;
-    }
-
-    .party-entry button:hover {
-      background: #c0392b;
-      transform: scale(1.05);
-    }
-
-    .add-party-btn {
-      width: 100%;
-      background: var(--secondary-color);
-      color: white;
-      border: none;
-      padding: 15px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 1.1em;
-      font-weight: 600;
-      transition: background-color 0.3s, transform 0.2s;
-      box-shadow: 0 5px 15px rgba(37, 117, 252, 0.4);
-    }
-    
-    body.light-mode .add-party-btn {
-        box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
-    }
-    body.blue-theme .add-party-btn {
-        box-shadow: 0 5px 15px rgba(66, 133, 244, 0.4);
-    }
-    body.red-theme .add-party-btn {
-        box-shadow: 0 5px 15px rgba(219, 68, 55, 0.4);
-    }
-    body.green-theme .add-party-btn {
-        box-shadow: 0 5px 15px rgba(15, 157, 88, 0.4);
-    }
-    body.yellow-theme .add-party-btn {
-        box-shadow: 0 5px 15px rgba(244, 180, 0, 0.4);
-    }
-
-    .add-party-btn:hover {
-      background: #1a5acb;
-      transform: translateY(-3px);
-    }
-    body.light-mode .add-party-btn:hover {
-      background: #218838;
-    }
-    body.blue-theme .add-party-btn:hover {
-        background: #3367d6;
-    }
-    body.red-theme .add-party-btn:hover {
-        background: #a83129;
-    }
-    body.green-theme .add-party-btn:hover {
-        background: #0c8a4d;
-    }
-    body.yellow-theme .add-party-btn:hover {
-        background: #d49b00;
-    }
-
-    .results {
-      margin-top: 40px;
-      background: var(--result-bg);
-      padding: 30px;
-      border-radius: 15px;
-      border: 1px solid var(--border-color);
-      box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    .results h2 {
-      margin-top: 0;
-      font-size: 1.8em;
-      text-align: center;
-      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 20px;
-    }
-
-    .results ul {
-      list-style-type: none;
-      padding: 0;
-    }
-
-    .results li {
-      background: var(--input-bg);
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: transform 0.3s, box-shadow 0.3s;
-      border-left: 5px solid;
-    }
-
-    .results li:hover {
-      transform: scale(1.02);
-      box-shadow: 0 5px 15px rgba(37, 117, 252, 0.2);
-    }
-    
-    body.light-mode .results li:hover {
-        box-shadow: 0 5px 15px rgba(40, 167, 69, 0.2);
-    }
-    body.blue-theme .results li:hover {
-        box-shadow: 0 5px 15px rgba(66, 133, 244, 0.2);
-    }
-    body.red-theme .results li:hover {
-        box-shadow: 0 5px 15px rgba(219, 68, 55, 0.2);
-    }
-    body.green-theme .results li:hover {
-        box-shadow: 0 5px 15px rgba(15, 157, 88, 0.2);
-    }
-    body.yellow-theme .results li:hover {
-        box-shadow: 0 5px 15px rgba(244, 180, 0, 0.2);
-    }
-
-    .seat-count {
-      font-weight: 700;
-      font-size: 1.4em;
-      color: #2ecc71;
-    }
-
-    .total-votes {
-      text-align: right;
-      opacity: 0.6;
-      font-size: 0.9em;
-      margin-top: 20px;
-    }
-
-    /* Mobil uyumluluk için Media Query */
-    @media (max-width: 768px) {
-        body {
-            padding: 10px;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ Koltuk Hesaplayıcı ✨</title>
+    <style>
+        @font-face {
+          font-family: 'Product Sans';
+          src: url('font/ProductSans-Regular.ttf') format('truetype');
+          font-weight: normal;
+          font-style: normal;
         }
-        
-        /* Mobil görünümde en üstteki kontrol butonları */
-        .top-controls {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
+        @font-face {
+          font-family: 'Product Sans';
+          src: url('font/ProductSans-Bold.ttf') format('truetype');
+          font-weight: bold;
+          font-style: normal;
+        }
+        @font-face {
+          font-family: 'Product Sans';
+          src: url('font/ProductSans-Black.ttf') format('truetype');
+          font-weight: 900;
+          font-style: normal;
+        }
+        @font-face {
+          font-family: 'Product Sans';
+          src: url('font/ProductSans-Light.ttf') format('truetype');
+          font-weight: 300;
+          font-style: normal;
+        }
+        @font-face {
+          font-family: 'Product Sans';
+          src: url('font/ProductSans-Medium.ttf') format('truetype');
+          font-weight: 500;
+          font-style: normal;
+        }
+        @font-face {
+          font-family: 'Product Sans';
+          src: url('font/ProductSans-Thin.ttf') format('truetype');
+          font-weight: 100;
+          font-style: normal;
+        }
+        @font-face {
+          font-family: 'Product Sans';
+          src: url('font/ProductSans-Italic.ttf') format('truetype');
+          font-weight: normal;
+          font-style: italic;
+        }
+        @font-face {
+          font-family: 'Product Sans';
+          src: url('font/ProductSans-BoldItalic.ttf') format('truetype');
+          font-weight: bold;
+          font-style: italic;
+        }
+        @font-face {
+          font-family: 'Product Sans';
+          src: url('font/ProductSans-BlackItalic.ttf') format('truetype');
+          font-weight: 900;
+          font-style: italic;
+        }
+        @font-face {
+          font-family: 'Product Sans';
+          src: url('font/ProductSans-LightItalic.ttf') format('truetype');
+          font-weight: 300;
+          font-style: italic;
+        }
+        @font-face {
+          font-family: 'Product Sans';
+          src: url('font/ProductSans-MediumItalic.ttf') format('truetype');
+          font-weight: 500;
+          font-style: italic;
+        }
+        @font-face {
+          font-family: 'Product Sans';
+          src: url('font/ProductSans-ThinItalic.ttf') format('truetype');
+          font-weight: 100;
+          font-style: italic;
+        }
+
+        :root {
+          --bg-color: #1a1a2e;
+          --card-bg: rgba(26, 26, 46, 0.85);
+          --primary-color: #6a11cb;
+          --secondary-color: #2575fc;
+          --text-color: #f0f0f0;
+          --border-color: rgba(255, 255, 255, 0.2);
+          --input-bg: rgba(255, 255, 255, 0.1);
+          --result-bg: rgba(255, 255, 255, 0.05);
+          --button-bg: #4a4a6b;
+          --button-hover-bg: #5a5a7d;
+          --light-mode-bg: #f4f7f9;
+          --dark-mode-bg: #1a1a2e;
+        }
+
+        body.light-mode {
+          --bg-color: #f4f7f9;
+          --card-bg: rgba(255, 255, 255, 0.95);
+          --primary-color: #007bff;
+          --secondary-color: #28a745;
+          --text-color: #333;
+          --border-color: rgba(0, 0, 0, 0.1);
+          --input-bg: #fff;
+          --result-bg: #f8f9fa;
+          --button-bg: #e2e6ea;
+          --button-hover-bg: #d4dae0;
+        }
+
+        body.oled-theme {
+            --bg-color: #000000;
+            --card-bg: rgba(10, 10, 10, 0.95);
+            --primary-color: #00aaff;
+            --secondary-color: #aa00ff;
+            --text-color: #f0f0f0;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --input-bg: rgba(255, 255, 255, 0.05);
+            --result-bg: rgba(255, 255, 255, 0.02);
+            --button-bg: #202020;
+            --button-hover-bg: #303030;
+        }
+
+        body.blue-theme {
+            --bg-color: #172d47;
+            --card-bg: rgba(23, 45, 71, 0.9);
+            --primary-color: #007BFF;
+            --secondary-color: #0056B3;
+            --text-color: #e8f0fe;
+            --border-color: rgba(255, 255, 255, 0.3);
+            --input-bg: rgba(255, 255, 255, 0.15);
+            --result-bg: rgba(255, 255, 255, 0.1);
+            --button-bg: #2d4c70;
+            --button-hover-bg: #3c6591;
+        }
+
+        body.red-theme {
+            --bg-color: #471d1b;
+            --card-bg: rgba(71, 29, 27, 0.9);
+            --primary-color: #FF4136;
+            --secondary-color: #E63946;
+            --text-color: #fff;
+            --border-color: rgba(255, 255, 255, 0.3);
+            --input-bg: rgba(255, 255, 255, 0.15);
+            --result-bg: rgba(255, 255, 255, 0.1);
+            --button-bg: #70302c;
+            --button-hover-bg: #913f38;
+        }
+
+        body.green-theme {
+            --bg-color: #1a3c30;
+            --card-bg: rgba(26, 60, 48, 0.9);
+            --primary-color: #2ECC71;
+            --secondary-color: #27AE60;
+            --text-color: #ecf0f1;
+            --border-color: rgba(255, 255, 255, 0.3);
+            --input-bg: rgba(255, 255, 255, 0.15);
+            --result-bg: rgba(255, 255, 255, 0.1);
+            --button-bg: #2d5e52;
+            --button-hover-bg: #3b7c6b;
+        }
+
+        body.yellow-theme {
+            --bg-color: #4d4625;
+            --card-bg: rgba(77, 70, 37, 0.9);
+            --primary-color: #FFD700;
+            --secondary-color: #E4C000;
+            --text-color: #fff;
+            --border-color: rgba(255, 255, 255, 0.3);
+            --input-bg: rgba(255, 255, 255, 0.15);
+            --result-bg: rgba(255, 255, 255, 0.1);
+            --button-bg: #7d7249;
+            --button-hover-bg: #9b8c5a;
+        }
+
+        body {
+          font-family: 'Product Sans', sans-serif;
+          background-color: var(--bg-color);
+          color: var(--text-color);
+          min-height: 100vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 20px;
+          margin: 0;
+          position: relative;
+          transition: background-color 0.5s, color 0.5s;
+        }
+
+        .top-bar {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            z-index: 10;
             display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: var(--bg-color);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            justify-content: space-between;
+            align-items: flex-start;
             gap: 10px;
         }
 
-        .container {
-            padding: 30px 20px;
-            margin-top: 80px; /* Sabit header için boşluk */
-        }
-
-        h1 {
-            font-size: 2em;
-        }
-        
-        .subtitle {
-            font-size: 1em;
-            margin-bottom: 20px;
-        }
-
-        .seats-threshold-group {
+        .top-controls {
+            display: flex;
             flex-direction: column;
-            align-items: stretch;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .top-controls.right {
+            align-items: flex-end;
+        }
+
+        .top-controls button {
+            font-family: 'Product Sans', sans-serif;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background-color: var(--button-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+        }
+
+        .top-controls button:hover {
+            background-color: var(--button-hover-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .selector {
+            display: none;
+        }
+
+        .theme-circle {
+            display: none;
         }
 
         .threshold-control {
-            flex-direction: column;
-            align-items: stretch;
+            display: flex;
+            align-items: center;
             gap: 10px;
+            transition: opacity 0.5s ease-in-out;
         }
 
-        .threshold-button, .threshold-input {
-            width: 100%;
-            text-align: center;
+        .threshold-input {
+            width: 80px;
+            padding: 15px;
+            font-size: 1.1em;
+            box-sizing: border-box;
+        }
+
+        .threshold-button {
+          font-family: 'Product Sans', sans-serif;
+          padding: 15px;
+          border: 1px solid var(--border-color);
+          border-radius: 10px;
+          background-color: var(--input-bg);
+          color: var(--text-color);
+          font-weight: 600;
+          cursor: pointer;
+          transition: background-color 0.3s, border-color 0.3s;
+          font-size: 1.1em;
+        }
+
+        .threshold-button.active {
+          background-color: var(--primary-color);
+          border-color: var(--primary-color);
+          color: white;
+        }
+        .threshold-input:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .container {
+          background: var(--card-bg);
+          backdrop-filter: blur(10px);
+          border-radius: 20px;
+          padding: 50px;
+          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+          width: 100%;
+          max-width: 700px;
+          animation: fadeIn 1s ease-in-out;
+          border: 1px solid var(--border-color);
+          transition: background-color 0.5s, border-color 0.5s;
+        }
+
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+          font-family: 'Product Sans', sans-serif;
+          font-weight: bold;
+          text-align: center;
+          font-size: 3.3em;
+          margin-bottom: 5px;
+          background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+          text-align: center;
+          font-style: italic;
+          margin-bottom: 40px;
+          opacity: 0.7;
+          font-size: 1.2em;
+        }
+
+        .input-group {
+          margin-bottom: 30px;
+        }
+
+        .seats-threshold-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .seats-threshold-group input[type="text"] {
+            flex: 1;
+        }
+
+        .input-group label {
+          display: block;
+          margin-bottom: 10px;
+          font-weight: 600;
+          font-size: 1.2em;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+          font-family: 'Product Sans', sans-serif;
+          padding: 15px;
+          border: 1px solid var(--border-color);
+          border-radius: 10px;
+          background-color: var(--input-bg);
+          color: var(--text-color);
+          box-sizing: border-box;
+          font-size: 1.1em;
+          transition: all 0.3s;
+        }
+
+        input::placeholder {
+          color: var(--text-color);
+          opacity: 0.5;
+        }
+
+        body.light-mode input::placeholder {
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+        body.oled-theme input::placeholder {
+            color: var(--text-color);
+            opacity: 0.7;
+        }
+
+        input:focus {
+          outline: none;
+          box-shadow: 0 0 10px var(--secondary-color);
+          border-color: var(--secondary-color);
+        }
+        body.light-mode input:focus {
+            box-shadow: 0 0 10px var(--primary-color);
+            border-color: var(--primary-color);
         }
 
         .party-entry {
-            flex-direction: column;
-            align-items: stretch;
-            gap: 10px;
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            align-items: center;
         }
 
-        .party-entry input, .party-entry button {
-            width: 100%;
-            box-sizing: border-box;
+        .party-entry input[type="text"], .party-entry input[type="number"] {
+            flex: 1;
         }
-    }
-  </style>
+
+        input[type="color"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            padding: 0;
+            border-radius: 10px;
+            transition: transform 0.2s;
+        }
+        input[type="color"]:hover {
+            transform: scale(1.1);
+        }
+        input[type="color"]::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+        input[type="color"]::-webkit-color-swatch {
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+        }
+        input[type="color"]::-moz-color-swatch {
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+        }
+
+        .party-entry button {
+          font-family: 'Product Sans', sans-serif;
+          background: #e74c3c;
+          color: white;
+          border: none;
+          padding: 12px;
+          border-radius: 10px;
+          cursor: pointer;
+          font-size: 1.3em;
+          transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .party-entry button:hover {
+          background: #c0392b;
+          transform: scale(1.05);
+        }
+
+        .add-party-btn {
+          font-family: 'Product Sans', sans-serif;
+          width: 100%;
+          background: var(--secondary-color);
+          color: white;
+          border: none;
+          padding: 15px;
+          border-radius: 10px;
+          cursor: pointer;
+          font-size: 1.2em;
+          font-weight: 600;
+          transition: background-color 0.3s, transform 0.2s;
+          box-shadow: 0 5px 15px rgba(37, 117, 252, 0.4);
+        }
+
+        body.light-mode .add-party-btn {
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+        body.blue-theme .add-party-btn {
+            box-shadow: 0 5px 15px rgba(66, 133, 244, 0.4);
+        }
+        body.red-theme .add-party-btn {
+            box-shadow: 0 5px 15px rgba(219, 68, 55, 0.4);
+        }
+        body.green-theme .add-party-btn {
+            box-shadow: 0 5px 15px rgba(15, 157, 88, 0.4);
+        }
+        body.yellow-theme .add-party-btn {
+            box-shadow: 0 5px 15px rgba(244, 180, 0, 0.4);
+        }
+        body.oled-theme .add-party-btn {
+            box-shadow: 0 5px 15px rgba(0, 170, 255, 0.4);
+        }
+
+
+        .add-party-btn:hover {
+          background: #1a5acb;
+          transform: translateY(-3px);
+        }
+        body.light-mode .add-party-btn:hover {
+          background: #218838;
+        }
+        body.blue-theme .add-party-btn:hover {
+            background: #3367d6;
+        }
+        body.red-theme .add-party-btn:hover {
+            background: #a83129;
+        }
+        body.green-theme .add-party-btn:hover {
+            background: #0c8a4d;
+        }
+        body.yellow-theme .add-party-btn:hover {
+            background: #d49b00;
+        }
+        body.oled-theme .add-party-btn:hover {
+            background: #0088cc;
+        }
+
+
+        .results {
+          margin-top: 40px;
+          background: var(--result-bg);
+          padding: 30px;
+          border-radius: 15px;
+          border: 1px solid var(--border-color);
+          box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .results h2 {
+          font-family: 'Product Sans', sans-serif;
+          margin-top: 0;
+          font-size: 1.9em;
+          text-align: center;
+          background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          margin-bottom: 20px;
+        }
+
+        .results ul {
+          list-style-type: none;
+          padding: 0;
+        }
+
+        .results li {
+          font-family: 'Product Sans', sans-serif;
+          background: var(--input-bg);
+          padding: 20px;
+          border-radius: 10px;
+          margin-bottom: 15px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          transition: transform 0.3s, box-shadow 0.3s;
+          border-left: 5px solid;
+        }
+
+        .results li:hover {
+            transform: scale(1.02);
+        }
+
+        .party-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .party-initial {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.5em;
+            text-transform: uppercase;
+            border: 2px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .seat-count {
+          font-weight: 700;
+          font-size: 1.5em;
+          color: #2ecc71;
+        }
+        body.oled-theme .seat-count {
+            color: #00ff88;
+        }
+
+        .total-votes {
+          text-align: right;
+          opacity: 0.6;
+          font-size: 1em;
+          margin-top: 20px;
+        }
+
+        .file-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .file-buttons button {
+            font-family: 'Product Sans', sans-serif;
+            padding: 12px 20px;
+            border-radius: 10px;
+            background-color: var(--button-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .file-buttons button:hover {
+            background-color: var(--button-hover-bg);
+            transform: translateY(-2px);
+        }
+        .file-buttons input {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .top-bar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1000;
+                padding: 10px 20px;
+                background-color: var(--bg-color);
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            }
+            body.light-mode .top-bar {
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+            .top-controls {
+                flex-direction: row;
+            }
+
+            .container {
+                padding: 30px 20px;
+                margin-top: 80px;
+            }
+
+            h1 {
+                font-size: 2.2em;
+            }
+
+            .subtitle {
+                font-size: 1.1em;
+                margin-bottom: 20px;
+            }
+
+            .seats-threshold-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .threshold-control {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+
+            .threshold-button, .threshold-input {
+                width: 100%;
+                text-align: center;
+            }
+
+            .party-entry {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+
+            .party-entry input, .party-entry button {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="top-controls">
-        <button id="methodButton">Hare Kotası</button>
-        <button id="themeButton">Tema</button>
+<div class="top-bar">
+    <div class="top-controls left">
+        <button id="themeButton">Cihaz</button>
     </div>
+    <div class="top-controls right">
+        <button id="methodButton">D'Hondt</button>
+    </div>
+</div>
 
-    <div class="container">
-        <h1>Koltuk Hesaplayıcı</h1>
-        <p class="subtitle" id="methodSubtitle">(Hare Kotası Yöntemi)</p>
+<div class="container">
+    <h1>Koltuk Hesaplayıcı</h1>
+    <p class="subtitle" id="methodSubtitle">(D'Hondt Yöntemi)</p>
 
-        <div class="input-group">
-            <label for="totalSeats">Toplam Koltuk Sayısı</label>
-            <div class="seats-threshold-group">
-              <input type="text" id="totalSeats" placeholder="Örn: 600" value="">
-              <div class="threshold-control">
-                  <button id="thresholdButton" class="threshold-button">Baraj: Kapalı</button>
-                  <input type="number" id="thresholdInput" class="threshold-input" placeholder="%" min="0" max="100" value="0">
-              </div>
+    <div class="input-group">
+        <label for="totalSeats">Toplam Koltuk Sayısı</label>
+        <div class="seats-threshold-group">
+            <input type="text" id="totalSeats" placeholder="Örn: 600" value="">
+            <div class="threshold-control">
+                <button id="thresholdButton" class="threshold-button">Baraj: Kapalı</button>
+                <input type="number" id="thresholdInput" class="threshold-input" placeholder="%" min="0" max="100" value="0">
             </div>
         </div>
-
-        <div id="parties"></div>
-        <button onclick="addParty()" class="add-party-btn">➕ Parti Ekle</button>
-
-        <div id="output" class="results"></div>
     </div>
 
-    <script>
-        // Tema ve Yöntemler için diziler
-        const themes = ['device', 'light', 'dark', 'blue', 'red', 'green', 'yellow'];
-        let currentThemeIndex = 0;
-        const themeButton = document.getElementById('themeButton');
+    <div id="parties"></div>
+    <button onclick="addParty()" class="add-party-btn">➕ Parti Ekle</button>
 
-        const methods = ['Hare Kotası', 'D\'Hondt', 'Sainte-Laguë', 'Küçük Parti Destekleme'];
-        let currentMethodIndex = 0;
-        const methodButton = document.getElementById('methodButton');
-        const methodSubtitle = document.getElementById('methodSubtitle');
+    <div id="output" class="results"></div>
+    <div class="file-buttons">
+        <button onclick="downloadResults()">Sonuçları Kaydet</button>
+        <button onclick="document.getElementById('fileInput').click()">Dosyadan Yükle</button>
+        <input type="file" id="fileInput" onchange="uploadResults(event)" accept=".txt">
+    </div>
+</div>
 
-        const thresholdButton = document.getElementById('thresholdButton');
-        const thresholdInput = document.getElementById('thresholdInput');
-        let isThresholdEnabled = false;
+<script>
+    const themes = ['device', 'light', 'dark', 'oled', 'blue', 'red', 'green', 'yellow'];
+    let currentThemeIndex = 0;
+    const themeButton = document.getElementById('themeButton');
 
-        // Girdi değerini işleme fonksiyonu
-        function parseVoteValue(value) {
-            if (typeof value === 'string') {
-                value = value.replace(',', '.');
-            }
-            return parseFloat(value);
+    const methods = ['D\'Hondt', 'Sainte-Laguë', 'Hare Kotası'];
+    let currentMethodIndex = 0;
+    const methodButton = document.getElementById('methodButton');
+    const methodSubtitle = document.getElementById('methodSubtitle');
+
+    const thresholdButton = document.getElementById('thresholdButton');
+    const thresholdInput = document.getElementById('thresholdInput');
+    let isThresholdEnabled = false;
+
+    function getContrastColor(hexColor) {
+        const r = parseInt(hexColor.slice(1, 3), 16);
+        const g = parseInt(hexColor.slice(3, 5), 16);
+        const b = parseInt(hexColor.slice(5, 7), 16);
+        const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+        return luminance > 0.5 ? 'black' : 'white';
+    }
+
+    function hexToRgba(hex, alpha) {
+        const r = parseInt(hex.slice(1, 3), 16);
+        const g = parseInt(hex.slice(3, 5), 16);
+        const b = parseInt(hex.slice(5, 7), 16);
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    }
+
+    function parseVoteValue(value) {
+        if (typeof value === 'string') {
+            value = value.replace(',', '.');
         }
+        return parseFloat(value);
+    }
 
-        // Parti ekleme fonksiyonu
-        function addParty(name = '', votes = '') {
-            const div = document.createElement('div');
-            div.className = 'party-entry';
-            div.innerHTML = `
-                <input type="text" placeholder="Parti Adı" value="${name}" class="party-name">
-                <input type="text" placeholder="Oy Sayısı" value="${votes}" class="party-votes">
-                <input type="color" class="party-color" value="#808080">
-                <button type="button" onclick="this.parentNode.remove(); calculate();">❌</button>
-            `;
-            div.querySelectorAll('input').forEach(input => input.addEventListener('input', calculate));
-            document.getElementById('parties').appendChild(div);
-            calculate();
-        }
+    function addParty(name = '', votes = '', color = '#808080') {
+        const div = document.createElement('div');
+        div.className = 'party-entry';
+        div.innerHTML = `
+            <input type="text" placeholder="Parti Adı" value="${name}" class="party-name">
+            <input type="text" placeholder="Oy Sayısı" value="${votes}" class="party-votes">
+            <input type="color" class="party-color" value="${color}">
+            <button type="button" onclick="this.parentNode.remove(); calculate();">❌</button>
+        `;
+        div.querySelectorAll('input').forEach(input => input.addEventListener('input', calculate));
+        document.getElementById('parties').appendChild(div);
+        calculate();
+    }
 
-        // Hesaplama ana fonksiyonu
-        function calculate() {
-            // Metot başlığını her zaman güncelle
-            const currentMethod = methods[currentMethodIndex];
-            methodSubtitle.textContent = `(${currentMethod} Yöntemi)`;
-            
-            const seats = parseInt(document.getElementById('totalSeats').value);
-            const partyEntries = document.getElementsByClassName('party-entry');
-            const allParties = [];
-            let totalVotes = 0;
+    function calculate() {
+        methodSubtitle.textContent = `(${methods[currentMethodIndex]} Yöntemi)`;
 
-            Array.from(partyEntries).forEach(entry => {
-                const name = entry.querySelector('.party-name').value.trim();
-                const votes = parseVoteValue(entry.querySelector('.party-votes').value);
-                const color = entry.querySelector('.party-color').value;
+        const seats = parseInt(document.getElementById('totalSeats').value);
+        const partyEntries = document.getElementsByClassName('party-entry');
+        const allParties = [];
+        let totalVotes = 0;
 
-                if (!name || isNaN(votes) || votes < 0) return;
-                
-                totalVotes += votes;
-                allParties.push({ name, votes, color, seats: 0 });
-            });
+        Array.from(partyEntries).forEach(entry => {
+            const name = entry.querySelector('.party-name').value.trim();
+            const votes = parseVoteValue(entry.querySelector('.party-votes').value);
+            const color = entry.querySelector('.party-color').value;
 
-            if (isNaN(seats) || seats <= 0 || totalVotes === 0) {
-                document.getElementById('output').innerHTML = "";
-                return;
-            }
+            if (!name || isNaN(votes) || votes < 0) return;
 
-            // Baraj kontrolü
-            const threshold = isThresholdEnabled ? parseVoteValue(thresholdInput.value) : 0;
-            const eligibleParties = [];
-            allParties.forEach(p => {
-                const percentage = (p.votes / totalVotes) * 100;
-                p.percentage = percentage;
-                if (percentage >= threshold) {
-                    eligibleParties.push(p);
-                }
-            });
-
-            let finalResults;
-            if (currentMethod === 'Hare Kotası') {
-                finalResults = calculateHare(eligibleParties, seats, totalVotes);
-            } else if (currentMethod === 'D\'Hondt') {
-                finalResults = calculateDhondt(eligibleParties, seats);
-            } else if (currentMethod === 'Sainte-Laguë') {
-                finalResults = calculateSainteLague(eligibleParties, seats);
-            } else if (currentMethod === 'Küçük Parti Destekleme') {
-                finalResults = calculateSmallPartySupport(eligibleParties, seats);
-            }
-
-            // Sonuçları ekrana basma
-            let out = '<h2>Sonuçlar</h2><ul>';
-            
-            // Koltuk kazananları ve kaybedenleri birleştir
-            const allResults = allParties.map(p => {
-                const found = finalResults.find(r => r.name === p.name);
-                return found ? found : p;
-            });
-            
-            const sortedResults = allResults.sort((a, b) => b.votes - a.votes);
-            
-            for (const r of sortedResults) {
-                const percentage = ((r.votes / totalVotes) * 100).toFixed(2);
-                out += `<li style="border-left: 5px solid ${r.color};"><span><strong>${r.name}</strong> (${percentage}%)</span> <span class="seat-count">${r.seats} Koltuk</span></li>`;
-            }
-            out += '</ul>';
-            out += `<div class="total-votes">Toplam Oy: ${totalVotes.toLocaleString()}</div>`;
-            document.getElementById('output').innerHTML = out;
-        }
-
-        // Hare Kotası hesaplama fonksiyonu
-        function calculateHare(parties, seats, totalVotes) {
-            const quota = totalVotes / seats;
-            let allocatedVotes = parties.reduce((sum, p) => sum + p.votes, 0);
-            let allocatedSeats = 0;
-            const results = parties.map(p => {
-                const raw = p.votes / (allocatedVotes / seats);
-                const whole = Math.floor(raw);
-                allocatedSeats += whole;
-                return { ...p, seats: whole, remainder: raw - whole };
-            });
-
-            let remainingSeats = seats - allocatedSeats;
-            results.sort((a, b) => b.remainder - a.remainder);
-            for (let i = 0; i < remainingSeats; i++) {
-                if (results[i]) {
-                    results[i].seats++;
-                }
-            }
-            return results;
-        }
-
-        // D'Hondt hesaplama fonksiyonu
-        function calculateDhondt(parties, seats) {
-            const results = parties.map(p => ({ ...p, seats: 0, divisors: [] }));
-            for (let i = 0; i < seats; i++) {
-                let maxQuotient = 0;
-                let winningPartyIndex = -1;
-
-                results.forEach((p, index) => {
-                    const divisor = p.seats + 1;
-                    const quotient = p.votes / divisor;
-                    if (quotient > maxQuotient) {
-                        maxQuotient = quotient;
-                        winningPartyIndex = index;
-                    }
-                });
-
-                if (winningPartyIndex !== -1) {
-                    results[winningPartyIndex].seats++;
-                }
-            }
-            return results;
-        }
-
-        // Sainte-Laguë hesaplama fonksiyonu
-        function calculateSainteLague(parties, seats) {
-            const results = parties.map(p => ({ ...p, seats: 0, divisors: [] }));
-            for (let i = 0; i < seats; i++) {
-                let maxQuotient = 0;
-                let winningPartyIndex = -1;
-
-                results.forEach((p, index) => {
-                    const divisor = 2 * p.seats + 1;
-                    const quotient = p.votes / divisor;
-                    if (quotient > maxQuotient) {
-                        maxQuotient = quotient;
-                        winningPartyIndex = index;
-                    }
-                });
-
-                if (winningPartyIndex !== -1) {
-                    results[winningPartyIndex].seats++;
-                }
-            }
-            return results;
-        }
-
-        // YENİ: Küçük Parti Destekleme Yöntemi
-        function calculateSmallPartySupport(parties, seats) {
-            const smallPartyThreshold = 15; // %15'in altı küçük parti kabul ediliyor
-            
-            // Partilerin oy oranını hesapla
-            const totalVotes = parties.reduce((sum, p) => sum + p.votes, 0);
-            
-            // Oyları küçük partiler için ayarla
-            const adjustedParties = parties.map(p => {
-                const percentage = (p.votes / totalVotes) * 100;
-                const adjustedVotes = percentage < smallPartyThreshold ? p.votes * 1.5 : p.votes;
-                return { ...p, votes: adjustedVotes };
-            });
-            
-            // Ayarlanmış oylarla D'Hondt hesaplaması yap
-            const results = calculateDhondt(adjustedParties, seats);
-            
-            return results;
-        }
-
-        // Tema değiştirme fonksiyonu
-        function applyTheme(theme) {
-            document.body.className = '';
-            if (theme === 'light') {
-                document.body.classList.add('light-mode');
-                themeButton.textContent = 'Açık';
-            } else if (theme === 'dark') {
-                themeButton.textContent = 'Koyu';
-            } else if (theme === 'device') {
-                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-                    document.body.classList.add('light-mode');
-                }
-                themeButton.textContent = 'Cihaz';
-            } else {
-                document.body.classList.add(`${theme}-theme`);
-                themeButton.textContent = theme.charAt(0).toUpperCase() + theme.slice(1);
-            }
-        }
-
-        // Olay dinleyicileri
-        document.getElementById('totalSeats').addEventListener('input', calculate);
-        thresholdInput.addEventListener('input', calculate);
-
-        themeButton.addEventListener('click', () => {
-            currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-            const newTheme = themes[currentThemeIndex];
-            applyTheme(newTheme);
+            totalVotes += votes;
+            allParties.push({ name, votes, color, seats: 0 });
         });
 
-        methodButton.addEventListener('click', () => {
-            currentMethodIndex = (currentMethodIndex + 1) % methods.length;
-            methodButton.textContent = methods[currentMethodIndex];
-            calculate();
-        });
+        if (isNaN(seats) || seats <= 0 || totalVotes === 0) {
+            document.getElementById('output').innerHTML = "";
+            return;
+        }
 
-        thresholdButton.addEventListener('click', () => {
-            isThresholdEnabled = !isThresholdEnabled;
-            if (isThresholdEnabled) {
-                thresholdButton.textContent = 'Baraj: Açık';
-                thresholdButton.classList.add('active');
-                thresholdInput.disabled = false;
-            } else {
-                thresholdButton.textContent = 'Baraj: Kapalı';
-                thresholdButton.classList.remove('active');
-                thresholdInput.disabled = true;
+        const threshold = isThresholdEnabled ? parseVoteValue(thresholdInput.value) : 0;
+        const eligibleParties = [];
+        allParties.forEach(p => {
+            const percentage = (p.votes / totalVotes) * 100;
+            p.percentage = percentage;
+            if (percentage >= threshold) {
+                eligibleParties.push(p);
             }
-            calculate();
         });
 
-        // Sayfa yüklendiğinde varsayılanları ayarla
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        let finalResults;
+        if (methods[currentMethodIndex] === 'Hare Kotası') {
+            finalResults = calculateHare(eligibleParties, seats, totalVotes);
+        } else if (methods[currentMethodIndex] === 'D\'Hondt') {
+            finalResults = calculateDhondt(eligibleParties, seats);
+        } else if (methods[currentMethodIndex] === 'Sainte-Laguë') {
+            finalResults = calculateSainteLague(eligibleParties, seats);
+        }
+
+        let out = '<h2>Sonuçlar</h2><ul>';
+
+        const allResults = allParties.map(p => {
+            const found = finalResults.find(r => r.name === p.name);
+            return found ? found : p;
+        });
+
+        const sortedResults = allResults.sort((a, b) => b.votes - a.votes);
+
+        for (const r of sortedResults) {
+            const percentage = ((r.votes / totalVotes) * 100).toFixed(2);
+            const shadowColor = hexToRgba(r.color, 0.4);
+            const initial = r.name.charAt(0).toUpperCase();
+            const initialColor = getContrastColor(r.color);
+
+            out += `<li style="border-left: 5px solid ${r.color};" onmouseover="this.style.boxShadow='0 5px 15px ${shadowColor}'" onmouseout="this.style.boxShadow='none'">
+                      <div class="party-info">
+                          <div class="party-initial" style="background-color: ${r.color}; color: ${initialColor};">${initial}</div>
+                          <span><strong>${r.name}</strong> (${percentage}%)</span>
+                      </div>
+                      <span class="seat-count">${r.seats} Koltuk</span>
+                    </li>`;
+        }
+        out += '</ul>';
+        out += `<div class="total-votes">Toplam Oy: ${totalVotes.toLocaleString()}</div>`;
+        document.getElementById('output').innerHTML = out;
+    }
+
+    function calculateHare(parties, seats, totalVotes) {
+        const quota = totalVotes / seats;
+        let allocatedVotes = parties.reduce((sum, p) => sum + p.votes, 0);
+        let allocatedSeats = 0;
+        const results = parties.map(p => {
+            const raw = p.votes / (allocatedVotes / seats);
+            const whole = Math.floor(raw);
+            allocatedSeats += whole;
+            return { ...p, seats: whole, remainder: raw - whole };
+        });
+
+        let remainingSeats = seats - allocatedSeats;
+        results.sort((a, b) => b.remainder - a.remainder);
+        for (let i = 0; i < remainingSeats; i++) {
+            if (results[i]) {
+                results[i].seats++;
+            }
+        }
+        return results;
+    }
+
+    function calculateDhondt(parties, seats) {
+        const results = parties.map(p => ({ ...p, seats: 0, divisors: [] }));
+        for (let i = 0; i < seats; i++) {
+            let maxQuotient = 0;
+            let winningPartyIndex = -1;
+
+            results.forEach((p, index) => {
+                const divisor = p.seats + 1;
+                const quotient = p.votes / divisor;
+                if (quotient > maxQuotient) {
+                    maxQuotient = quotient;
+                    winningPartyIndex = index;
+                }
+            });
+
+            if (winningPartyIndex !== -1) {
+                results[winningPartyIndex].seats++;
+            }
+        }
+        return results;
+    }
+
+    function calculateSainteLague(parties, seats) {
+        const results = parties.map(p => ({ ...p, seats: 0, divisors: [] }));
+        for (let i = 0; i < seats; i++) {
+            let maxQuotient = 0;
+            let winningPartyIndex = -1;
+
+            results.forEach((p, index) => {
+                const divisor = 2 * p.seats + 1;
+                const quotient = p.votes / divisor;
+                if (quotient > maxQuotient) {
+                    maxQuotient = quotient;
+                    winningPartyIndex = index;
+                }
+            });
+
+            if (winningPartyIndex !== -1) {
+                results[winningPartyIndex].seats++;
+            }
+        }
+        return results;
+    }
+
+    function applyTheme(theme) {
+        document.body.className = '';
+        if (theme === 'light') {
             document.body.classList.add('light-mode');
+            themeButton.textContent = 'Açık';
+        } else if (theme === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeButton.textContent = 'Koyu';
+        } else if (theme === 'device') {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+                document.body.classList.add('light-mode');
+            }
             themeButton.textContent = 'Cihaz';
         } else {
-            themeButton.textContent = 'Cihaz';
+            document.body.classList.add(`${theme}-theme`);
+            themeButton.textContent = theme.charAt(0).toUpperCase() + theme.slice(1);
         }
-        
-        thresholdInput.disabled = true; // Başlangıçta giriş alanını devre dışı bırak
-        addParty(); 
-        addParty(); 
-    </script>
+    }
+
+    function downloadResults() {
+        const totalSeats = document.getElementById('totalSeats').value;
+        const thresholdStatus = isThresholdEnabled ? 'Açık' : 'Kapalı';
+        const thresholdValue = isThresholdEnabled ? thresholdInput.value : '';
+        const calculationMethod = methods[currentMethodIndex];
+
+        let content = `Toplam Koltuk Sayısı: ${totalSeats}\n`;
+        content += `Baraj Durumu: ${thresholdStatus}${thresholdValue ? ', ' + thresholdValue : ''}\n`;
+        content += `Hesaplama Yöntemi: ${calculationMethod}\n`;
+        content += '---\n';
+
+        const partyEntries = document.getElementsByClassName('party-entry');
+        Array.from(partyEntries).forEach(entry => {
+            const name = entry.querySelector('.party-name').value.trim();
+            const votes = entry.querySelector('.party-votes').value;
+            const color = entry.querySelector('.party-color').value;
+            if (name && votes) {
+                content += `${name}, ${votes}, ${color}\n`;
+            }
+        });
+
+        const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'koltuk-hesaplayici-sonuclar.txt';
+        link.click();
+        URL.revokeObjectURL(url);
+    }
+
+    function uploadResults(event) {
+        const file = event.target.files[0];
+        if (!file) {
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const content = e.target.result;
+            const lines = content.split('\n').filter(line => line.trim() !== '');
+
+            if (lines.length > 0) {
+                const seatsLine = lines.shift();
+                const totalSeats = seatsLine.split(':')[1].trim();
+                document.getElementById('totalSeats').value = totalSeats;
+            }
+
+            if (lines.length > 0) {
+                const thresholdLine = lines.shift();
+                const thresholdParts = thresholdLine.split(':')[1].trim().split(',').map(p => p.trim());
+                const status = thresholdParts[0];
+                const value = thresholdParts[1] || '0';
+
+                isThresholdEnabled = (status === 'Açık');
+                if (isThresholdEnabled) {
+                    thresholdButton.textContent = 'Baraj: Açık';
+                    thresholdButton.classList.add('active');
+                    thresholdInput.disabled = false;
+                    thresholdInput.value = value;
+                } else {
+                    thresholdButton.textContent = 'Baraj: Kapalı';
+                    thresholdButton.classList.remove('active');
+                    thresholdInput.disabled = true;
+                    thresholdInput.value = '0';
+                }
+            }
+
+            if (lines.length > 0) {
+                const methodLine = lines.shift();
+                const methodName = methodLine.split(':')[1].trim();
+                const methodIndex = methods.indexOf(methodName);
+                if (methodIndex !== -1) {
+                    currentMethodIndex = methodIndex;
+                    methodButton.textContent = methods[currentMethodIndex];
+                }
+            }
+
+            if (lines.length > 0 && lines[0] === '---') {
+                lines.shift();
+            }
+
+            document.getElementById('parties').innerHTML = '';
+
+            lines.forEach(line => {
+                const parts = line.split(',').map(part => part.trim());
+                if (parts.length >= 2) {
+                    const name = parts[0];
+                    const votes = parts[1];
+                    const color = parts[2] || '#808080';
+                    addParty(name, votes, color);
+                }
+            });
+        };
+        reader.readAsText(file);
+    }
+
+
+    document.getElementById('totalSeats').addEventListener('input', calculate);
+    thresholdInput.addEventListener('input', calculate);
+
+    themeButton.addEventListener('click', () => {
+        currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+        const newTheme = themes[currentThemeIndex];
+        applyTheme(newTheme);
+    });
+
+    methodButton.addEventListener('click', () => {
+        currentMethodIndex = (currentMethodIndex + 1) % methods.length;
+        methodButton.textContent = methods[currentMethodIndex];
+        calculate();
+    });
+
+    thresholdButton.addEventListener('click', () => {
+        isThresholdEnabled = !isThresholdEnabled;
+        if (isThresholdEnabled) {
+            thresholdButton.textContent = 'Baraj: Açık';
+            thresholdButton.classList.add('active');
+            thresholdInput.disabled = false;
+        } else {
+            thresholdButton.textContent = 'Baraj: Kapalı';
+            thresholdButton.classList.remove('active');
+            thresholdInput.disabled = true;
+        }
+        calculate();
+    });
+
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        document.body.classList.add('light-mode');
+        themeButton.textContent = 'Cihaz';
+    } else {
+        themeButton.textContent = 'Cihaz';
+    }
+
+    thresholdInput.disabled = true;
+    addParty();
+    addParty();
+</script>
 </body>
 </html>
