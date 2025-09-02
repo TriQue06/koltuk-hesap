@@ -80,7 +80,7 @@
 
         :root {
           --bg-color: #1a1a2e;
-          --card-bg: rgba(26, 26, 46, 0.85);
+          --card-bg: rgba(26, 26, 46, 0.5);
           --primary-color: #6a11cb;
           --secondary-color: #2575fc;
           --text-color: #f0f0f0;
@@ -89,13 +89,11 @@
           --result-bg: rgba(255, 255, 255, 0.05);
           --button-bg: #4a4a6b;
           --button-hover-bg: #5a5a7d;
-          --light-mode-bg: #f4f7f9;
-          --dark-mode-bg: #1a1a2e;
         }
 
         body.light-mode {
           --bg-color: #f4f7f9;
-          --card-bg: rgba(255, 255, 255, 0.95);
+          --card-bg: rgba(255, 255, 255, 0.5);
           --primary-color: #007bff;
           --secondary-color: #28a745;
           --text-color: #333;
@@ -108,7 +106,7 @@
 
         body.oled-theme {
             --bg-color: #000000;
-            --card-bg: rgba(10, 10, 10, 0.95);
+            --card-bg: rgba(10, 10, 10, 0.5);
             --primary-color: #00aaff;
             --secondary-color: #aa00ff;
             --text-color: #f0f0f0;
@@ -119,56 +117,108 @@
             --button-hover-bg: #303030;
         }
 
-        body.blue-theme {
-            --bg-color: #172d47;
-            --card-bg: rgba(23, 45, 71, 0.9);
-            --primary-color: #007BFF;
-            --secondary-color: #0056B3;
-            --text-color: #e8f0fe;
-            --border-color: rgba(255, 255, 255, 0.3);
-            --input-bg: rgba(255, 255, 255, 0.15);
-            --result-bg: rgba(255, 255, 255, 0.1);
-            --button-bg: #2d4c70;
-            --button-hover-bg: #3c6591;
-        }
-
-        body.red-theme {
-            --bg-color: #471d1b;
-            --card-bg: rgba(71, 29, 27, 0.9);
-            --primary-color: #FF4136;
-            --secondary-color: #E63946;
-            --text-color: #fff;
-            --border-color: rgba(255, 255, 255, 0.3);
-            --input-bg: rgba(255, 255, 255, 0.15);
-            --result-bg: rgba(255, 255, 255, 0.1);
-            --button-bg: #70302c;
-            --button-hover-bg: #913f38;
-        }
-
-        body.green-theme {
-            --bg-color: #1a3c30;
-            --card-bg: rgba(26, 60, 48, 0.9);
-            --primary-color: #2ECC71;
-            --secondary-color: #27AE60;
+        body.retro-theme {
+            --bg-color: #2c3e50;
+            --card-bg: rgba(44, 62, 80, 0.6);
+            --primary-color: #f39c12;
+            --secondary-color: #e74c3c;
             --text-color: #ecf0f1;
-            --border-color: rgba(255, 255, 255, 0.3);
-            --input-bg: rgba(255, 255, 255, 0.15);
-            --result-bg: rgba(255, 255, 255, 0.1);
-            --button-bg: #2d5e52;
-            --button-hover-bg: #3b7c6b;
+            --border-color: rgba(236, 240, 241, 0.3);
+            --input-bg: rgba(236, 240, 241, 0.1);
+            --result-bg: rgba(236, 240, 241, 0.05);
+            --button-bg: #e74c3c;
+            --button-hover-bg: #c0392b;
         }
 
-        body.yellow-theme {
-            --bg-color: #4d4625;
-            --card-bg: rgba(77, 70, 37, 0.9);
-            --primary-color: #FFD700;
-            --secondary-color: #E4C000;
-            --text-color: #fff;
-            --border-color: rgba(255, 255, 255, 0.3);
-            --input-bg: rgba(255, 255, 255, 0.15);
-            --result-bg: rgba(255, 255, 255, 0.1);
-            --button-bg: #7d7249;
-            --button-hover-bg: #9b8c5a;
+        body.vaporwave-theme {
+            --bg-color: #2a0a4c;
+            --card-bg: rgba(42, 10, 76, 0.6);
+            --primary-color: #ff00ff;
+            --secondary-color: #00ffff;
+            --text-color: #f0f0f0;
+            --border-color: rgba(255, 255, 255, 0.2);
+            --input-bg: rgba(255, 255, 255, 0.1);
+            --result-bg: rgba(255, 255, 255, 0.05);
+            --button-bg: #8e2de2;
+            --button-hover-bg: #4a00e0;
+        }
+
+        body.forest-theme {
+            --bg-color: #2c3e2e;
+            --card-bg: rgba(44, 62, 46, 0.6);
+            --primary-color: #8ac926;
+            --secondary-color: #6a994e;
+            --text-color: #e8e8e8;
+            --border-color: rgba(232, 232, 232, 0.3);
+            --input-bg: rgba(232, 232, 232, 0.1);
+            --result-bg: rgba(232, 232, 232, 0.05);
+            --button-bg: #4c6a4a;
+            --button-hover-bg: #3b5038;
+        }
+
+        body.ocean-theme {
+            --bg-color: #0a1f33;
+            --card-bg: rgba(10, 31, 51, 0.6);
+            --primary-color: #00aaff;
+            --secondary-color: #0077b6;
+            --text-color: #e0faff;
+            --border-color: rgba(224, 250, 255, 0.3);
+            --input-bg: rgba(224, 250, 255, 0.1);
+            --result-bg: rgba(224, 250, 255, 0.05);
+            --button-bg: #035a82;
+            --button-hover-bg: #024b6b;
+        }
+
+        body.crimson-theme {
+            --bg-color: #280a0a;
+            --card-bg: rgba(40, 10, 10, 0.6);
+            --primary-color: #e74c3c;
+            --secondary-color: #c0392b;
+            --text-color: #fcecec;
+            --border-color: rgba(252, 236, 236, 0.3);
+            --input-bg: rgba(252, 236, 236, 0.1);
+            --result-bg: rgba(252, 236, 236, 0.05);
+            --button-bg: #a12b2b;
+            --button-hover-bg: #802020;
+        }
+
+        body.sunset-theme {
+            --bg-color: #3d0000;
+            --card-bg: rgba(61, 0, 0, 0.6);
+            --primary-color: #ff9900;
+            --secondary-color: #ff6600;
+            --text-color: #fdf5e6;
+            --border-color: rgba(253, 245, 230, 0.3);
+            --input-bg: rgba(253, 245, 230, 0.1);
+            --result-bg: rgba(253, 245, 230, 0.05);
+            --button-bg: #993300;
+            --button-hover-bg: #662200;
+        }
+
+        body.lavender-theme {
+            --bg-color: #1a0a2e;
+            --card-bg: rgba(26, 10, 46, 0.6);
+            --primary-color: #b057ff;
+            --secondary-color: #8e2de2;
+            --text-color: #f0e8f8;
+            --border-color: rgba(240, 232, 248, 0.3);
+            --input-bg: rgba(240, 232, 248, 0.1);
+            --result-bg: rgba(240, 232, 248, 0.05);
+            --button-bg: #5a2e8e;
+            --button-hover-bg: #421e66;
+        }
+
+        body.high-contrast-theme {
+            --bg-color: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --primary-color: #000000;
+            --secondary-color: #000000;
+            --text-color: #000000;
+            --border-color: #000000;
+            --input-bg: #f0f0f0;
+            --result-bg: #e0e0e0;
+            --button-bg: #d0d0d0;
+            --button-hover-bg: #c0c0c0;
         }
 
         body {
@@ -278,7 +328,7 @@
           padding: 50px;
           box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
           width: 100%;
-          max-width: 700px;
+          max-width: 900px;
           animation: fadeIn 1s ease-in-out;
           border: 1px solid var(--border-color);
           transition: background-color 0.5s, border-color 0.5s;
@@ -372,8 +422,24 @@
             align-items: center;
         }
 
-        .party-entry input[type="text"], .party-entry input[type="number"] {
-            flex: 1;
+        .party-name {
+            flex: 3;
+        }
+
+        .party-votes {
+            flex: 1.5;
+        }
+
+        .party-color-group {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .party-color-hex {
+            width: 120px;
+            padding: 15px;
+            text-align: center;
         }
 
         input[type="color"] {
@@ -439,18 +505,6 @@
         body.light-mode .add-party-btn {
             box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
         }
-        body.blue-theme .add-party-btn {
-            box-shadow: 0 5px 15px rgba(66, 133, 244, 0.4);
-        }
-        body.red-theme .add-party-btn {
-            box-shadow: 0 5px 15px rgba(219, 68, 55, 0.4);
-        }
-        body.green-theme .add-party-btn {
-            box-shadow: 0 5px 15px rgba(15, 157, 88, 0.4);
-        }
-        body.yellow-theme .add-party-btn {
-            box-shadow: 0 5px 15px rgba(244, 180, 0, 0.4);
-        }
         body.oled-theme .add-party-btn {
             box-shadow: 0 5px 15px rgba(0, 170, 255, 0.4);
         }
@@ -462,18 +516,6 @@
         }
         body.light-mode .add-party-btn:hover {
           background: #218838;
-        }
-        body.blue-theme .add-party-btn:hover {
-            background: #3367d6;
-        }
-        body.red-theme .add-party-btn:hover {
-            background: #a83129;
-        }
-        body.green-theme .add-party-btn:hover {
-            background: #0c8a4d;
-        }
-        body.yellow-theme .add-party-btn:hover {
-            background: #d49b00;
         }
         body.oled-theme .add-party-btn:hover {
             background: #0088cc;
@@ -545,10 +587,7 @@
         .seat-count {
           font-weight: 700;
           font-size: 1.5em;
-          color: #2ecc71;
-        }
-        body.oled-theme .seat-count {
-            color: #00ff88;
+          color: var(--primary-color);
         }
 
         .total-votes {
@@ -642,9 +681,16 @@
                 gap: 10px;
             }
 
-            .party-entry input, .party-entry button {
+            .party-entry input.party-name, .party-entry input.party-votes {
                 width: 100%;
                 box-sizing: border-box;
+            }
+            .party-color-group {
+                flex-direction: row;
+                width: 100%;
+            }
+            .party-color-group input {
+                flex: 1;
             }
         }
     </style>
@@ -652,7 +698,7 @@
 <body>
 <div class="top-bar">
     <div class="top-controls left">
-        <button id="themeButton">Cihaz</button>
+        <button id="themeButton">Cihaz Varsayılanı</button>
     </div>
     <div class="top-controls right">
         <button id="methodButton">D'Hondt</button>
@@ -678,6 +724,7 @@
     <button onclick="addParty()" class="add-party-btn">➕ Parti Ekle</button>
 
     <div id="output" class="results"></div>
+
     <div class="file-buttons">
         <button onclick="downloadResults()">Sonuçları Kaydet</button>
         <button onclick="document.getElementById('fileInput').click()">Dosyadan Yükle</button>
@@ -686,9 +733,23 @@
 </div>
 
 <script>
-    const themes = ['device', 'light', 'dark', 'oled', 'blue', 'red', 'green', 'yellow'];
+    const themes = ['device', 'oled', 'light', 'dark', 'retro', 'vaporwave', 'forest', 'ocean', 'crimson', 'sunset', 'lavender', 'high-contrast'];
     let currentThemeIndex = 0;
     const themeButton = document.getElementById('themeButton');
+    const themeButtonLabels = {
+        'device': 'Cihaz Varsayılanı',
+        'oled': 'OLED',
+        'dark': 'Koyu',
+        'light': 'Açık',
+        'retro': 'Retro',
+        'vaporwave': 'Vaporwave',
+        'forest': 'Orman',
+        'ocean': 'Okyanus',
+        'crimson': 'Kızıl',
+        'sunset': 'Gün Batımı',
+        'lavender': 'Lavanta',
+        'high-contrast': 'Yüksek Kontrast'
+    };
 
     const methods = ['D\'Hondt', 'Sainte-Laguë', 'Hare Kotası'];
     let currentMethodIndex = 0;
@@ -716,9 +777,9 @@
 
     function parseVoteValue(value) {
         if (typeof value === 'string') {
-            value = value.replace(',', '.');
+            value = value.replace(/[\.,]/g, '');
         }
-        return parseFloat(value);
+        return parseInt(value);
     }
 
     function addParty(name = '', votes = '', color = '#808080') {
@@ -727,10 +788,34 @@
         div.innerHTML = `
             <input type="text" placeholder="Parti Adı" value="${name}" class="party-name">
             <input type="text" placeholder="Oy Sayısı" value="${votes}" class="party-votes">
-            <input type="color" class="party-color" value="${color}">
+            <div class="party-color-group">
+                <input type="color" class="party-color-picker" value="${color}">
+                <input type="text" class="party-color-hex" value="${color}" placeholder="#RRGGBB" maxlength="7">
+            </div>
             <button type="button" onclick="this.parentNode.remove(); calculate();">❌</button>
         `;
-        div.querySelectorAll('input').forEach(input => input.addEventListener('input', calculate));
+        div.querySelector('.party-name').addEventListener('input', calculate);
+        div.querySelector('.party-votes').addEventListener('input', calculate);
+
+        const colorPicker = div.querySelector('.party-color-picker');
+        const hexInput = div.querySelector('.party-color-hex');
+
+        colorPicker.addEventListener('input', () => {
+            hexInput.value = colorPicker.value;
+            calculate();
+        });
+
+        hexInput.addEventListener('input', () => {
+            let hexValue = hexInput.value.trim();
+            if (!hexValue.startsWith('#')) {
+                hexValue = '#' + hexValue;
+            }
+            if (/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(hexValue)) {
+                colorPicker.value = hexValue;
+                calculate();
+            }
+        });
+
         document.getElementById('parties').appendChild(div);
         calculate();
     }
@@ -746,7 +831,7 @@
         Array.from(partyEntries).forEach(entry => {
             const name = entry.querySelector('.party-name').value.trim();
             const votes = parseVoteValue(entry.querySelector('.party-votes').value);
-            const color = entry.querySelector('.party-color').value;
+            const color = entry.querySelector('.party-color-picker').value;
 
             if (!name || isNaN(votes) || votes < 0) return;
 
@@ -798,7 +883,7 @@
                           <div class="party-initial" style="background-color: ${r.color}; color: ${initialColor};">${initial}</div>
                           <span><strong>${r.name}</strong> (${percentage}%)</span>
                       </div>
-                      <span class="seat-count">${r.seats} Koltuk</span>
+                      <span class="seat-count" style="color: var(--primary-color);">${r.seats} Koltuk</span>
                     </li>`;
         }
         out += '</ul>';
@@ -875,19 +960,18 @@
         document.body.className = '';
         if (theme === 'light') {
             document.body.classList.add('light-mode');
-            themeButton.textContent = 'Açık';
         } else if (theme === 'dark') {
             document.body.classList.add('dark-mode');
-            themeButton.textContent = 'Koyu';
+        } else if (theme === 'oled') {
+            document.body.classList.add('oled-theme');
         } else if (theme === 'device') {
             if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
                 document.body.classList.add('light-mode');
             }
-            themeButton.textContent = 'Cihaz';
         } else {
-            document.body.classList.add(`${theme}-theme`);
-            themeButton.textContent = theme.charAt(0).toUpperCase() + theme.slice(1);
+            document.body.classList.add(theme + '-theme');
         }
+        themeButton.textContent = themeButtonLabels[theme];
     }
 
     function downloadResults() {
@@ -905,7 +989,7 @@
         Array.from(partyEntries).forEach(entry => {
             const name = entry.querySelector('.party-name').value.trim();
             const votes = entry.querySelector('.party-votes').value;
-            const color = entry.querySelector('.party-color').value;
+            const color = entry.querySelector('.party-color-picker').value;
             if (name && votes) {
                 content += `${name}, ${votes}, ${color}\n`;
             }
@@ -985,7 +1069,6 @@
         reader.readAsText(file);
     }
 
-
     document.getElementById('totalSeats').addEventListener('input', calculate);
     thresholdInput.addEventListener('input', calculate);
 
@@ -1015,13 +1098,7 @@
         calculate();
     });
 
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-        document.body.classList.add('light-mode');
-        themeButton.textContent = 'Cihaz';
-    } else {
-        themeButton.textContent = 'Cihaz';
-    }
-
+    applyTheme('device');
     thresholdInput.disabled = true;
     addParty();
     addParty();
