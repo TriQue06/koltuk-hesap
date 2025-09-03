@@ -619,6 +619,31 @@
             display: none;
         }
 
+        .github-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            font-family: 'Product Sans', sans-serif;
+            padding: 10px 15px;
+            border-radius: 8px;
+            background-color: var(--button-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .github-button:hover {
+            background-color: var(--button-hover-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -688,6 +713,12 @@
             .party-color-group input {
                 flex: 1;
             }
+            .github-button {
+                bottom: 10px;
+                left: 10px;
+                padding: 8px 12px;
+                font-size: 0.9em;
+            }
         }
     </style>
 </head>
@@ -726,6 +757,10 @@
         <input type="file" id="fileInput" onchange="uploadResults(event)" accept=".txt">
     </div>
 </div>
+<a href="https://github.com/TriQue06/koltuk-hesap" target="_blank" class="github-button">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 5.08 5.4 5.4 0 0 0 19.95 3c-.15-.5-1.5-1.9-3.5-.79a7.35 7.35 0 0 0-4.44 0C8.5 1.1 7.15 2.5 7 3A5.4 5.4 0 0 0 6 5.08a5.44 5.44 0 0 0-1.5 3.77c0 5.43 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+    GitHub Kaynak
+</a>
 
 <script>
     const themes = ['device', 'oled', 'light', 'dark', 'retro', 'vaporwave', 'forest', 'ocean', 'crimson', 'sunset', 'lavender'];
