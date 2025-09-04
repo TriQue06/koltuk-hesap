@@ -1,1239 +1,771 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>✨ Koltuk Hesaplayıcı ✨</title>
-    <style>
-        @font-face {
-          font-family: 'Product Sans';
-          src: url('font/ProductSans-Regular.ttf') format('truetype');
-          font-weight: normal;
-          font-style: normal;
-        }
-        @font-face {
-          font-family: 'Product Sans';
-          src: url('font/ProductSans-Bold.ttf') format('truetype');
-          font-weight: bold;
-          font-style: normal;
-        }
-        @font-face {
-          font-family: 'Product Sans';
-          src: url('font/ProductSans-Black.ttf') format('truetype');
-          font-weight: 900;
-          font-style: normal;
-        }
-        @font-face {
-          font-family: 'Product Sans';
-          src: url('font/ProductSans-Light.ttf') format('truetype');
-          font-weight: 300;
-          font-style: normal;
-        }
-        @font-face {
-          font-family: 'Product Sans';
-          src: url('font/ProductSans-Medium.ttf') format('truetype');
-          font-weight: 500;
-          font-style: normal;
-        }
-        @font-face {
-          font-family: 'Product Sans';
-          src: url('font/ProductSans-Thin.ttf') format('truetype');
-          font-weight: 100;
-          font-style: normal;
-        }
-        @font-face {
-          font-family: 'Product Sans';
-          src: url('font/ProductSans-Italic.ttf') format('truetype');
-          font-weight: normal;
-          font-style: italic;
-        }
-        @font-face {
-          font-family: 'Product Sans';
-          src: url('font/ProductSans-BoldItalic.ttf') format('truetype');
-          font-weight: bold;
-          font-style: italic;
-        }
-        @font-face {
-          font-family: 'Product Sans';
-          src: url('font/ProductSans-BlackItalic.ttf') format('truetype');
-          font-weight: 900;
-          font-style: italic;
-        }
-        @font-face {
-          font-family: 'Product Sans';
-          src: url('font/ProductSans-LightItalic.ttf') format('truetype');
-          font-weight: 300;
-          font-style: italic;
-        }
-        @font-face {
-          font-family: 'Product Sans';
-          src: url('font/ProductSans-MediumItalic.ttf') format('truetype');
-          font-weight: 500;
-          font-style: italic;
-        }
-        @font-face {
-          font-family: 'Product Sans';
-          src: url('font/ProductSans-ThinItalic.ttf') format('truetype');
-          font-weight: 100;
-          font-style: italic;
-        }
-
-        :root {
-          --bg-color: #1a1a2e;
-          --card-bg: rgba(26, 26, 46, 0.9);
-          --primary-color: #6a11cb;
-          --secondary-color: #2575fc;
-          --text-color: #f0f0f0;
-          --border-color: rgba(255, 255, 255, 0.2);
-          --input-bg: rgba(255, 255, 255, 0.1);
-          --result-bg: rgba(255, 255, 255, 0.05);
-          --button-bg: #4a4a6b;
-          --button-hover-bg: #5a5a7d;
-        }
-
-        body.light-mode {
-          --bg-color: #f4f7f9;
-          --card-bg: rgba(255, 255, 255, 0.9);
-          --primary-color: #007bff;
-          --secondary-color: #28a745;
-          --text-color: #333;
-          --border-color: rgba(0, 0, 0, 0.1);
-          --input-bg: #fff;
-          --result-bg: #f8f9fa;
-          --button-bg: #e2e6ea;
-          --button-hover-bg: #d4dae0;
-        }
-
-        body.oled-theme {
-            --bg-color: #000000;
-            --card-bg: rgba(10, 10, 10, 0.9);
-            --primary-color: #00aaff;
-            --secondary-color: #aa00ff;
-            --text-color: #f0f0f0;
-            --border-color: rgba(255, 255, 255, 0.1);
-            --input-bg: rgba(255, 255, 255, 0.05);
-            --result-bg: rgba(255, 255, 255, 0.02);
-            --button-bg: #202020;
-            --button-hover-bg: #303030;
-        }
-
-        body.retro-theme {
-            --bg-color: #2c3e50;
-            --card-bg: rgba(44, 62, 80, 0.9);
-            --primary-color: #f39c12;
-            --secondary-color: #e74c3c;
-            --text-color: #ecf0f1;
-            --border-color: rgba(236, 240, 241, 0.3);
-            --input-bg: rgba(236, 240, 241, 0.1);
-            --result-bg: rgba(236, 240, 241, 0.05);
-            --button-bg: #e74c3c;
-            --button-hover-bg: #c0392b;
-        }
-
-        body.vaporwave-theme {
-            --bg-color: #2a0a4c;
-            --card-bg: rgba(42, 10, 76, 0.9);
-            --primary-color: #ff00ff;
-            --secondary-color: #00ffff;
-            --text-color: #f0f0f0;
-            --border-color: rgba(255, 255, 255, 0.2);
-            --input-bg: rgba(255, 255, 255, 0.1);
-            --result-bg: rgba(255, 255, 255, 0.05);
-            --button-bg: #8e2de2;
-            --button-hover-bg: #4a00e0;
-        }
-
-        body.forest-theme {
-            --bg-color: #2c3e2e;
-            --card-bg: rgba(44, 62, 46, 0.9);
-            --primary-color: #8ac926;
-            --secondary-color: #6a994e;
-            --text-color: #e8e8e8;
-            --border-color: rgba(232, 232, 232, 0.3);
-            --input-bg: rgba(232, 232, 232, 0.1);
-            --result-bg: rgba(232, 232, 232, 0.05);
-            --button-bg: #4c6a4a;
-            --button-hover-bg: #3b5038;
-        }
-
-        body.ocean-theme {
-            --bg-color: #0a1f33;
-            --card-bg: rgba(10, 31, 51, 0.9);
-            --primary-color: #00aaff;
-            --secondary-color: #0077b6;
-            --text-color: #e0faff;
-            --border-color: rgba(224, 250, 255, 0.3);
-            --input-bg: rgba(224, 250, 255, 0.1);
-            --result-bg: rgba(224, 250, 255, 0.05);
-            --button-bg: #035a82;
-            --button-hover-bg: #024b6b;
-        }
-
-        body.crimson-theme {
-            --bg-color: #280a0a;
-            --card-bg: rgba(40, 10, 10, 0.9);
-            --primary-color: #e74c3c;
-            --secondary-color: #c0392b;
-            --text-color: #fcecec;
-            --border-color: rgba(252, 236, 236, 0.3);
-            --input-bg: rgba(252, 236, 236, 0.1);
-            --result-bg: rgba(252, 236, 236, 0.05);
-            --button-bg: #a12b2b;
-            --button-hover-bg: #802020;
-        }
-
-        body.sunset-theme {
-            --bg-color: #3d0000;
-            --card-bg: rgba(61, 0, 0, 0.9);
-            --primary-color: #ff9900;
-            --secondary-color: #ff6600;
-            --text-color: #fdf5e6;
-            --border-color: rgba(253, 245, 230, 0.3);
-            --input-bg: rgba(253, 245, 230, 0.1);
-            --result-bg: rgba(253, 245, 230, 0.05);
-            --button-bg: #993300;
-            --button-hover-bg: #662200;
-        }
-
-        body.lavender-theme {
-            --bg-color: #1a0a2e;
-            --card-bg: rgba(26, 10, 46, 0.9);
-            --primary-color: #b057ff;
-            --secondary-color: #8e2de2;
-            --text-color: #f0e8f8;
-            --border-color: rgba(240, 232, 248, 0.3);
-            --input-bg: rgba(240, 232, 248, 0.1);
-            --result-bg: rgba(240, 232, 248, 0.05);
-            --button-bg: #5a2e8e;
-            --button-hover-bg: #421e66;
-        }
-
-        body {
-          font-family: 'Product Sans', sans-serif;
-          background-color: var(--bg-color);
-          color: var(--text-color);
-          min-height: 100vh;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          padding: 20px;
-          margin: 0;
-          position: relative;
-          transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        .top-bar {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            z-index: 10;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .top-controls {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .top-controls.right {
-            align-items: flex-end;
-        }
-
-        .top-controls button {
-            font-family: 'Product Sans', sans-serif;
-            padding: 8px 12px;
-            border-radius: 8px;
-            background-color: var(--button-bg);
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
-            font-size: 1em;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-
-        .top-controls button:hover {
-            background-color: var(--button-hover-bg);
-            transform: translateY(-2px);
-        }
-
-        .threshold-control {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: opacity 0.3s ease-in-out;
-        }
-
-        .threshold-input {
-            width: 80px;
-            padding: 15px;
-            font-size: 1.1em;
-            box-sizing: border-box;
-        }
-
-        .threshold-button {
-          font-family: 'Product Sans', sans-serif;
-          padding: 15px;
-          border: 1px solid var(--border-color);
-          border-radius: 10px;
-          background-color: var(--input-bg);
-          color: var(--text-color);
-          font-weight: 600;
-          cursor: pointer;
-          transition: background-color 0.3s, border-color 0.3s;
-          font-size: 1.1em;
-          width: 150px;
-        }
-
-        .threshold-button.active {
-          background-color: var(--primary-color);
-          border-color: var(--primary-color);
-          color: white;
-        }
-        .threshold-input:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .container {
-          background: var(--card-bg);
-          border-radius: 20px;
-          padding: 50px;
-          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-          width: 100%;
-          max-width: 900px;
-          animation: fadeIn 0.5s ease-in-out;
-          border: 1px solid var(--border-color);
-          transition: background-color 0.3s, border-color 0.3s;
-        }
-
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        h1 {
-          font-family: 'Product Sans', sans-serif;
-          font-weight: bold;
-          text-align: center;
-          font-size: 3.3em;
-          margin-bottom: 5px;
-          background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-
-        .subtitle {
-          text-align: center;
-          font-style: italic;
-          margin-bottom: 40px;
-          opacity: 0.7;
-          font-size: 1.2em;
-        }
-
-        .input-group {
-          margin-bottom: 30px;
-        }
-
-        .seats-threshold-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .seats-threshold-group input[type="text"] {
-            flex: 1;
-        }
-
-        .input-group label {
-          display: block;
-          margin-bottom: 10px;
-          font-weight: 600;
-          font-size: 1.2em;
-        }
-
-        input[type="text"],
-        input[type="number"] {
-          font-family: 'Product Sans', sans-serif;
-          padding: 15px;
-          border: 1px solid var(--border-color);
-          border-radius: 10px;
-          background-color: var(--input-bg);
-          color: var(--text-color);
-          box-sizing: border-box;
-          font-size: 1.1em;
-          transition: all 0.3s;
-        }
-
-        input::placeholder {
-          color: var(--text-color);
-          opacity: 0.5;
-        }
-
-        body.light-mode input::placeholder {
-            color: var(--text-color);
-            opacity: 0.8;
-        }
-        body.oled-theme input::placeholder {
-            color: var(--text-color);
-            opacity: 0.7;
-        }
-
-        input:focus {
-          outline: none;
-          box-shadow: 0 0 10px var(--secondary-color);
-          border-color: var(--secondary-color);
-        }
-        body.light-mode input:focus {
-            box-shadow: 0 0 10px var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        .party-entry {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            align-items: center;
-            
-        }
-
-        .party-entry.dragging {
-            opacity: 0.5;
-        }
-        .party-entry.drag-over {
-            border-bottom: 3px solid var(--secondary-color);
-            margin-bottom: 17px;
-        }
-        .grip-handle {
-            font-size: 2em;
-            cursor: grab;
-            opacity: 0.5;
-            transition: opacity 0.2s;
-            margin-right: 5px;
-        }
-        .grip-handle:hover {
-            opacity: 1;
-        }
-        .grip-handle:active {
-            cursor: grabbing;
-        }
-
-        .party-name {
-            flex: 3;
-        }
-
-        .party-votes {
-            flex: 1.5;
-        }
-
-        .party-color-group {
-            display: flex;
-            gap: 5px;
-            align-items: center;
-        }
-
-        .party-color-hex {
-            width: 120px;
-            padding: 15px;
-            text-align: center;
-        }
-
-        input[type="color"] {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            background: none;
-            border: none;
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            padding: 0;
-            border-radius: 10px;
-            transition: transform 0.2s;
-        }
-        input[type="color"]:hover {
-            transform: scale(1.1);
-        }
-        input[type="color"]::-webkit-color-swatch-wrapper {
-            padding: 0;
-        }
-        input[type="color"]::-webkit-color-swatch {
-            border-radius: 8px;
-            border: 2px solid var(--border-color);
-        }
-        input[type="color"]::-moz-color-swatch {
-            border-radius: 8-px;
-            border: 2px solid var(--border-color);
-        }
-
-        .party-entry button {
-          font-family: 'Product Sans', sans-serif;
-          background: #e74c3c;
-          color: white;
-          border: none;
-          padding: 12px;
-          border-radius: 10px;
-          width: 40px;
-          height: 40px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          cursor: pointer;
-          font-size: 1.3em;
-          transition: background-color 0.3s, transform 0.2s;
-        }
-        .party-entry button:hover {
-          background: #c0392b;
-          transform: scale(1.05);
-        }
-
-        .add-party-btn {
-          font-family: 'Product Sans', sans-serif;
-          width: 100%;
-          background: var(--secondary-color);
-          color: white;
-          border: none;
-          padding: 15px;
-          border-radius: 10px;
-          cursor: pointer;
-          font-size: 1.2em;
-          font-weight: 600;
-          transition: background-color 0.3s, transform 0.2s;
-        }
-        
-        .add-party-btn:hover {
-          background: #1a5acb;
-          transform: translateY(-3px);
-        }
-        body.light-mode .add-party-btn:hover {
-          background: #218838;
-        }
-        body.oled-theme .add-party-btn:hover {
-            background: #0088cc;
-        }
-
-
-        .results {
-          margin-top: 40px;
-          background: var(--result-bg);
-          padding: 30px;
-          border-radius: 15px;
-          border: 1px solid var(--border-color);
-          box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .results h2 {
-          font-family: 'Product Sans', sans-serif;
-          margin-top: 0;
-          font-size: 1.9em;
-          text-align: center;
-          background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          margin-bottom: 20px;
-        }
-
-        .results ul {
-          list-style-type: none;
-          padding: 0;
-        }
-
-        .results li {
-          font-family: 'Product Sans', sans-serif;
-          background: var(--input-bg);
-          padding: 20px;
-          border-radius: 10px;
-          margin-bottom: 15px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          transition: transform 0.3s;
-          border-left: 5px solid;
-        }
-
-        .results li:hover {
-            transform: scale(1.02);
-            border-left-color: var(--secondary-color);
-        }
-
-        .party-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .party-initial {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            font-size: 1.5em;
-            text-transform: uppercase;
-            border: 2px solid var(--border-color);
-            flex-shrink: 0;
-        }
-
-        .seat-count {
-          font-weight: 700;
-          font-size: 1.5em;
-          color: var(--primary-color);
-        }
-
-        .total-votes {
-          text-align: right;
-          opacity: 0.6;
-          font-size: 1em;
-          margin-top: 20px;
-        }
-
-        .file-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .file-buttons button {
-            font-family: 'Product Sans', sans-serif;
-            padding: 12px 20px;
-            border-radius: 10px;
-            background-color: var(--button-bg);
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
-            font-size: 1em;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-        .file-buttons button:hover {
-            background-color: var(--button-hover-bg);
-            transform: translateY(-2px);
-        }
-        .file-buttons input {
-            display: none;
-        }
-
-        .github-button {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            font-family: 'Product Sans', sans-serif;
-            padding: 10px 15px;
-            border-radius: 8px;
-            background-color: var(--button-bg);
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
-            font-size: 1em;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .github-button:hover {
-            background-color: var(--button-hover-bg);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            .top-bar {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                z-index: 1000;
-                padding: 10px 20px;
-                background-color: var(--bg-color);
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            }
-            body.light-mode .top-bar {
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            }
-            .top-controls {
-                flex-direction: row;
-            }
-
-            .container {
-                padding: 30px 20px;
-                margin-top: 80px;
-            }
-
-            h1 {
-                font-size: 2.2em;
-            }
-
-            .subtitle {
-                font-size: 1.1em;
-                margin-bottom: 20px;
-            }
-
-            .seats-threshold-group {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .threshold-control {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 10px;
-            }
-
-            .threshold-button, .threshold-input {
-                width: 100%;
-                text-align: center;
-            }
-
-            .party-entry {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 10px;
-            }
-
-            .party-entry input.party-name, .party-entry input.party-votes {
-                width: 100%;
-                box-sizing: border-box;
-            }
-            .party-color-group {
-                flex-direction: row;
-                width: 100%;
-            }
-            .party-color-group input {
-                flex: 1;
-            }
-            .github-button {
-                bottom: 10px;
-                left: 10px;
-                padding: 8px 12px;
-                font-size: 0.9em;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>✨ Koltuk Hesaplayıcı ✨</title>
+  <style>
+    /* --- Fontlar: Tümü Product Sans --- */
+    @font-face{font-family:'Product Sans';src:url('font/ProductSans-Regular.ttf') format('truetype');font-weight:400;font-style:normal}
+    @font-face{font-family:'Product Sans';src:url('font/ProductSans-Medium.ttf')  format('truetype');font-weight:500;font-style:normal}
+    @font-face{font-family:'Product Sans';src:url('font/ProductSans-Bold.ttf')    format('truetype');font-weight:700;font-style:normal}
+    @font-face{font-family:'Product Sans';src:url('font/ProductSans-Black.ttf')   format('truetype');font-weight:900;font-style:normal}
+    @font-face{font-family:'Product Sans';src:url('font/ProductSans-Light.ttf')   format('truetype');font-weight:300;font-style:normal}
+    *{font-family:'Product Sans',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,sans-serif}
+    button,input,select,textarea{font:inherit}
+
+    /* Varsayılan kök (Dark Neon tadında) + ikon filtresi */
+    :root{
+      --bg-color:#10121a; --card-bg:rgba(18,20,32,.92);
+      --primary-color:#6a11cb; --secondary-color:#2575fc;
+      --text-color:#f2f3f7; --border-color:rgba(255,255,255,.18);
+      --input-bg:rgba(255,255,255,.08); --result-bg:rgba(255,255,255,.05);
+      --button-bg:#3a3a58; --button-hover-bg:#4a4a6f;
+      --icon-filter: invert(1); /* koyu temalarda beyaz ikon */
+    }
+
+    body{
+      background:var(--bg-color); color:var(--text-color);
+      min-height:100vh; display:flex; justify-content:center; align-items:center;
+      padding:20px; margin:0; position:relative; transition:background-color .25s,color .25s
+    }
+
+    .top-bar{
+      position:fixed; top:20px; left:20px; right:20px; z-index:1000;
+      display:flex; justify-content:space-between; align-items:center; gap:12px;
+      pointer-events:none;
+    }
+    .top-left,.top-right{display:flex; align-items:center; gap:10px; pointer-events:auto}
+    .top-btn{
+      padding:8px 12px; border-radius:10px; background:var(--button-bg); color:var(--text-color);
+      border:1px solid var(--border-color); font-size:.95em; cursor:pointer; transition:background-color .25s, transform .15s;
+      position:relative; z-index:1001
+    }
+    .top-btn:hover{background:var(--button-hover-bg); transform:translateY(-1px)}
+
+    .threshold-control{display:flex; align-items:center; gap:10px}
+    .threshold-input{width:80px; padding:12px; font-size:1.05em; box-sizing:border-box}
+    .threshold-button{
+      padding:12px; border:1px solid var(--border-color); border-radius:10px; background:var(--input-bg);
+      color:var(--text-color); font-weight:600; cursor:pointer; transition:background-color .25s,border-color .25s; font-size:1.05em; width:150px
+    }
+    .threshold-button.active{background:var(--primary-color); border-color:var(--primary-color); color:#fff}
+    .threshold-input:disabled{opacity:.55; cursor:not-allowed}
+
+    .container{
+      background:var(--card-bg); border-radius:20px; padding:44px; border:1px solid var(--border-color);
+      box-shadow:0 15px 40px rgba(0,0,0,.35); width:100%; max-width:980px; animation:fadeIn .45s ease
+    }
+    @keyframes fadeIn{from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)}}
+
+    h1{
+      font-weight:800; text-align:center; font-size:3.1em; margin:0 0 6px;
+      background:linear-gradient(45deg,var(--primary-color),var(--secondary-color));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent
+    }
+    .subtitle{text-align:center; margin-bottom:32px; opacity:.8; font-size:1.05em}
+
+    .input-group{margin-bottom:26px}
+    .seats-threshold-group{display:flex; align-items:center; gap:10px}
+    .seats-threshold-group input[type="text"]{flex:1}
+
+    input[type="text"], input[type="number"]{
+      padding:14px; border:1px solid var(--border-color); border-radius:12px; background:var(--input-bg);
+      color:var(--text-color); box-sizing:border-box; font-size:1.05em; transition:all .2s
+    }
+    input::placeholder{color:var(--text-color); opacity:.5}
+    input:focus{outline:none; box-shadow:0 0 0 3px color-mix(in oklab, var(--secondary-color) 35%, transparent); border-color:var(--secondary-color)}
+
+    .alliance-entry,.party-entry,.independent-entry{margin-bottom:16px; display:flex; align-items:center; gap:12px}
+    .alliance-entry{
+      flex-direction:column; align-items:stretch; padding:16px; border:2px dashed var(--border-color);
+      border-radius:14px; background:rgba(255,255,255,.03)
+    }
+    .alliance-header{display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; gap:10px}
+    .alliance-header input{flex:1; font-weight:700; font-size:1.05em}
+    .alliance-header .delete-btn{background:#e74c3c}
+    .alliance-parties-container{min-height:48px; display:flex; flex-direction:column; gap:10px}
+
+    .party-name{flex:3}
+    .party-votes{flex:1.5}
+    .party-color-group{display:flex; gap:6px; align-items:center}
+    .party-color-hex{width:110px; padding:12px; text-align:center}
+
+    .move-control{width:30px; height:48px; display:flex; flex-direction:column; justify-content:center; align-items:center; border:1px solid var(--border-color); border-radius:10px; background:var(--button-bg)}
+    .move-control-up,.move-control-down{flex:1; display:flex; align-items:center; justify-content:center; cursor:pointer; width:100%; color:#fff; font-size:1.1em}
+    .move-control-up{border-radius:10px 10px 0 0}
+    .move-control-down{border-radius:0 0 10px 10px}
+    .move-control-up img,.move-control-down img{width:18px; height:18px; filter:var(--icon-filter)}
+
+    input[type="color"]{appearance:none; background:none; border:none; width:38px; height:38px; cursor:pointer; padding:0; border-radius:10px}
+    input[type="color"]::-webkit-color-swatch-wrapper{padding:0}
+    input[type="color"]::-webkit-color-swatch{border-radius:8px; border:2px solid var(--border-color)}
+    input[type="color"]::-moz-color-swatch{border-radius:8px; border:2px solid var(--border-color)}
+
+    .party-entry button,.independent-entry button,.alliance-entry .alliance-header button{
+      background:#e74c3c; color:#fff; border:none; padding:12px; border-radius:10px; width:40px; height:40px;
+      display:flex; justify-content:center; align-items:center; cursor:pointer; font-size:1.1em; transition:transform .15s, filter .2s
+    }
+    .party-entry button:hover,.independent-entry button:hover,.alliance-entry .alliance-header button:hover{transform:scale(1.05); filter:brightness(1.05)}
+
+    .add-party-btn,.add-independent-btn,.add-alliance-btn{
+      width:100%; background:var(--secondary-color); color:#fff; border:none; padding:14px; border-radius:12px;
+      cursor:pointer; font-size:1.05em; font-weight:700; transition:transform .15s, filter .2s; margin-top:8px
+    }
+    .add-party-btn:hover,.add-independent-btn:hover,.add-alliance-btn:hover{transform:translateY(-2px); filter:brightness(1.05)}
+
+    .results{margin-top:30px; background:var(--result-bg); padding:24px; border-radius:14px; border:1px solid var(--border-color); box-shadow:10px 10px 22px rgba(0,0,0,.22)}
+    .results h2{
+      margin:0 0 14px; font-size:1.7em; text-align:center;
+      background:linear-gradient(45deg,var(--primary-color),var(--secondary-color));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent
+    }
+    .results ul{list-style:none; padding:0; margin:0}
+    .results li{
+      background:var(--input-bg); padding:16px; border-radius:12px; margin-bottom:12px; display:flex;
+      justify-content:space-between; align-items:center; transition:transform .2s; border-left:5px solid
+    }
+    .party-info{display:flex; align-items:center; gap:12px}
+    .party-initial{width:38px; height:38px; border-radius:50%; display:flex; justify-content:center; align-items:center; font-weight:800; font-size:1.2em; text-transform:uppercase; border:2px solid var(--border-color); flex-shrink:0}
+    .seat-count{font-weight:800; font-size:1.25em; color:var(--primary-color)}
+    .total-votes{text-align:right; opacity:.7; font-size:.98em; margin-top:12px}
+
+    .file-buttons{display:flex; justify-content:center; gap:10px; margin-top:18px}
+    .file-buttons button{
+      padding:12px 18px; border-radius:10px; background:var(--button-bg); color:var(--text-color); border:1px solid var(--border-color);
+      font-size:.98em; cursor:pointer; transition:background-color .2s, transform .15s
+    }
+    .file-buttons button:hover{background:var(--button-hover-bg); transform:translateY(-2px)}
+    .file-buttons input{display:none}
+
+    .github-button{
+      position:fixed; bottom:20px; left:20px; padding:10px 14px; border-radius:10px; background:var(--button-bg);
+      color:var(--text-color); border:1px solid var(--border-color); font-size:.98em; cursor:pointer;
+      transition:background-color .2s, transform .15s, box-shadow .2s; text-decoration:none; display:flex; align-items:center; gap:8px;
+      z-index:999
+    }
+    .github-button:hover{background:var(--button-hover-bg); transform:translateY(-2px); box-shadow:0 4px 10px rgba(0,0,0,.2)}
+
+    @media (max-width:768px){
+      body{padding:10px}
+      .top-bar{top:0; left:0; right:0; padding:10px 12px; background:var(--bg-color); box-shadow:0 2px 5px rgba(0,0,0,.25)}
+      .container{padding:28px 18px; margin-top:74px}
+      h1{font-size:2.2em}
+      .subtitle{font-size:1em; margin-bottom:18px}
+      .seats-threshold-group{flex-direction:column; align-items:stretch}
+      .threshold-control{flex-direction:column; align-items:stretch; gap:8px}
+      .threshold-button,.threshold-input{width:100%; text-align:center}
+      .party-entry,.independent-entry,.alliance-entry{flex-direction:column; align-items:stretch; gap:10px}
+      .party-color-group{flex-wrap:wrap}
+      .party-color-hex{flex:1}
+      .github-button{bottom:10px; left:10px; padding:8px 12px; font-size:.9em}
+    }
+  </style>
 </head>
 <body>
-<div class="top-bar">
-    <div class="top-controls left">
-        <button id="themeButton">Cihaz Varsayılanı</button>
+  <div class="top-bar">
+    <div class="top-left">
+      <button id="themeButton" class="top-btn" title="Tema değiştir">🎨 Tema: Device</button>
     </div>
-    <div class="top-controls right">
-        <button id="methodButton">D'Hondt</button>
+    <div class="top-right">
+      <button id="methodButton" class="top-btn" title="Hesaplama yöntemini değiştir">D'Hondt</button>
     </div>
-</div>
+  </div>
 
-<div class="container">
+  <div class="container">
     <h1>Koltuk Hesaplayıcı</h1>
     <p class="subtitle" id="methodSubtitle">D'Hondt Yöntemi</p>
 
     <div class="input-group">
-        <div class="seats-threshold-group">
-            <input type="text" id="totalSeats" placeholder="Koltuk Sayısı" value="">
-            <div class="threshold-control">
-                <button id="thresholdButton" class="threshold-button">Baraj: Kapalı</button>
-                <input type="text" id="thresholdInput" class="threshold-input" placeholder="%" min="0" max="100" value="0">
-            </div>
+      <div class="seats-threshold-group">
+        <input type="text" id="totalSeats" placeholder="Koltuk Sayısı" value="">
+        <div class="threshold-control">
+          <button id="thresholdButton" class="threshold-button">Baraj: Kapalı</button>
+          <input type="text" id="thresholdInput" class="threshold-input" placeholder="%" min="0" max="100" value="" disabled>
         </div>
+      </div>
     </div>
 
-    <div id="parties"></div>
-    <button onclick="addParty()" class="add-party-btn">Parti Ekle</button>
+    <div id="main-container"></div>
+    <div class="action-buttons" style="display:flex; gap:10px; margin-top:10px;">
+      <button id="addPartyBtn" class="add-party-btn">Parti Ekle</button>
+      <button id="addIndBtn" class="add-independent-btn">Bağımsız Ekle</button>
+      <button id="addAllBtn" class="add-alliance-btn">İttifak Ekle</button>
+    </div>
 
     <div id="output" class="results"></div>
 
     <div class="file-buttons">
-        <button onclick="downloadResults()">Sonuçları Kaydet</button>
-        <button onclick="document.getElementById('fileInput').click()">Dosyadan Yükle</button>
-        <input type="file" id="fileInput" onchange="uploadResults(event)" accept=".txt">
+      <button id="dlBtn">Sonuçları Kaydet</button>
+      <button id="ulBtn">Dosyadan Yükle</button>
+      <input type="file" id="fileInput" accept=".txt">
     </div>
-</div>
-<a href="https://github.com/TriQue06/koltuk-hesap" target="_blank" class="github-button">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 5.08 5.4 5.4 0 0 0 19.95 3c-.15-.5-1.5-1.9-3.5-.79a7.35 7.35 0 0 0-4.44 0C8.5 1.1 7.15 2.5 7 3A5.4 5.4 0 0 0 6 5.08a5.44 5.44 0 0 0-1.5 3.77c0 5.43 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+  </div>
+
+  <a href="https://github.com/TriQue06/koltuk-hesap" target="_blank" class="github-button" rel="noopener">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 5.08 5.4 5.4 0 0 0 19.95 3c-.15-.5-1.5-1.9-3.5-.79a7.35 7.35 0 0 0-4.44 0C8.5 1.1 7.15 2.5 7 3A5.4 5.4 0 0 0 6 5.08a5.44 5.44 0 0 0-1.5 3.77c0 5.43 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
     GitHub Kaynak
-</a>
+  </a>
 
-<script>
-    const themes = ['device', 'oled', 'light', 'dark', 'retro', 'vaporwave', 'forest', 'ocean', 'crimson', 'sunset', 'lavender'];
-    const themeButtonLabels = {
-        'device': 'Cihaz Varsayılanı',
-        'oled': 'OLED',
-        'dark': 'Koyu',
-        'light': 'Açık',
-        'retro': 'Retro',
-        'vaporwave': 'Vaporwave',
-        'forest': 'Orman',
-        'ocean': 'Okyanus',
-        'crimson': 'Kızıl',
-        'sunset': 'Gün Batımı',
-        'lavender': 'Lavanta',
+  <script>
+    /* ===== Tema Etiketleri ===== */
+    const THEME_LABELS = {
+      device:'Device',
+      oled:'OLED',
+      light:'Açık',
+      dark:'Koyu',
+      retro:'Retro',
+      vaporwave:'Vaporwave',
+      forest:'Orman',
+      ocean:'Okyanus',
+      crimson:'Kızıl',
+      sunset:'Gün Batımı',
+      lavender:'Lavanta'
     };
-    let currentThemeIndex = 0;
-    let currentThemeName = 'device';
-    const themeButton = document.getElementById('themeButton');
 
-    const methods = ['D\'Hondt', 'Sainte-Laguë', 'Hare Kotası', 'Proportional Plus'];
+    /* ===== Temalar (ton bilgisiyle) ===== */
+    const THEMES = [
+      {key:"device", device:true, tone:"auto", light:{
+        bg:"#f7f7fb", card:"rgba(255,255,255,.92)", pri:"#4e54c8", sec:"#8f94fb", text:"#1a1a1a",
+        border:"rgba(0,0,0,.12)", input:"rgba(0,0,0,.06)", result:"rgba(0,0,0,.03)", btn:"#e6e7ef", btnH:"#d8d9e6"
+      }, dark:{
+        bg:"#10121a", card:"rgba(18,20,32,.92)", pri:"#6a11cb", sec:"#2575fc", text:"#f2f3f7",
+        border:"rgba(255,255,255,.18)", input:"rgba(255,255,255,.08)", result:"rgba(255,255,255,.05)", btn:"#3a3a58", btnH:"#4a4a6f"
+      }},
+      {key:"oled", tone:"dark", vars:{
+        bg:"#000000", card:"rgba(0,0,0,.82)", pri:"#00f5d4", sec:"#00bbf9", text:"#f5f7ff",
+        border:"rgba(255,255,255,.12)", input:"rgba(255,255,255,.06)", result:"rgba(255,255,255,.04)", btn:"#141414", btnH:"#1d1d1d"
+      }},
+      {key:"light", tone:"light", vars:{
+        bg:"#f7f7fb", card:"rgba(255,255,255,.92)", pri:"#4e54c8", sec:"#8f94fb", text:"#1a1a1a",
+        border:"rgba(0,0,0,.12)", input:"rgba(0,0,0,.06)", result:"rgba(0,0,0,.03)", btn:"#e6e7ef", btnH:"#d8d9e6"
+      }},
+      {key:"dark", tone:"dark", vars:{
+        bg:"#0f1118", card:"rgba(20,22,32,.92)", pri:"#7d5fff", sec:"#15aabf", text:"#eef1ff",
+        border:"rgba(255,255,255,.16)", input:"rgba(255,255,255,.07)", result:"rgba(255,255,255,.05)", btn:"#2a2e3f", btnH:"#343955"
+      }},
+      {key:"retro", tone:"dark", vars:{
+        bg:"#1a2430", card:"rgba(24,36,48,.92)", pri:"#f39c12", sec:"#e74c3c", text:"#fef9e7",
+        border:"rgba(255,200,150,.2)", input:"rgba(255,200,150,.12)", result:"rgba(255,200,150,.08)", btn:"#3c3d47", btnH:"#4a4b58"
+      }},
+      {key:"vaporwave", tone:"dark", vars:{
+        bg:"#2e1b3f", card:"rgba(40,20,65,.92)", pri:"#ff77e9", sec:"#00f5ff", text:"#fff0ff",
+        border:"rgba(255,150,255,.22)", input:"rgba(255,150,255,.10)", result:"rgba(255,150,255,.08)", btn:"#4a275f", btnH:"#5c2f76"
+      }},
+      {key:"forest", tone:"dark", vars:{
+        bg:"#0f1a14", card:"rgba(20,34,26,.9)", pri:"#2ecc71", sec:"#1abc9c", text:"#e9fff2",
+        border:"rgba(200,255,230,.18)", input:"rgba(200,255,230,.08)", result:"rgba(200,255,230,.06)", btn:"#1f3a2d", btnH:"#29513f"
+      }},
+      {key:"ocean", tone:"dark", vars:{
+        bg:"#0e1b2b", card:"rgba(16,34,54,.9)", pri:"#00b4d8", sec:"#48cae4", text:"#eaf6ff",
+        border:"rgba(200,230,255,.18)", input:"rgba(200,230,255,.08)", result:"rgba(200,230,255,.06)", btn:"#163249", btnH:"#1f435f"
+      }},
+      {key:"crimson", tone:"dark", vars:{
+        bg:"#2b0f14", card:"rgba(44,16,22,.92)", pri:"#ff4d6d", sec:"#ff8fab", text:"#fff0f3",
+        border:"rgba(255,160,180,.22)", input:"rgba(255,160,180,.10)", result:"rgba(255,160,180,.08)", btn:"#4a1f28", btnH:"#5c2833"
+      }},
+      {key:"sunset", tone:"dark", vars:{
+        bg:"#1b1220", card:"rgba(36,20,44,.9)", pri:"#ff7e5f", sec:"#feb47b", text:"#fff3ef",
+        border:"rgba(255,200,180,.2)", input:"rgba(255,180,150,.1)", result:"rgba(255,160,130,.08)", btn:"#5c2b3a", btnH:"#6c3444"
+      }},
+      {key:"lavender", tone:"dark", vars:{
+        bg:"#241a2e", card:"rgba(40,30,55,.92)", pri:"#cdb4db", sec:"#a2d2ff", text:"#f8f0ff",
+        border:"rgba(210,190,230,.22)", input:"rgba(210,190,230,.10)", result:"rgba(210,190,230,.08)", btn:"#3a2b4f", btnH:"#4a3866"
+      }},
+    ];
+
+    let themeIndex = 0;
+    const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)');
+
+    function setCSSVars(vars){
+      const r=document.documentElement.style;
+      r.setProperty('--bg-color', vars.bg);
+      r.setProperty('--card-bg', vars.card);
+      r.setProperty('--primary-color', vars.pri);
+      r.setProperty('--secondary-color', vars.sec);
+      r.setProperty('--text-color', vars.text);
+      r.setProperty('--border-color', vars.border);
+      r.setProperty('--input-bg', vars.input);
+      r.setProperty('--result-bg', vars.result);
+      r.setProperty('--button-bg', vars.btn);
+      r.setProperty('--button-hover-bg', vars.btnH);
+    }
+    function setIconFilter(lightMode){
+      document.documentElement.style.setProperty('--icon-filter', lightMode ? 'invert(0)' : 'invert(1)');
+    }
+    function computeDeviceVars(theme){
+      const useLight = !prefersDark || !prefersDark.matches;
+      setIconFilter(useLight); // device: ikon rengi OS temasına göre
+      return useLight ? theme.light : theme.dark;
+    }
+    function applyThemeByIndex(idx){
+      const t = THEMES[(idx+THEMES.length)%THEMES.length];
+      if(t.device){
+        setCSSVars(computeDeviceVars(t));
+        document.getElementById('themeButton').textContent = `🎨 Tema: ${THEME_LABELS[t.key]}`;
+      }else{
+        setCSSVars(t.vars);
+        setIconFilter(t.tone === 'light'); // açık temada siyah, koyuda beyaz
+        document.getElementById('themeButton').textContent = `🎨 Tema: ${THEME_LABELS[t.key]}`;
+      }
+      calculate();
+    }
+
+    /* ===== Metodlar ===== */
+    const METHODS = ["D'Hondt","Sainte-Laguë","Hare Kotası","Proportional Plus"];
     let currentMethodIndex = 0;
-    const methodButton = document.getElementById('methodButton');
-    const methodSubtitle = document.getElementById('methodSubtitle');
 
-    const thresholdButton = document.getElementById('thresholdButton');
-    const thresholdInput = document.getElementById('thresholdInput');
+    /* ===== Baraj ===== */
     let isThresholdEnabled = false;
-    let storedThresholdValue = '0';
+    let storedThresholdValue = '';
 
-    let draggedItem = null;
-
-    function getContrastColor(hexColor) {
-        const r = parseInt(hexColor.slice(1, 3), 16);
-        const g = parseInt(hexColor.slice(3, 5), 16);
-        const b = parseInt(hexColor.slice(5, 7), 16);
-        const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-        return luminance > 0.5 ? 'black' : 'white';
+    /* ===== Yardımcılar ===== */
+    const $ = sel => document.querySelector(sel);
+    function getContrastColor(hex){
+      const r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
+      const L=(0.299*r+0.587*g+0.114*b)/255; return L>0.5?'black':'white';
     }
+    function parseVoteValue(v){ if(typeof v==='string'){ v=v.replace(/[\.,]/g,'') } return parseInt(v) }
+    function parseThresholdValue(v){ if(typeof v==='string'){ v=v.replace(',','.') } return parseFloat(v) }
+    function generateRandomColor(){ const letters='0123456789ABCDEF'; let c='#'; for(let i=0;i<6;i++){ c+=letters[Math.floor(Math.random()*16)] } return c }
 
-    function hexToRgba(hex, alpha) {
-        const r = parseInt(hex.slice(1, 3), 16);
-        const g = parseInt(hex.slice(3, 5), 16);
-        const b = parseInt(hex.slice(5, 7), 16);
-        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-    }
+    function moveElement(element,direction){
+      const mainContainer = $('#main-container');
+      const parent = element.parentNode;
+      const isElementInAlliance = parent.classList.contains('alliance-parties-container');
 
-    function parseVoteValue(value) {
-        if (typeof value === 'string') {
-            value = value.replace(/[\.,]/g, '');
-        }
-        return parseInt(value);
-    }
-    
-    function parseThresholdValue(value) {
-        if (typeof value === 'string') {
-            value = value.replace(',', '.');
-        }
-        return parseFloat(value);
-    }
-
-    function generateRandomColor() {
-        const letters = '0123456789ABCDEF';
-        let color = '#';
-        for (let i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-    }
-
-    function addParty(name = '', votes = '', color = generateRandomColor()) {
-        const div = document.createElement('div');
-        div.className = 'party-entry';
-        div.draggable = true;
-        div.innerHTML = `
-            <div class="grip-handle">⠿</div>
-            <input type="text" placeholder="Parti Adı" value="${name}" class="party-name">
-            <input type="text" placeholder="Oy Sayısı" value="${votes}" class="party-votes">
-            <div class="party-color-group">
-                <input type="color" class="party-color-picker" value="${color}">
-                <input type="text" class="party-color-hex" value="${color}" placeholder="#RRGGBB" maxlength="7">
-            </div>
-            <button type="button" onclick="this.parentNode.remove(); calculate();">X</button>
-        `;
-        div.querySelector('.party-name').addEventListener('input', calculate);
-        div.querySelector('.party-votes').addEventListener('input', calculate);
-
-        const colorPicker = div.querySelector('.party-color-picker');
-        const hexInput = div.querySelector('.party-color-hex');
-
-        colorPicker.addEventListener('input', () => {
-            hexInput.value = colorPicker.value;
-            calculate();
-        });
-
-        hexInput.addEventListener('input', () => {
-            let hexValue = hexInput.value.trim();
-            if (!hexValue.startsWith('#')) {
-                hexValue = '#' + hexValue;
+      if(direction==='up'){
+        const siblings = Array.from(parent.children).filter(el=>el.nodeType===1);
+        const index = siblings.indexOf(element);
+        if(isElementInAlliance){
+          if(index>0){ parent.insertBefore(element, siblings[index-1]) }
+          else{
+            const alliance = parent.closest('.alliance-entry');
+            mainContainer.insertBefore(element, alliance);
+            element.dataset.allianceId = 'null';
+          }
+        }else{
+          const siblingsInMain = Array.from(mainContainer.children).filter(el=>el.nodeType===1);
+          const indexInMain = siblingsInMain.indexOf(element);
+          if(indexInMain>0){
+            const prevSibling = siblingsInMain[indexInMain-1];
+            if(element.dataset.type==='party' && prevSibling.dataset.type==='alliance'){
+              prevSibling.querySelector('.alliance-parties-container').appendChild(element);
+              element.dataset.allianceId = prevSibling.dataset.allianceId;
+            }else{
+              mainContainer.insertBefore(element, prevSibling);
             }
-            if (/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(hexValue)) {
-                colorPicker.value = hexValue;
-                calculate();
+          }
+        }
+      }else{
+        const siblings = Array.from(parent.children).filter(el=>el.nodeType===1);
+        const index = siblings.indexOf(element);
+        const mainChildren = Array.from($('#main-container').children).filter(el=>el.nodeType===1);
+
+        if(isElementInAlliance){
+          if(index < siblings.length-1){ parent.insertBefore(element, siblings[index+1].nextSibling) }
+          else{
+            const alliance = parent.closest('.alliance-entry');
+            const indexInMain = mainChildren.indexOf(alliance);
+            if(indexInMain < mainChildren.length-1){
+              mainContainer.insertBefore(element, mainChildren[indexInMain+1]);
+              element.dataset.allianceId = 'null';
+            }else{
+              mainContainer.appendChild(element);
+              element.dataset.allianceId = 'null';
             }
-        });
-        
-        div.addEventListener('dragstart', (e) => {
-            draggedItem = div;
-            setTimeout(() => {
-                div.classList.add('dragging');
-            }, 0);
-        });
-
-        div.addEventListener('dragend', () => {
-            draggedItem.classList.remove('dragging');
-            draggedItem = null;
-        });
-
-        const partiesContainer = document.getElementById('parties');
-        partiesContainer.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            const afterElement = getDragAfterElement(partiesContainer, e.clientY);
-            const currentDrag = document.querySelector('.dragging');
-            if (afterElement == null) {
-                partiesContainer.appendChild(currentDrag);
-            } else {
-                partiesContainer.insertBefore(currentDrag, afterElement);
+          }
+        }else{
+          const indexInMain = mainChildren.indexOf(element);
+          if(indexInMain < mainChildren.length-1){
+            const nextSibling = mainChildren[indexInMain+1];
+            if(element.dataset.type==='party' && nextSibling.dataset.type==='alliance'){
+              nextSibling.querySelector('.alliance-parties-container').appendChild(element);
+              element.dataset.allianceId = nextSibling.dataset.allianceId;
+            }else{
+              mainContainer.insertBefore(element, nextSibling.nextSibling);
             }
+          }
+        }
+      }
+      calculate();
+    }
+
+    function addIndependent(name='',votes='',color=generateRandomColor()){
+      const div=document.createElement('div');
+      div.className='independent-entry'; div.dataset.type='independent';
+      div.innerHTML=`
+        <div class="move-control">
+          <div class="move-control-up"><img src="icon/up.svg" alt="Yukarı"></div>
+          <div class="move-control-down"><img src="icon/down.svg" alt="Aşağı"></div>
+        </div>
+        <input type="text" placeholder="Bağımsız Aday Adı" value="${name}" class="party-name">
+        <input type="text" placeholder="Oy Sayısı" value="${votes}" class="party-votes">
+        <div class="party-color-group">
+          <input type="color" class="party-color-picker" value="${color}">
+          <input type="text" class="party-color-hex" value="${color}" placeholder="#RRGGBB" maxlength="7">
+        </div>
+        <button type="button" onclick="this.closest('.independent-entry').remove(); calculate();">X</button>
+      `;
+      div.querySelectorAll('input').forEach(i=>i.addEventListener('input',calculate));
+      div.querySelector('.move-control-up').addEventListener('click',()=>moveElement(div,'up'));
+      div.querySelector('.move-control-down').addEventListener('click',()=>moveElement(div,'down'));
+
+      const picker=div.querySelector('.party-color-picker'), hex=div.querySelector('.party-color-hex');
+      picker.addEventListener('input',()=>{ hex.value=picker.value; calculate() });
+      hex.addEventListener('input',()=>{
+        let val=hex.value.trim(); if(!val.startsWith('#')) val='#'+val;
+        if(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(val)){ picker.value=val; calculate() }
+      });
+
+      $('#main-container').appendChild(div);
+      calculate();
+    }
+
+    function addParty(name='',votes='',color=generateRandomColor(),parentId=null){
+      if(parentId==='null' || !parentId) parentId=null;
+      const div=document.createElement('div');
+      div.className='party-entry'; div.dataset.allianceId=parentId; div.dataset.type='party';
+      div.innerHTML=`
+        <div class="move-control">
+          <div class="move-control-up"><img src="icon/up.svg" alt="Yukarı"></div>
+          <div class="move-control-down"><img src="icon/down.svg" alt="Aşağı"></div>
+        </div>
+        <input type="text" placeholder="Parti Adı" value="${name}" class="party-name">
+        <input type="text" placeholder="Oy Sayısı" value="${votes}" class="party-votes">
+        <div class="party-color-group">
+          <input type="color" class="party-color-picker" value="${color}">
+          <input type="text" class="party-color-hex" value="${color}" placeholder="#RRGGBB" maxlength="7">
+        </div>
+        <button type="button" onclick="this.closest('.party-entry').remove(); calculate();">X</button>
+      `;
+      div.querySelectorAll('input').forEach(i=>i.addEventListener('input',calculate));
+      div.querySelector('.move-control-up').addEventListener('click',()=>moveElement(div,'up'));
+      div.querySelector('.move-control-down').addEventListener('click',()=>moveElement(div,'down'));
+
+      const picker=div.querySelector('.party-color-picker'), hex=div.querySelector('.party-color-hex');
+      picker.addEventListener('input',()=>{ hex.value=picker.value; calculate() });
+      hex.addEventListener('input',()=>{
+        let val=hex.value.trim(); if(!val.startsWith('#')) val='#'+val;
+        if(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(val)){ picker.value=val; calculate() }
+      });
+
+      const parentContainer = parentId ? document.getElementById(parentId).querySelector('.alliance-parties-container')
+                                       : $('#main-container');
+      parentContainer.appendChild(div);
+      calculate();
+    }
+
+    function addAlliance(name='',id=null){
+      if(!id) id=`alliance-${Date.now()}`;
+      const div=document.createElement('div');
+      div.className='alliance-entry'; div.dataset.allianceId=id; div.dataset.type='alliance'; div.id=id;
+      div.innerHTML=`
+        <div class="alliance-header">
+          <div class="move-control">
+            <div class="move-control-up"><img src="icon/up.svg" alt="Yukarı"></div>
+            <div class="move-control-down"><img src="icon/down.svg" alt="Aşağı"></div>
+          </div>
+          <input type="text" class="alliance-name" placeholder="İttifak Adı" value="${name}">
+          <button type="button" class="delete-btn" onclick="this.closest('.alliance-entry').remove(); calculate();">X</button>
+        </div>
+        <div class="alliance-parties-container"></div>
+      `;
+      div.querySelector('.alliance-name').addEventListener('input',calculate);
+      div.querySelector('.move-control-up').addEventListener('click',()=>moveElement(div,'up'));
+      div.querySelector('.move-control-down').addEventListener('click',()=>moveElement(div,'down'));
+      $('#main-container').appendChild(div);
+      calculate();
+    }
+
+    function calculate(){
+      $('#methodSubtitle').textContent = `${METHODS[currentMethodIndex]} Yöntemi`;
+
+      const seats = parseInt($('#totalSeats').value);
+      const totalVotes = Array.from(document.querySelectorAll('.party-entry .party-votes, .independent-entry .party-votes'))
+        .reduce((sum,input)=>{ const v=parseVoteValue(input.value); return sum+(isNaN(v)?0:v) },0);
+
+      if(isNaN(seats) || seats<=0 || totalVotes===0){ $('#output').innerHTML=""; return }
+
+      const threshold = isThresholdEnabled ? parseThresholdValue($('#thresholdInput').value) : 0;
+      const eligibleParties = [];
+      const allCandidates = [];
+
+      document.querySelectorAll('.party-entry').forEach(entry=>{
+        const name=entry.querySelector('.party-name').value.trim();
+        const votes=parseVoteValue(entry.querySelector('.party-votes').value);
+        const color=entry.querySelector('.party-color-picker').value;
+        const allianceId=entry.dataset.allianceId;
+        if(name && !isNaN(votes) && votes>=0){ allCandidates.push({name,votes,color,seats:0,allianceId,type:'party'}) }
+      });
+
+      document.querySelectorAll('.independent-entry').forEach(entry=>{
+        const name=entry.querySelector('.party-name').value.trim();
+        const votes=parseVoteValue(entry.querySelector('.party-votes').value);
+        const color=entry.querySelector('.party-color-picker').value;
+        if(name && !isNaN(votes) && votes>=0){ allCandidates.push({name,votes,color,seats:0,type:'independent'}) }
+      });
+
+      const alliances={};
+      document.querySelectorAll('.alliance-entry').forEach(allianceDiv=>{
+        const id=allianceDiv.dataset.allianceId;
+        const name=allianceDiv.querySelector('.alliance-name').value.trim();
+        alliances[id]={name,votes:0,parties:[]};
+      });
+
+      allCandidates.forEach(p=>{
+        if(p.type==='party' && p.allianceId!=='null' && alliances[p.allianceId]){
+          alliances[p.allianceId].votes+=p.votes;
+          alliances[p.allianceId].parties.push(p);
+        }
+      });
+
+      allCandidates.forEach(p=>{
+        if(p.type==='independent'){
+          if((p.votes/totalVotes)*100 >= threshold){ eligibleParties.push(p) }
+        }else{
+          const alliance=alliances[p.allianceId];
+          if(alliance){
+            const aPerc=(alliance.votes/totalVotes)*100;
+            if(aPerc>=threshold){ eligibleParties.push(p) }
+          }else if(((p.votes/totalVotes)*100)>=threshold){ eligibleParties.push(p) }
+        }
+      });
+
+      let finalResults;
+      if(METHODS[currentMethodIndex]==="Hare Kotası"){ finalResults=calculateHare(eligibleParties,seats,totalVotes) }
+      else if(METHODS[currentMethodIndex]==="D'Hondt"){ finalResults=calculateDhondt(eligibleParties,seats) }
+      else if(METHODS[currentMethodIndex]==="Sainte-Laguë"){ finalResults=calculateSainteLague(eligibleParties,seats) }
+      else { finalResults=calculateProportionalPlus(eligibleParties,seats) }
+
+      let out='<h2>Sonuçlar</h2><ul>';
+      const allResults = allCandidates.map(p=>finalResults.find(r=>r.name===p.name) ?? {...p,seats:0});
+      const sorted = allResults.sort((a,b)=>b.votes-a.votes);
+
+      for(const r of sorted){
+        const percentage=((r.votes/totalVotes)*100).toFixed(2);
+        const initial=r.name.charAt(0).toUpperCase();
+        const initialColor=getContrastColor(r.color);
+        out+=`<li style="border-left:5px solid ${r.color};">
+                <div class="party-info">
+                  <div class="party-initial" style="background-color:${r.color};color:${initialColor};">${initial}</div>
+                  <span><strong>${r.name}</strong> (${percentage}%)</span>
+                </div>
+                <span class="seat-count">${r.seats} Koltuk</span>
+              </li>`;
+      }
+      out+='</ul>';
+      out+=`<div class="total-votes">Toplam Oy: ${totalVotes.toLocaleString()}</div>`;
+      $('#output').innerHTML=out;
+    }
+
+    function calculateHare(parties,seats,totalVotes){
+      const quota=totalVotes/seats;
+      let allocatedSeats=0;
+      const results = parties.map(p=>{
+        const raw=p.votes/quota;
+        const whole=Math.floor(raw);
+        allocatedSeats+=whole;
+        return {...p,seats:whole,remainder:raw-whole};
+      });
+      let remaining=seats-allocatedSeats;
+      results.sort((a,b)=>b.remainder-a.remainder);
+      for(let i=0;i<remaining;i++){ if(results[i]) results[i].seats++ }
+      return results;
+    }
+    function calculateDhondt(parties,seats){
+      const results=parties.map(p=>({...p,seats:0}));
+      for(let i=0;i<seats;i++){
+        let maxQ=-1, win=-1;
+        results.forEach((p,idx)=>{ const q=p.votes/(p.seats+1); if(q>maxQ){ maxQ=q; win=idx } });
+        if(win!==-1) results[win].seats++;
+      }
+      return results;
+    }
+    function calculateSainteLague(parties,seats){
+      const results=parties.map(p=>({...p,seats:0}));
+      for(let i=0;i<seats;i++){
+        let maxQ=-1, win=-1;
+        results.forEach((p,idx)=>{ const q=p.votes/(2*p.seats+1); if(q>maxQ){ maxQ=q; win=idx } });
+        if(win!==-1) results[win].seats++;
+      }
+      return results;
+    }
+    function calculateProportionalPlus(parties,seats){
+      const results=parties.map(p=>({...p,seats:0}));
+      for(let i=0;i<seats;i++){
+        let maxQ=-1, win=-1;
+        results.forEach((p,idx)=>{ const q=p.votes/(1+p.seats*p.seats); if(q>maxQ){ maxQ=q; win=idx } });
+        if(win!==-1) results[win].seats++;
+      }
+      return results;
+    }
+
+    function downloadResults(){
+      const totalSeats=$('#totalSeats').value;
+      const thresholdStatus=isThresholdEnabled?'Açık':'Kapalı';
+      const thresholdValue=isThresholdEnabled?$('#thresholdInput').value:'';
+      const calculationMethod=METHODS[currentMethodIndex];
+      const themeName = THEMES[themeIndex].key;
+
+      let content=`Toplam Koltuk Sayısı: ${totalSeats}\n`;
+      content+=`Baraj Durumu: ${thresholdStatus}${thresholdValue?`, ${thresholdValue}`:''}\n`;
+      content+=`Hesaplama Yöntemi: ${calculationMethod}\n`;
+      content+=`Tema: ${themeName}\n`;
+      content+='---\n';
+
+      document.querySelectorAll('#main-container > div').forEach(container=>{
+        if(container.classList.contains('alliance-entry')){
+          const allianceName=container.querySelector('.alliance-name').value.trim();
+          const allianceId=container.dataset.allianceId;
+          content+=`Alliance|${allianceName}|${allianceId}\n`;
+          container.querySelectorAll('.party-entry').forEach(entry=>{
+            const name=entry.querySelector('.party-name').value.trim();
+            const votes=entry.querySelector('.party-votes').value;
+            const color=entry.querySelector('.party-color-picker').value;
+            if(name && votes){ content+=`  Party|${name}|${votes}|${color}|${allianceId}\n` }
+          });
+        }else if(container.classList.contains('party-entry')){
+          const name=container.querySelector('.party-name').value.trim();
+          const votes=container.querySelector('.party-votes').value;
+          const color=container.querySelector('.party-color-picker').value;
+          if(name && votes){ content+=`Party|${name}|${votes}|${color}\n` }
+        }else if(container.classList.contains('independent-entry')){
+          const name=container.querySelector('.party-name').value.trim();
+          const votes=container.querySelector('.party-votes').value;
+          const color=container.querySelector('.party-color-picker').value;
+          if(name && votes){ content+=`Independent|${name}|${votes}|${color}\n` }
+        }
+      });
+
+      const blob=new Blob([content],{type:'text/plain;charset=utf-8'});
+      const url=URL.createObjectURL(blob);
+      const link=document.createElement('a'); link.href=url; link.download='koltuk-hesaplayici-sonuclar.txt'; link.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function uploadResults(event){
+      const file=event.target.files[0]; if(!file) return;
+      const reader=new FileReader();
+      reader.onload=e=>{
+        const lines=e.target.result.split('\n').filter(line=>line.trim()!=='');
+        $('#main-container').innerHTML='';
+        const partiesByAlliance={};
+
+        // Toplam koltuk
+        if(lines.length>0 && lines[0].startsWith('Toplam Koltuk Sayısı:')){
+          $('#totalSeats').value = lines.shift().split(':')[1].trim();
+        }
+        // Baraj
+        if(lines.length>0 && lines[0].startsWith('Baraj Durumu:')){
+          const parts=lines.shift().split(':')[1].trim().split(',').map(p=>p.trim());
+          const status=parts[0]; const value=parts[1]||'';
+          isThresholdEnabled=(status==='Açık');
+          if(isThresholdEnabled){
+            $('#thresholdButton').textContent='Baraj: Açık'; $('#thresholdButton').classList.add('active');
+            $('#thresholdInput').disabled=false; $('#thresholdInput').value=value;
+          }else{
+            $('#thresholdButton').textContent='Baraj: Kapalı'; $('#thresholdButton').classList.remove('active');
+            $('#thresholdInput').disabled=true; storedThresholdValue=value;
+          }
+        }
+        // Metod
+        if(lines.length>0 && lines[0].startsWith('Hesaplama Yöntemi:')){
+          const methodName=lines.shift().split(':')[1].trim();
+          const idx=METHODS.indexOf(methodName);
+          if(idx!==-1){ currentMethodIndex=idx; $('#methodButton').textContent=METHODS[currentMethodIndex] }
+        }
+        // Tema
+        if(lines.length>0 && lines[0].startsWith('Tema:')){
+          const themeName = lines.shift().split(':')[1].trim();
+          const idx = THEMES.findIndex(t=> t.key === themeName);
+          if(idx>=0){ themeIndex=idx; applyThemeByIndex(themeIndex) }
+        }
+
+        if(lines.length>0 && lines[0]==='---'){ lines.shift() }
+
+        // Kalan satırlar: name|votes|color veya etiketli satırlar
+        lines.forEach(line=>{
+          const parts=line.split('|').map(p=>p.trim());
+          if(parts[0]==='Alliance' && parts.length>=3){
+            const allianceName=parts[1]; const allianceId=parts[2];
+            addAlliance(allianceName,allianceId);
+          }else if(parts[0]==='Party' && parts.length>=4){
+            const name=parts[1]; const votes=parts[2]; const color=parts[3]||'#808080';
+            addParty(name,votes,color);
+          }else if(parts[0]==='Independent' && parts.length>=4){
+            const name=parts[1]; const votes=parts[2]; const color=parts[3]||'#808080';
+            addIndependent(name,votes,color);
+          }else if(parts.length>=2 && parts[0] && /^\d+$/.test(parts[1])){
+            const name=parts[0]; const votes=parts[1]; const color=parts[2]||'#808080';
+            addParty(name,votes,color);
+          }
         });
 
-        document.getElementById('parties').appendChild(div);
         calculate();
+      };
+      reader.readAsText(file);
     }
 
-    function getDragAfterElement(container, y) {
-        const draggableElements = [...container.querySelectorAll('.party-entry:not(.dragging)')];
-        return draggableElements.reduce((closest, child) => {
-            const box = child.getBoundingClientRect();
-            const offset = y - box.top - box.height / 2;
-            if (offset < 0 && offset > closest.offset) {
-                return { offset: offset, element: child };
-            } else {
-                return closest;
-            }
-        }, { offset: Number.NEGATIVE_INFINITY }).element;
-    }
+    // ==== Olaylar & Başlangıç ====
+    document.addEventListener('DOMContentLoaded', ()=>{
+      // Tema
+      document.getElementById('themeButton').addEventListener('click',()=>{
+        themeIndex=(themeIndex+1)%THEMES.length;
+        applyThemeByIndex(themeIndex);
+      });
+      applyThemeByIndex(themeIndex);
 
-    function calculate() {
-        methodSubtitle.textContent = `${methods[currentMethodIndex]} Yöntemi`;
-
-        const seats = parseInt(document.getElementById('totalSeats').value);
-        const partyEntries = document.getElementsByClassName('party-entry');
-        const allParties = [];
-        let totalVotes = 0;
-
-        Array.from(partyEntries).forEach(entry => {
-            const name = entry.querySelector('.party-name').value.trim();
-            const votes = parseVoteValue(entry.querySelector('.party-votes').value);
-            const color = entry.querySelector('.party-color-picker').value;
-
-            if (!name || isNaN(votes) || votes < 0) return;
-
-            totalVotes += votes;
-            allParties.push({ name, votes, color, seats: 0 });
+      // Device: OS teması değişirse ikon ve renkleri güncelle
+      if(prefersDark){
+        prefersDark.addEventListener?.('change', ()=>{
+          const t = THEMES[themeIndex];
+          if(t.device){ setCSSVars(computeDeviceVars(t)); calculate(); }
         });
+      }
 
-        if (isNaN(seats) || seats <= 0 || totalVotes === 0) {
-            document.getElementById('output').innerHTML = "";
-            return;
-        }
-
-        const threshold = isThresholdEnabled ? parseThresholdValue(thresholdInput.value) : 0;
-        const eligibleParties = [];
-        allParties.forEach(p => {
-            const percentage = (p.votes / totalVotes) * 100;
-            p.percentage = percentage;
-            if (percentage >= threshold) {
-                eligibleParties.push(p);
-            }
-        });
-
-        let finalResults;
-        if (methods[currentMethodIndex] === 'Hare Kotası') {
-            finalResults = calculateHare(eligibleParties, seats, totalVotes);
-        } else if (methods[currentMethodIndex] === 'D\'Hondt') {
-            finalResults = calculateDhondt(eligibleParties, seats);
-        } else if (methods[currentMethodIndex] === 'Sainte-Laguë') {
-            finalResults = calculateSainteLague(eligibleParties, seats);
-        } else if (methods[currentMethodIndex] === 'Proportional Plus') {
-            finalResults = calculateProportionalPlus(eligibleParties, seats);
-        }
-
-
-        let out = '<h2>Sonuçlar</h2><ul>';
-
-        const allResults = allParties.map(p => {
-            const found = finalResults.find(r => r.name === p.name);
-            return found ? found : p;
-        });
-
-        const sortedResults = allResults.sort((a, b) => b.votes - a.votes);
-
-        for (const r of sortedResults) {
-            const percentage = ((r.votes / totalVotes) * 100).toFixed(2);
-            const shadowColor = hexToRgba(r.color, 0.4);
-            const initial = r.name.charAt(0).toUpperCase();
-            const initialColor = getContrastColor(r.color);
-
-            out += `<li style="border-left: 5px solid ${r.color};">
-                      <div class="party-info">
-                          <div class="party-initial" style="background-color: ${r.color}; color: ${initialColor};">${initial}</div>
-                          <span><strong>${r.name}</strong> (${percentage}%)</span>
-                      </div>
-                      <span class="seat-count">${r.seats} Koltuk</span>
-                    </li>`;
-        }
-        out += '</ul>';
-        out += `<div class="total-votes">Toplam Oy: ${totalVotes.toLocaleString()}</div>`;
-        document.getElementById('output').innerHTML = out;
-    }
-
-    function calculateHare(parties, seats, totalVotes) {
-        const quota = totalVotes / seats;
-        let allocatedVotes = parties.reduce((sum, p) => sum + p.votes, 0);
-        let allocatedSeats = 0;
-        const results = parties.map(p => {
-            const raw = p.votes / (allocatedVotes / seats);
-            const whole = Math.floor(raw);
-            allocatedSeats += whole;
-            return { ...p, seats: whole, remainder: raw - whole };
-        });
-
-        let remainingSeats = seats - allocatedSeats;
-        results.sort((a, b) => b.remainder - a.remainder);
-        for (let i = 0; i < remainingSeats; i++) {
-            if (results[i]) {
-                results[i].seats++;
-            }
-        }
-        return results;
-    }
-
-    function calculateDhondt(parties, seats) {
-        const results = parties.map(p => ({ ...p, seats: 0, divisors: [] }));
-        for (let i = 0; i < seats; i++) {
-            let maxQuotient = 0;
-            let winningPartyIndex = -1;
-
-            results.forEach((p, index) => {
-                const divisor = p.seats + 1;
-                const quotient = p.votes / divisor;
-                if (quotient > maxQuotient) {
-                    maxQuotient = quotient;
-                    winningPartyIndex = index;
-                }
-            });
-
-            if (winningPartyIndex !== -1) {
-                results[winningPartyIndex].seats++;
-            }
-        }
-        return results;
-    }
-
-    function calculateSainteLague(parties, seats) {
-        const results = parties.map(p => ({ ...p, seats: 0, divisors: [] }));
-        for (let i = 0; i < seats; i++) {
-            let maxQuotient = 0;
-            let winningPartyIndex = -1;
-
-            results.forEach((p, index) => {
-                const divisor = 2 * p.seats + 1;
-                const quotient = p.votes / divisor;
-                if (quotient > maxQuotient) {
-                    maxQuotient = quotient;
-                    winningPartyIndex = index;
-                }
-            });
-
-            if (winningPartyIndex !== -1) {
-                results[winningPartyIndex].seats++;
-            }
-        }
-        return results;
-    }
-    
-    function calculateProportionalPlus(parties, seats) {
-        const results = parties.map(p => ({ ...p, seats: 0, divisors: [] }));
-        for (let i = 0; i < seats; i++) {
-            let maxQuotient = 0;
-            let winningPartyIndex = -1;
-
-            results.forEach((p, index) => {
-                const divisor = 1 + p.seats * p.seats;
-                const quotient = p.votes / divisor;
-                if (quotient > maxQuotient) {
-                    maxQuotient = quotient;
-                    winningPartyIndex = index;
-                }
-            });
-
-            if (winningPartyIndex !== -1) {
-                results[winningPartyIndex].seats++;
-            }
-        }
-        return results;
-    }
-
-    function applyTheme(theme) {
-        document.body.className = '';
-        currentThemeName = theme;
-        if (theme === 'light') {
-            document.body.classList.add('light-mode');
-        } else if (theme === 'dark') {
-            document.body.classList.add('dark-mode');
-        } else if (theme === 'oled') {
-            document.body.classList.add('oled-theme');
-        } else if (theme === 'device') {
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-                document.body.classList.add('light-mode');
-            }
-        } else {
-            document.body.classList.add(theme + '-theme');
-        }
-        themeButton.textContent = themeButtonLabels[theme];
+      // Metod butonu
+      document.getElementById('methodButton').addEventListener('click', ()=>{
+        currentMethodIndex = (currentMethodIndex + 1) % METHODS.length;
+        document.getElementById('methodButton').textContent = METHODS[currentMethodIndex];
         calculate();
-    }
+      });
 
-    function downloadResults() {
-        const totalSeats = document.getElementById('totalSeats').value;
-        const thresholdStatus = isThresholdEnabled ? 'Açık' : 'Kapalı';
-        const thresholdValue = isThresholdEnabled ? thresholdInput.value : '';
-        const calculationMethod = methods[currentMethodIndex];
-        const themeToSave = currentThemeName;
-
-        let content = `Toplam Koltuk Sayısı: ${totalSeats}\n`;
-        content += `Baraj Durumu: ${thresholdStatus}${thresholdValue ? ', ' + thresholdValue : ''}\n`;
-        content += `Hesaplama Yöntemi: ${calculationMethod}\n`;
-        content += `Tema: ${themeToSave}\n`;
-        content += '---\n';
-
-        const partyEntries = document.getElementsByClassName('party-entry');
-        Array.from(partyEntries).forEach(entry => {
-            const name = entry.querySelector('.party-name').value.trim();
-            const votes = entry.querySelector('.party-votes').value;
-            const color = entry.querySelector('.party-color-picker').value;
-            if (name && votes) {
-                content += `${name}|${votes}|${color}\n`;
-            }
-        });
-
-        const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'koltuk-hesaplayici-sonuclar.txt';
-        link.click();
-        URL.revokeObjectURL(url);
-    }
-
-    function uploadResults(event) {
-        const file = event.target.files[0];
-        if (!file) {
-            return;
+      // Baraj
+      document.getElementById('thresholdButton').addEventListener('click',()=>{
+        isThresholdEnabled=!isThresholdEnabled;
+        if(isThresholdEnabled){
+          document.getElementById('thresholdButton').textContent='Baraj: Açık';
+          document.getElementById('thresholdButton').classList.add('active');
+          document.getElementById('thresholdInput').disabled=false;
+          document.getElementById('thresholdInput').value=storedThresholdValue;
+        }else{
+          document.getElementById('thresholdButton').textContent='Baraj: Kapalı';
+          document.getElementById('thresholdButton').classList.remove('active');
+          document.getElementById('thresholdInput').disabled=true;
+          storedThresholdValue=document.getElementById('thresholdInput').value;
+          document.getElementById('thresholdInput').value=''; // kapatınca değeri sıfırla
         }
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const content = e.target.result;
-            const lines = content.split('\n').filter(line => line.trim() !== '');
+        calculate();
+      });
 
-            if (lines.length > 0) {
-                const seatsLine = lines.shift();
-                if (seatsLine.startsWith('Toplam Koltuk Sayısı:')) {
-                    const totalSeats = seatsLine.split(':')[1].trim();
-                    document.getElementById('totalSeats').value = totalSeats;
-                }
-            }
+      // Form
+      document.getElementById('totalSeats').addEventListener('input',calculate);
+      document.getElementById('thresholdInput').addEventListener('input',calculate);
 
-            if (lines.length > 0) {
-                const thresholdLine = lines.shift();
-                if (thresholdLine.startsWith('Baraj Durumu:')) {
-                    const thresholdParts = thresholdLine.split(':')[1].trim().split(',').map(p => p.trim());
-                    const status = thresholdParts[0];
-                    const value = thresholdParts[1] || '0';
+      // Ekleme butonları
+      document.getElementById('addPartyBtn').addEventListener('click',()=>addParty());
+      document.getElementById('addIndBtn').addEventListener('click',()=>addIndependent());
+      document.getElementById('addAllBtn').addEventListener('click',()=>addAlliance());
 
-                    isThresholdEnabled = (status === 'Açık');
-                    if (isThresholdEnabled) {
-                        thresholdButton.textContent = 'Baraj: Açık';
-                        thresholdButton.classList.add('active');
-                        thresholdInput.disabled = false;
-                        thresholdInput.value = value;
-                    } else {
-                        thresholdButton.textContent = 'Baraj: Kapalı';
-                        thresholdButton.classList.remove('active');
-                        thresholdInput.disabled = true;
-                        storedThresholdValue = value;
-                    }
-                }
-            }
+      // Dosya işlemleri
+      document.getElementById('dlBtn').addEventListener('click',downloadResults);
+      document.getElementById('ulBtn').addEventListener('click',()=>document.getElementById('fileInput').click());
+      document.getElementById('fileInput').addEventListener('change',uploadResults);
 
-            if (lines.length > 0) {
-                const methodLine = lines.shift();
-                if (methodLine.startsWith('Hesaplama Yöntemi:')) {
-                    const methodName = methodLine.split(':')[1].trim();
-                    const methodIndex = methods.indexOf(methodName);
-                    if (methodIndex !== -1) {
-                        currentMethodIndex = methodIndex;
-                        methodButton.textContent = methods[currentMethodIndex];
-                    }
-                }
-            }
-
-            if (lines.length > 0) {
-                const themeLine = lines.shift();
-                if (themeLine.startsWith('Tema:')) {
-                    const themeName = themeLine.split(':')[1].trim();
-                    applyTheme(themeName);
-                    currentThemeIndex = themes.indexOf(themeName);
-                }
-            }
-
-            if (lines.length > 0 && lines[0] === '---') {
-                lines.shift();
-            }
-
-            document.getElementById('parties').innerHTML = '';
-
-            lines.forEach(line => {
-                const parts = line.split('|').map(part => part.trim());
-                if (parts.length >= 2) {
-                    const name = parts[0];
-                    const votes = parts[1];
-                    const color = parts[2] || '#808080';
-                    addParty(name, votes, color);
-                }
-            });
-        };
-        reader.readAsText(file);
-    }
-
-    document.getElementById('totalSeats').addEventListener('input', calculate);
-    thresholdInput.addEventListener('input', calculate);
-
-    themeButton.addEventListener('click', () => {
-        currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-        const newTheme = themes[currentThemeIndex];
-        applyTheme(newTheme);
+      // Artık başlangıçta otomatik satır eklenmiyor → tüm kutular boş
+      // addParty();  // kaldırıldı
     });
-
-    methodButton.addEventListener('click', () => {
-        currentMethodIndex = (currentMethodIndex + 1) % methods.length;
-        methodButton.textContent = methods[currentMethodIndex];
-        calculate();
-    });
-
-    thresholdButton.addEventListener('click', () => {
-        isThresholdEnabled = !isThresholdEnabled;
-        if (isThresholdEnabled) {
-            thresholdButton.textContent = 'Baraj: Açık';
-            thresholdButton.classList.add('active');
-            thresholdInput.disabled = false;
-            thresholdInput.value = storedThresholdValue;
-        } else {
-            thresholdButton.textContent = 'Baraj: Kapalı';
-            thresholdButton.classList.remove('active');
-            thresholdInput.disabled = true;
-            storedThresholdValue = thresholdInput.value;
-        }
-        calculate();
-    });
-
-    applyTheme('device');
-    thresholdInput.disabled = true;
-</script>
+  </script>
 </body>
 </html>
