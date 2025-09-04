@@ -56,11 +56,14 @@
     .btn-with-icon{display:inline-flex; align-items:center; gap:8px}
 
     .threshold-control{display:flex; align-items:center; gap:10px}
-    .threshold-input{width:80px; padding:12px; font-size:1.05em; box-sizing:border-box}
+    .threshold-input{width:80px; padding:14px; font-size:1.05em; box-sizing:border-box}
     .threshold-button{
-      padding:12px; border:1px solid var(--border-color); border-radius:10px; background:var(--input-bg);
-      color:var(--text-color); font-weight:600; cursor:pointer; transition:background-color .25s,border-color .25s; font-size:1.05em; width:150px;
+      padding:14px; border:1px solid var(--border-color); border-radius:10px; background:var(--input-bg);
+      color:var(--text-color); font-weight:600; cursor:pointer; transition:background-color .25s,border-color .25s; font-size:1.05em;
       display:inline-flex; align-items:center; gap:8px; justify-content:center;
+    }
+    .threshold-button span{
+      white-space: nowrap;
     }
     #limitedIndependentButton{
       width:220px;
@@ -776,7 +779,7 @@
         if(lines.length>0 && lines[0].startsWith('Hesaplama Yöntemi:')){
           const methodName=lines.shift().split(':')[1].trim();
           const idx=METHODS.indexOf(methodName);
-          if(idx!==-1){ currentMethodIndex=idx; document.getElementById('methodButtonText').textContent = METHODS[currentMethodIndex] }
+          if(idx!==-1){ currentMethodIndex=idx; document.getElementById('methodButtonText').textContent = METHODS[idx] }
         }
         if(lines.length>0 && lines[0].startsWith('Tema:')){
           const themeName = lines.shift().split(':')[1].trim();
