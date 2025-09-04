@@ -393,7 +393,7 @@
       const L=(0.299*r+0.587*g+0.114*b)/255; return L>0.5?'black':'white';
     }
     function parseVoteValue(v){ if(typeof v==='string'){ v=v.replace(/[\.,]/g,'') } return parseInt(v) }
-    function parseThresholdValue(v){ if(typeof v==='string'){ v=v.replace(',','.') } return parseFloat(v) }
+    function parseThresholdValue(v){ if(typeof v==='string'){ v=v.replace(',','.').replace('%','') } return parseFloat(v) }
     function generateRandomColor(){ const letters='0123456789ABCDEF'; let c='#'; for(let i=0;i<6;i++){ c+=letters[Math.floor(Math.random()*16)] } return c }
 
     function moveElement(element,direction){
