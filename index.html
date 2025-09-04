@@ -9,19 +9,27 @@
     @font-face{font-family:'Product Sans';src:url('font/ProductSans-Regular.ttf') format('truetype');font-weight:400;font-style:normal}
     @font-face{font-family:'Product Sans';src:url('font/ProductSans-Medium.ttf')  format('truetype');font-weight:500;font-style:normal}
     @font-face{font-family:'Product Sans';src:url('font/ProductSans-Bold.ttf')    format('truetype');font-weight:700;font-style:normal}
-    @font-face{font-family:'Product Sans';src:url('font/ProductSans-Black.ttf')   format('truetype');font-weight:900;font-style:normal}
     @font-face{font-family:'Product Sans';src:url('font/ProductSans-Light.ttf')   format('truetype');font-weight:300;font-style:normal}
     *{font-family:'Product Sans',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,sans-serif}
     button,input,select,textarea{font:inherit}
 
-    /* Varsayılan kök (Dark Neon tadında) + ikon filtresi */
+    /* Varsayılan kök (dark) + ikon filtresi */
     :root{
       --bg-color:#10121a; --card-bg:rgba(18,20,32,.92);
       --primary-color:#6a11cb; --secondary-color:#2575fc;
       --text-color:#f2f3f7; --border-color:rgba(255,255,255,.18);
       --input-bg:rgba(255,255,255,.08); --result-bg:rgba(255,255,255,.05);
       --button-bg:#3a3a58; --button-hover-bg:#4a4a6f;
-      --icon-filter: invert(1); /* koyu temalarda beyaz ikon */
+    }
+
+    /* Light Mode */
+    :root.light-mode{
+      --light-mode-secondary-text:#000;
+      --bg-color:#f7f7fb; --card-bg:rgba(255,255,255,.92);
+      --primary-color:#4e54c8; --secondary-color:#8f94fb;
+      --text-color:#1a1a1a; --border-color:rgba(0,0,0,.12);
+      --input-bg:rgba(0,0,0,.06); --result-bg:rgba(0,0,0,.03);
+      --button-bg:#e6e7ef; --button-hover-bg:#d8d9e6;
     }
 
     body{
@@ -39,15 +47,20 @@
     .top-btn{
       padding:8px 12px; border-radius:10px; background:var(--button-bg); color:var(--text-color);
       border:1px solid var(--border-color); font-size:.95em; cursor:pointer; transition:background-color .25s, transform .15s;
-      position:relative; z-index:1001
+      position:relative; z-index:1001; display:inline-flex; align-items:center; gap:8px;
     }
     .top-btn:hover{background:var(--button-hover-bg); transform:translateY(-1px)}
+    .icon{
+      width:18px; height:18px;
+    }
+    .btn-with-icon{display:inline-flex; align-items:center; gap:8px}
 
     .threshold-control{display:flex; align-items:center; gap:10px}
     .threshold-input{width:80px; padding:12px; font-size:1.05em; box-sizing:border-box}
     .threshold-button{
       padding:12px; border:1px solid var(--border-color); border-radius:10px; background:var(--input-bg);
-      color:var(--text-color); font-weight:600; cursor:pointer; transition:background-color .25s,border-color .25s; font-size:1.05em; width:150px
+      color:var(--text-color); font-weight:600; cursor:pointer; transition:background-color .25s,border-color .25s; font-size:1.05em; width:150px;
+      display:inline-flex; align-items:center; gap:8px; justify-content:center;
     }
     .threshold-button.active{background:var(--primary-color); border-color:var(--primary-color); color:#fff}
     .threshold-input:disabled{opacity:.55; cursor:not-allowed}
@@ -83,7 +96,6 @@
     }
     .alliance-header{display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; gap:10px}
     .alliance-header input{flex:1; font-weight:700; font-size:1.05em}
-    .alliance-header .delete-btn{background:#e74c3c}
     .alliance-parties-container{min-height:48px; display:flex; flex-direction:column; gap:10px}
 
     .party-name{flex:3}
@@ -95,25 +107,25 @@
     .move-control-up,.move-control-down{flex:1; display:flex; align-items:center; justify-content:center; cursor:pointer; width:100%; color:#fff; font-size:1.1em}
     .move-control-up{border-radius:10px 10px 0 0}
     .move-control-down{border-radius:0 0 10px 10px}
-    .move-control-up img,.move-control-down img{width:18px; height:18px; filter:var(--icon-filter)}
+    .move-control-up img,.move-control-down img{width:18px; height:18px;}
 
-    input[type="color"]{appearance:none; background:none; border:none; width:38px; height:38px; cursor:pointer; padding:0; border-radius:10px}
-    input[type="color"]::-webkit-color-swatch-wrapper{padding:0}
-    input[type="color"]::-webkit-color-swatch{border-radius:8px; border:2px solid var(--border-color)}
-    input[type="color"]::-moz-color-swatch{border-radius:8px; border:2px solid var(--border-color)}
-
-    .party-entry button,.independent-entry button,.alliance-entry .alliance-header button{
-      background:#e74c3c; color:#fff; border:none; padding:12px; border-radius:10px; width:40px; height:40px;
-      display:flex; justify-content:center; align-items:center; cursor:pointer; font-size:1.1em; transition:transform .15s, filter .2s
+    /* Kaldır butonu (tema renkleriyle) */
+    .delete-btn{
+      background:var(--primary-color); color:#fff; border:none; padding:10px 12px; border-radius:10px; width:42px; height:42px;
+      display:flex; justify-content:center; align-items:center; cursor:pointer; transition:transform .15s, filter .2s, background .2s
     }
-    .party-entry button:hover,.independent-entry button:hover,.alliance-entry .alliance-header button:hover{transform:scale(1.05); filter:brightness(1.05)}
+    .delete-btn:hover{transform:scale(1.05); filter:brightness(1.05)}
 
     .add-party-btn,.add-independent-btn,.add-alliance-btn{
       width:100%; background:var(--secondary-color); color:#fff; border:none; padding:14px; border-radius:12px;
-      cursor:pointer; font-size:1.05em; font-weight:700; transition:transform .15s, filter .2s; margin-top:8px
+      cursor:pointer; font-size:1.05em; font-weight:700; transition:transform .15s, filter .2s; margin-top:8px;
+      display:inline-flex; align-items:center; gap:8px; justify-content:center;
     }
     .add-party-btn:hover,.add-independent-btn:hover,.add-alliance-btn:hover{transform:translateY(-2px); filter:brightness(1.05)}
-
+    :root.light-mode .add-party-btn, :root.light-mode .add-independent-btn, :root.light-mode .add-alliance-btn {
+      color: var(--light-mode-secondary-text);
+    }
+    
     .results{margin-top:30px; background:var(--result-bg); padding:24px; border-radius:14px; border:1px solid var(--border-color); box-shadow:10px 10px 22px rgba(0,0,0,.22)}
     .results h2{
       margin:0 0 14px; font-size:1.7em; text-align:center;
@@ -133,7 +145,7 @@
     .file-buttons{display:flex; justify-content:center; gap:10px; margin-top:18px}
     .file-buttons button{
       padding:12px 18px; border-radius:10px; background:var(--button-bg); color:var(--text-color); border:1px solid var(--border-color);
-      font-size:.98em; cursor:pointer; transition:background-color .2s, transform .15s
+      font-size:.98em; cursor:pointer; transition:background-color .2s, transform .15s; display:inline-flex; align-items:center; gap:8px;
     }
     .file-buttons button:hover{background:var(--button-hover-bg); transform:translateY(-2px)}
     .file-buttons input{display:none}
@@ -165,10 +177,14 @@
 <body>
   <div class="top-bar">
     <div class="top-left">
-      <button id="themeButton" class="top-btn" title="Tema değiştir">🎨 Tema: Device</button>
+      <button id="themeButton" class="top-btn btn-with-icon" title="Tema">
+        <img src="icon/theme.svg" alt="" class="icon" data-icon-name="theme"><span>Tema</span>
+      </button>
     </div>
     <div class="top-right">
-      <button id="methodButton" class="top-btn" title="Hesaplama yöntemini değiştir">D'Hondt</button>
+      <button id="methodButton" class="top-btn btn-with-icon" title="Hesaplama yöntemini değiştir">
+        <img src="icon/settings.svg" alt="" class="icon" data-icon-name="settings"><span id="methodButtonText">D'Hondt</span>
+      </button>
     </div>
   </div>
 
@@ -180,62 +196,51 @@
       <div class="seats-threshold-group">
         <input type="text" id="totalSeats" placeholder="Koltuk Sayısı" value="">
         <div class="threshold-control">
-          <button id="thresholdButton" class="threshold-button">Baraj: Kapalı</button>
+          <button id="thresholdButton" class="threshold-button btn-with-icon">
+            <img src="icon/token.svg" alt="" class="icon" data-icon-name="token"><span id="thresholdLabel">Baraj: Kapalı</span>
+          </button>
           <input type="text" id="thresholdInput" class="threshold-input" placeholder="%" min="0" max="100" value="" disabled>
         </div>
       </div>
     </div>
 
     <div id="main-container"></div>
+
     <div class="action-buttons" style="display:flex; gap:10px; margin-top:10px;">
-      <button id="addPartyBtn" class="add-party-btn">Parti Ekle</button>
-      <button id="addIndBtn" class="add-independent-btn">Bağımsız Ekle</button>
-      <button id="addAllBtn" class="add-alliance-btn">İttifak Ekle</button>
+      <button id="addPartyBtn" class="add-party-btn">
+        <img src="icon/add.svg" alt="" class="icon" data-icon-name="add"><span>Parti Ekle</span>
+      </button>
+      <button id="addIndBtn" class="add-independent-btn">
+        <img src="icon/add.svg" alt="" class="icon" data-icon-name="add"><span>Bağımsız Ekle</span>
+      </button>
+      <button id="addAllBtn" class="add-alliance-btn">
+        <img src="icon/add.svg" alt="" class="icon" data-icon-name="add"><span>İttifak Ekle</span>
+      </button>
     </div>
 
     <div id="output" class="results"></div>
 
     <div class="file-buttons">
-      <button id="dlBtn">Sonuçları Kaydet</button>
-      <button id="ulBtn">Dosyadan Yükle</button>
+      <button id="dlBtn" class="btn-with-icon"><img src="icon/download.svg" alt="" class="icon" data-icon-name="download"><span>Sonuçları Kaydet</span></button>
+      <button id="ulBtn" class="btn-with-icon"><img src="icon/upload.svg" alt="" class="icon" data-icon-name="upload"><span>Dosyadan Yükle</span></button>
       <input type="file" id="fileInput" accept=".txt">
     </div>
   </div>
 
-  <a href="https://github.com/TriQue06/koltuk-hesap" target="_blank" class="github-button" rel="noopener">
-    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 5.08 5.4 5.4 0 0 0 19.95 3c-.15-.5-1.5-1.9-3.5-.79a7.35 7.35 0 0 0-4.44 0C8.5 1.1 7.15 2.5 7 3A5.4 5.4 0 0 0 6 5.08a5.44 5.44 0 0 0-1.5 3.77c0 5.43 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-    GitHub Kaynak
+  <a href="https://github.com/TriQue06/koltuk-hesap" target="_blank" class="github-button btn-with-icon" rel="noopener">
+    <img src="icon/github.svg" alt="GitHub" class="icon" data-icon-name="github">
+    GitHub
   </a>
 
   <script>
     /* ===== Tema Etiketleri ===== */
     const THEME_LABELS = {
-      device:'Device',
-      oled:'OLED',
-      light:'Açık',
-      dark:'Koyu',
-      retro:'Retro',
-      vaporwave:'Vaporwave',
-      forest:'Orman',
-      ocean:'Okyanus',
-      crimson:'Kızıl',
-      sunset:'Gün Batımı',
-      lavender:'Lavanta'
+      light:'Açık', dark:'Koyu', retro:'Retro', vaporwave:'Vaporwave', forest:'Orman',
+      ocean:'Okyanus', crimson:'Kızıl', sunset:'Gün Batımı'
     };
 
-    /* ===== Temalar (ton bilgisiyle) ===== */
+    /* ===== Temalar ===== */
     const THEMES = [
-      {key:"device", device:true, tone:"auto", light:{
-        bg:"#f7f7fb", card:"rgba(255,255,255,.92)", pri:"#4e54c8", sec:"#8f94fb", text:"#1a1a1a",
-        border:"rgba(0,0,0,.12)", input:"rgba(0,0,0,.06)", result:"rgba(0,0,0,.03)", btn:"#e6e7ef", btnH:"#d8d9e6"
-      }, dark:{
-        bg:"#10121a", card:"rgba(18,20,32,.92)", pri:"#6a11cb", sec:"#2575fc", text:"#f2f3f7",
-        border:"rgba(255,255,255,.18)", input:"rgba(255,255,255,.08)", result:"rgba(255,255,255,.05)", btn:"#3a3a58", btnH:"#4a4a6f"
-      }},
-      {key:"oled", tone:"dark", vars:{
-        bg:"#000000", card:"rgba(0,0,0,.82)", pri:"#00f5d4", sec:"#00bbf9", text:"#f5f7ff",
-        border:"rgba(255,255,255,.12)", input:"rgba(255,255,255,.06)", result:"rgba(255,255,255,.04)", btn:"#141414", btnH:"#1d1d1d"
-      }},
       {key:"light", tone:"light", vars:{
         bg:"#f7f7fb", card:"rgba(255,255,255,.92)", pri:"#4e54c8", sec:"#8f94fb", text:"#1a1a1a",
         border:"rgba(0,0,0,.12)", input:"rgba(0,0,0,.06)", result:"rgba(0,0,0,.03)", btn:"#e6e7ef", btnH:"#d8d9e6"
@@ -249,7 +254,7 @@
         border:"rgba(255,200,150,.2)", input:"rgba(255,200,150,.12)", result:"rgba(255,200,150,.08)", btn:"#3c3d47", btnH:"#4a4b58"
       }},
       {key:"vaporwave", tone:"dark", vars:{
-        bg:"#2e1b3f", card:"rgba(40,20,65,.92)", pri:"#ff77e9", sec:"#00f5ff", text:"#fff0ff",
+        bg:"#2e1b3f", card:"rgba(40,20,65,.92)", pri:"#ff77e9", sec:"#00bbf9", text:"#fff0ff",
         border:"rgba(255,150,255,.22)", input:"rgba(255,150,255,.10)", result:"rgba(255,150,255,.08)", btn:"#4a275f", btnH:"#5c2f76"
       }},
       {key:"forest", tone:"dark", vars:{
@@ -268,15 +273,11 @@
         bg:"#1b1220", card:"rgba(36,20,44,.9)", pri:"#ff7e5f", sec:"#feb47b", text:"#fff3ef",
         border:"rgba(255,200,180,.2)", input:"rgba(255,180,150,.1)", result:"rgba(255,160,130,.08)", btn:"#5c2b3a", btnH:"#6c3444"
       }},
-      {key:"lavender", tone:"dark", vars:{
-        bg:"#241a2e", card:"rgba(40,30,55,.92)", pri:"#cdb4db", sec:"#a2d2ff", text:"#f8f0ff",
-        border:"rgba(210,190,230,.22)", input:"rgba(210,190,230,.10)", result:"rgba(210,190,230,.08)", btn:"#3a2b4f", btnH:"#4a3866"
-      }},
     ];
-
+    
     let themeIndex = 0;
     const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)');
-
+    
     function setCSSVars(vars){
       const r=document.documentElement.style;
       r.setProperty('--bg-color', vars.bg);
@@ -290,29 +291,31 @@
       r.setProperty('--button-bg', vars.btn);
       r.setProperty('--button-hover-bg', vars.btnH);
     }
-    function setIconFilter(lightMode){
-      document.documentElement.style.setProperty('--icon-filter', lightMode ? 'invert(0)' : 'invert(1)');
-    }
-    function computeDeviceVars(theme){
-      const useLight = !prefersDark || !prefersDark.matches;
-      setIconFilter(useLight); // device: ikon rengi OS temasına göre
-      return useLight ? theme.light : theme.dark;
-    }
-    function applyThemeByIndex(idx){
-      const t = THEMES[(idx+THEMES.length)%THEMES.length];
-      if(t.device){
-        setCSSVars(computeDeviceVars(t));
-        document.getElementById('themeButton').textContent = `🎨 Tema: ${THEME_LABELS[t.key]}`;
-      }else{
-        setCSSVars(t.vars);
-        setIconFilter(t.tone === 'light'); // açık temada siyah, koyuda beyaz
-        document.getElementById('themeButton').textContent = `🎨 Tema: ${THEME_LABELS[t.key]}`;
-      }
-      calculate();
+
+    function updateIcons(isLightMode) {
+      const iconPath = `icon/`;
+      const themeSuffix = isLightMode ? '-light.svg' : '.svg';
+      document.querySelectorAll('.icon').forEach(icon => {
+        const iconName = icon.dataset.iconName;
+        if (iconName) {
+          icon.src = `${iconPath}${iconName}${themeSuffix}`;
+        }
+      });
     }
 
+    function applyThemeByIndex(idx){
+      const t = THEMES[(idx+THEMES.length)%THEMES.length];
+      const isLightMode = t.tone === 'light';
+      setCSSVars(t.vars);
+      document.documentElement.classList.toggle('light-mode', isLightMode);
+      updateIcons(isLightMode);
+      document.getElementById('themeButton').querySelector('span').textContent = THEME_LABELS[t.key] || t.key;
+      calculate();
+      renderThresholdButton();
+    }
+    
     /* ===== Metodlar ===== */
-    const METHODS = ["D'Hondt","Sainte-Laguë","Hare Kotası","Proportional Plus"];
+    const METHODS = ["D'Hondt","Sainte-Laguë","Hare Kotası"];
     let currentMethodIndex = 0;
 
     /* ===== Baraj ===== */
@@ -396,8 +399,8 @@
       div.className='independent-entry'; div.dataset.type='independent';
       div.innerHTML=`
         <div class="move-control">
-          <div class="move-control-up"><img src="icon/up.svg" alt="Yukarı"></div>
-          <div class="move-control-down"><img src="icon/down.svg" alt="Aşağı"></div>
+          <div class="move-control-up"><img src="icon/up.svg" alt="Yukarı" class="icon" data-icon-name="up"></div>
+          <div class="move-control-down"><img src="icon/down.svg" alt="Aşağı" class="icon" data-icon-name="down"></div>
         </div>
         <input type="text" placeholder="Bağımsız Aday Adı" value="${name}" class="party-name">
         <input type="text" placeholder="Oy Sayısı" value="${votes}" class="party-votes">
@@ -405,9 +408,12 @@
           <input type="color" class="party-color-picker" value="${color}">
           <input type="text" class="party-color-hex" value="${color}" placeholder="#RRGGBB" maxlength="7">
         </div>
-        <button type="button" onclick="this.closest('.independent-entry').remove(); calculate();">X</button>
+        <button type="button" class="delete-btn" title="Kaldır">
+          <img src="icon/remove.svg" alt="" class="icon" data-icon-name="remove">
+        </button>
       `;
       div.querySelectorAll('input').forEach(i=>i.addEventListener('input',calculate));
+      div.querySelector('.delete-btn').addEventListener('click',()=>{ div.remove(); calculate(); });
       div.querySelector('.move-control-up').addEventListener('click',()=>moveElement(div,'up'));
       div.querySelector('.move-control-down').addEventListener('click',()=>moveElement(div,'down'));
 
@@ -419,6 +425,7 @@
       });
 
       $('#main-container').appendChild(div);
+      applyThemeByIndex(themeIndex); // Yeni eklenen ikonlar için tema güncellemesi
       calculate();
     }
 
@@ -428,8 +435,8 @@
       div.className='party-entry'; div.dataset.allianceId=parentId; div.dataset.type='party';
       div.innerHTML=`
         <div class="move-control">
-          <div class="move-control-up"><img src="icon/up.svg" alt="Yukarı"></div>
-          <div class="move-control-down"><img src="icon/down.svg" alt="Aşağı"></div>
+          <div class="move-control-up"><img src="icon/up.svg" alt="Yukarı" class="icon" data-icon-name="up"></div>
+          <div class="move-control-down"><img src="icon/down.svg" alt="Aşağı" class="icon" data-icon-name="down"></div>
         </div>
         <input type="text" placeholder="Parti Adı" value="${name}" class="party-name">
         <input type="text" placeholder="Oy Sayısı" value="${votes}" class="party-votes">
@@ -437,9 +444,12 @@
           <input type="color" class="party-color-picker" value="${color}">
           <input type="text" class="party-color-hex" value="${color}" placeholder="#RRGGBB" maxlength="7">
         </div>
-        <button type="button" onclick="this.closest('.party-entry').remove(); calculate();">X</button>
+        <button type="button" class="delete-btn" title="Kaldır">
+          <img src="icon/remove.svg" alt="" class="icon" data-icon-name="remove">
+        </button>
       `;
       div.querySelectorAll('input').forEach(i=>i.addEventListener('input',calculate));
+      div.querySelector('.delete-btn').addEventListener('click',()=>{ div.remove(); calculate(); });
       div.querySelector('.move-control-up').addEventListener('click',()=>moveElement(div,'up'));
       div.querySelector('.move-control-down').addEventListener('click',()=>moveElement(div,'down'));
 
@@ -453,6 +463,7 @@
       const parentContainer = parentId ? document.getElementById(parentId).querySelector('.alliance-parties-container')
                                        : $('#main-container');
       parentContainer.appendChild(div);
+      applyThemeByIndex(themeIndex); // Yeni eklenen ikonlar için tema güncellemesi
       calculate();
     }
 
@@ -463,23 +474,28 @@
       div.innerHTML=`
         <div class="alliance-header">
           <div class="move-control">
-            <div class="move-control-up"><img src="icon/up.svg" alt="Yukarı"></div>
-            <div class="move-control-down"><img src="icon/down.svg" alt="Aşağı"></div>
+            <div class="move-control-up"><img src="icon/up.svg" alt="Yukarı" class="icon" data-icon-name="up"></div>
+            <div class="move-control-down"><img src="icon/down.svg" alt="Aşağı" class="icon" data-icon-name="down"></div>
           </div>
           <input type="text" class="alliance-name" placeholder="İttifak Adı" value="${name}">
-          <button type="button" class="delete-btn" onclick="this.closest('.alliance-entry').remove(); calculate();">X</button>
+          <button type="button" class="delete-btn" title="İttifakı Kaldır">
+            <img src="icon/remove.svg" alt="" class="icon" data-icon-name="remove">
+          </button>
         </div>
         <div class="alliance-parties-container"></div>
       `;
       div.querySelector('.alliance-name').addEventListener('input',calculate);
+      div.querySelector('.delete-btn').addEventListener('click',()=>{ div.remove(); calculate(); });
       div.querySelector('.move-control-up').addEventListener('click',()=>moveElement(div,'up'));
       div.querySelector('.move-control-down').addEventListener('click',()=>moveElement(div,'down'));
       $('#main-container').appendChild(div);
+      applyThemeByIndex(themeIndex); // Yeni eklenen ikonlar için tema güncellemesi
       calculate();
+      return div;
     }
 
     function calculate(){
-      $('#methodSubtitle').textContent = `${METHODS[currentMethodIndex]} Yöntemi`;
+      document.getElementById('methodSubtitle').textContent = `${METHODS[currentMethodIndex]} Yöntemi`;
 
       const seats = parseInt($('#totalSeats').value);
       const totalVotes = Array.from(document.querySelectorAll('.party-entry .party-votes, .independent-entry .party-votes'))
@@ -536,7 +552,6 @@
       if(METHODS[currentMethodIndex]==="Hare Kotası"){ finalResults=calculateHare(eligibleParties,seats,totalVotes) }
       else if(METHODS[currentMethodIndex]==="D'Hondt"){ finalResults=calculateDhondt(eligibleParties,seats) }
       else if(METHODS[currentMethodIndex]==="Sainte-Laguë"){ finalResults=calculateSainteLague(eligibleParties,seats) }
-      else { finalResults=calculateProportionalPlus(eligibleParties,seats) }
 
       let out='<h2>Sonuçlar</h2><ul>';
       const allResults = allCandidates.map(p=>finalResults.find(r=>r.name===p.name) ?? {...p,seats:0});
@@ -591,15 +606,6 @@
       }
       return results;
     }
-    function calculateProportionalPlus(parties,seats){
-      const results=parties.map(p=>({...p,seats:0}));
-      for(let i=0;i<seats;i++){
-        let maxQ=-1, win=-1;
-        results.forEach((p,idx)=>{ const q=p.votes/(1+p.seats*p.seats); if(q>maxQ){ maxQ=q; win=idx } });
-        if(win!==-1) results[win].seats++;
-      }
-      return results;
-    }
 
     function downloadResults(){
       const totalSeats=$('#totalSeats').value;
@@ -632,8 +638,8 @@
           if(name && votes){ content+=`Party|${name}|${votes}|${color}\n` }
         }else if(container.classList.contains('independent-entry')){
           const name=container.querySelector('.party-name').value.trim();
-          const votes=container.querySelector('.party-votes').value;
-          const color=container.querySelector('.party-color-picker').value;
+          const votes=entry.querySelector('.party-votes').value;
+          const color=entry.querySelector('.party-color-picker').value;
           if(name && votes){ content+=`Independent|${name}|${votes}|${color}\n` }
         }
       });
@@ -650,61 +656,61 @@
       reader.onload=e=>{
         const lines=e.target.result.split('\n').filter(line=>line.trim()!=='');
         $('#main-container').innerHTML='';
-        const partiesByAlliance={};
+        const alliances = {};
 
-        // Toplam koltuk
         if(lines.length>0 && lines[0].startsWith('Toplam Koltuk Sayısı:')){
           $('#totalSeats').value = lines.shift().split(':')[1].trim();
         }
-        // Baraj
         if(lines.length>0 && lines[0].startsWith('Baraj Durumu:')){
           const parts=lines.shift().split(':')[1].trim().split(',').map(p=>p.trim());
           const status=parts[0]; const value=parts[1]||'';
           isThresholdEnabled=(status==='Açık');
           if(isThresholdEnabled){
-            $('#thresholdButton').textContent='Baraj: Açık'; $('#thresholdButton').classList.add('active');
-            $('#thresholdInput').disabled=false; $('#thresholdInput').value=value;
+            document.getElementById('thresholdInput').disabled=false; document.getElementById('thresholdInput').value=value;
           }else{
-            $('#thresholdButton').textContent='Baraj: Kapalı'; $('#thresholdButton').classList.remove('active');
-            $('#thresholdInput').disabled=true; storedThresholdValue=value;
+            document.getElementById('thresholdInput').disabled=true; storedThresholdValue=value; document.getElementById('thresholdInput').value='';
           }
+          renderThresholdButton();
         }
-        // Metod
         if(lines.length>0 && lines[0].startsWith('Hesaplama Yöntemi:')){
           const methodName=lines.shift().split(':')[1].trim();
           const idx=METHODS.indexOf(methodName);
-          if(idx!==-1){ currentMethodIndex=idx; $('#methodButton').textContent=METHODS[currentMethodIndex] }
+          if(idx!==-1){ currentMethodIndex=idx; document.getElementById('methodButtonText').textContent = METHODS[currentMethodIndex] }
         }
-        // Tema
         if(lines.length>0 && lines[0].startsWith('Tema:')){
           const themeName = lines.shift().split(':')[1].trim();
           const idx = THEMES.findIndex(t=> t.key === themeName);
           if(idx>=0){ themeIndex=idx; applyThemeByIndex(themeIndex) }
         }
-
         if(lines.length>0 && lines[0]==='---'){ lines.shift() }
 
-        // Kalan satırlar: name|votes|color veya etiketli satırlar
         lines.forEach(line=>{
           const parts=line.split('|').map(p=>p.trim());
           if(parts[0]==='Alliance' && parts.length>=3){
             const allianceName=parts[1]; const allianceId=parts[2];
-            addAlliance(allianceName,allianceId);
-          }else if(parts[0]==='Party' && parts.length>=4){
+            const allianceDiv = addAlliance(allianceName,allianceId);
+            alliances[allianceId] = allianceDiv;
+          } else if(parts[0]==='Party' && parts.length>=4){
             const name=parts[1]; const votes=parts[2]; const color=parts[3]||'#808080';
-            addParty(name,votes,color);
-          }else if(parts[0]==='Independent' && parts.length>=4){
+            const allianceId = parts.length > 4 ? parts[4] : null;
+            addParty(name, votes, color, allianceId);
+          } else if(parts[0]==='Independent' && parts.length>=4){
             const name=parts[1]; const votes=parts[2]; const color=parts[3]||'#808080';
             addIndependent(name,votes,color);
-          }else if(parts.length>=2 && parts[0] && /^\d+$/.test(parts[1])){
-            const name=parts[0]; const votes=parts[1]; const color=parts[2]||'#808080';
-            addParty(name,votes,color);
           }
         });
 
         calculate();
       };
       reader.readAsText(file);
+    }
+
+    /* Baraj butonu görünümünü (ikon + metin + sınıf) tek yerden yönet */
+    function renderThresholdButton(){
+      const btn = document.getElementById('thresholdButton');
+      const label = document.getElementById('thresholdLabel');
+      label.textContent = `Baraj: ${isThresholdEnabled ? 'Açık' : 'Kapalı'}`;
+      btn.classList.toggle('active', isThresholdEnabled);
     }
 
     // ==== Olaylar & Başlangıç ====
@@ -716,18 +722,10 @@
       });
       applyThemeByIndex(themeIndex);
 
-      // Device: OS teması değişirse ikon ve renkleri güncelle
-      if(prefersDark){
-        prefersDark.addEventListener?.('change', ()=>{
-          const t = THEMES[themeIndex];
-          if(t.device){ setCSSVars(computeDeviceVars(t)); calculate(); }
-        });
-      }
-
       // Metod butonu
       document.getElementById('methodButton').addEventListener('click', ()=>{
         currentMethodIndex = (currentMethodIndex + 1) % METHODS.length;
-        document.getElementById('methodButton').textContent = METHODS[currentMethodIndex];
+        document.getElementById('methodButtonText').textContent = METHODS[currentMethodIndex];
         calculate();
       });
 
@@ -735,17 +733,14 @@
       document.getElementById('thresholdButton').addEventListener('click',()=>{
         isThresholdEnabled=!isThresholdEnabled;
         if(isThresholdEnabled){
-          document.getElementById('thresholdButton').textContent='Baraj: Açık';
-          document.getElementById('thresholdButton').classList.add('active');
           document.getElementById('thresholdInput').disabled=false;
           document.getElementById('thresholdInput').value=storedThresholdValue;
         }else{
-          document.getElementById('thresholdButton').textContent='Baraj: Kapalı';
-          document.getElementById('thresholdButton').classList.remove('active');
           document.getElementById('thresholdInput').disabled=true;
           storedThresholdValue=document.getElementById('thresholdInput').value;
-          document.getElementById('thresholdInput').value=''; // kapatınca değeri sıfırla
+          document.getElementById('thresholdInput').value='';
         }
+        renderThresholdButton();
         calculate();
       });
 
@@ -763,8 +758,8 @@
       document.getElementById('ulBtn').addEventListener('click',()=>document.getElementById('fileInput').click());
       document.getElementById('fileInput').addEventListener('change',uploadResults);
 
-      // Artık başlangıçta otomatik satır eklenmiyor → tüm kutular boş
-      // addParty();  // kaldırıldı
+      // Başlangıçta baraj butonu görünümünü kur
+      renderThresholdButton();
     });
   </script>
 </body>
