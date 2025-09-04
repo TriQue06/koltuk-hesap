@@ -62,6 +62,9 @@
       color:var(--text-color); font-weight:600; cursor:pointer; transition:background-color .25s,border-color .25s; font-size:1.05em; width:150px;
       display:inline-flex; align-items:center; gap:8px; justify-content:center;
     }
+    #limitedIndependentButton{
+      width:220px;
+    }
     .threshold-button.active{background:var(--primary-color); border-color:var(--primary-color); color:#fff}
     .threshold-input:disabled{opacity:.55; cursor:not-allowed}
 
@@ -237,6 +240,9 @@
       <div class="seats-threshold-group">
         <input type="text" id="totalSeats" placeholder="Koltuk Sayısı" value="">
         <div class="threshold-control">
+          <button id="limitedIndependentButton" class="threshold-button btn-with-icon">
+            <img src="icon/token.svg" alt="" class="icon" data-icon-name="token"><span id="limitedIndependentLabel">Bağımsız Limit: Kapalı</span>
+          </button>
           <button id="thresholdButton" class="threshold-button btn-with-icon">
             <img src="icon/token.svg" alt="" class="icon" data-icon-name="token"><span id="thresholdLabel">Baraj: Kapalı</span>
           </button>
@@ -343,9 +349,17 @@
       document.querySelectorAll('.icon').forEach(icon => {
         const iconName = icon.dataset.iconName;
         if (iconName) {
+          // 'token' ikonu için özel durum
+          if (iconName === 'token') {
+            // Butonların durumu ayrı olarak yönetileceği için burada pas geç
+            return;
+          }
           icon.src = `${iconPath}${iconName}${themeSuffix}`;
         }
       });
+      // Butonları da güncelle
+      renderThresholdButton();
+      renderLimitedIndependentButton();
     }
 
     function applyThemeByIndex(idx){
@@ -356,7 +370,6 @@
       updateIcons(isLightMode);
       document.getElementById('themeButton').querySelector('span').textContent = THEME_LABELS[t.key] || t.key;
       calculate();
-      renderThresholdButton();
     }
     
     /* ===== Metodlar ===== */
@@ -366,6 +379,9 @@
     /* ===== Baraj ===== */
     let isThresholdEnabled = false;
     let storedThresholdValue = '';
+
+    /* ===== Bağımsız Aday Limiti ===== */
+    let isLimitedIndependentEnabled = false;
 
     /* ===== Yardımcılar ===== */
     const $ = sel => document.querySelector(sel);
@@ -530,7 +546,20 @@
         <div class="alliance-parties-container"></div>
       `;
       div.querySelector('.alliance-name').addEventListener('input',calculate);
-      div.querySelector('.delete-btn').addEventListener('click',()=>{ div.remove(); calculate(); });
+      div.querySelector('.delete-btn').addEventListener('click',()=>{ 
+        const alliance = div;
+        const mainContainer = document.getElementById('main-container');
+        const alliancePartiesContainer = alliance.querySelector('.alliance-parties-container');
+        const parties = Array.from(alliancePartiesContainer.children);
+        
+        parties.forEach(party => {
+          party.dataset.allianceId = 'null';
+          mainContainer.insertBefore(party, alliance);
+        });
+
+        alliance.remove();
+        calculate();
+      });
       div.querySelector('.move-control-up').addEventListener('click',()=>moveElement(div,'up'));
       div.querySelector('.move-control-down').addEventListener('click',()=>moveElement(div,'down'));
       $('#main-container').appendChild(div);
@@ -580,16 +609,22 @@
           alliances[p.allianceId].parties.push(p);
         }
       });
+      
+      const roundedThreshold = parseFloat(threshold.toFixed(2));
 
       allCandidates.forEach(p=>{
         if(p.type==='independent'){
-          if((p.votes/totalVotes)*100 >= threshold){ eligibleParties.push(p) }
+          const percentage = parseFloat(((p.votes/totalVotes)*100).toFixed(2));
+          if(percentage >= roundedThreshold){ eligibleParties.push(p) }
         }else{
           const alliance=alliances[p.allianceId];
           if(alliance){
-            const aPerc=(alliance.votes/totalVotes)*100;
-            if(aPerc>=threshold){ eligibleParties.push(p) }
-          }else if(((p.votes/totalVotes)*100)>=threshold){ eligibleParties.push(p) }
+            const aPerc=parseFloat(((alliance.votes/totalVotes)*100).toFixed(2));
+            if(aPerc >= roundedThreshold){ eligibleParties.push(p) }
+          }else{
+            const percentage=parseFloat(((p.votes/totalVotes)*100).toFixed(2));
+            if(percentage >= roundedThreshold){ eligibleParties.push(p) }
+          }
         }
       });
       
@@ -599,6 +634,15 @@
       if(METHODS[currentMethodIndex]==="Hare Kotası"){ finalResults=calculateHare(eligibleParties,seats,totalEligibleVotes) }
       else if(METHODS[currentMethodIndex]==="D'Hondt"){ finalResults=calculateDhondt(eligibleParties,seats) }
       else if(METHODS[currentMethodIndex]==="Sainte-Laguë"){ finalResults=calculateSainteLague(eligibleParties,seats) }
+
+      // Bağımsız aday koltuk limitini uygula
+      if(isLimitedIndependentEnabled){
+        finalResults.forEach(result => {
+          if(result.type === 'independent' && result.seats > 1){
+            result.seats = 1;
+          }
+        });
+      }
 
       let out='<h2>Sonuçlar</h2><ul>';
       const allResults = allCandidates.map(p=>finalResults.find(r=>r.name===p.name) ?? {...p,seats:0});
@@ -662,9 +706,11 @@
       const thresholdValue=isThresholdEnabled?$('#thresholdInput').value:'';
       const calculationMethod=METHODS[currentMethodIndex];
       const themeName = THEMES[themeIndex].key;
+      const limitedIndependentStatus = isLimitedIndependentEnabled ? 'Açık' : 'Kapalı';
 
       let content=`Toplam Koltuk Sayısı: ${totalSeats}\n`;
       content+=`Baraj Durumu: ${thresholdStatus}${thresholdValue?`, ${thresholdValue}`:''}\n`;
+      content+=`Bağımsız Aday Limiti: ${limitedIndependentStatus}\n`;
       content+=`Hesaplama Yöntemi: ${calculationMethod}\n`;
       content+=`Tema: ${themeName}\n`;
       content+='---\n';
@@ -687,8 +733,8 @@
           if(name && votes){ content+=`Party|${name}|${votes}|${color}\n` }
         }else if(container.classList.contains('independent-entry')){
           const name=container.querySelector('.party-name').value.trim();
-          const votes=container.querySelector('.party-votes').value; // Corrected variable
-          const color=container.querySelector('.party-color-picker').value;
+          const votes=entry.querySelector('.party-votes').value;
+          const color=entry.querySelector('.party-color-picker').value;
           if(name && votes){ content+=`Independent|${name}|${votes}|${color}\n` }
         }
       });
@@ -720,6 +766,12 @@
             document.getElementById('thresholdInput').disabled=true; storedThresholdValue=value; document.getElementById('thresholdInput').value='';
           }
           renderThresholdButton();
+        }
+        // Yeni eklenen bağımsız limit satırını oku
+        if(lines.length>0 && lines[0].startsWith('Bağımsız Aday Limiti:')){
+          const status = lines.shift().split(':')[1].trim();
+          isLimitedIndependentEnabled = (status === 'Açık');
+          renderLimitedIndependentButton();
         }
         if(lines.length>0 && lines[0].startsWith('Hesaplama Yöntemi:')){
           const methodName=lines.shift().split(':')[1].trim();
@@ -758,8 +810,30 @@
     function renderThresholdButton(){
       const btn = document.getElementById('thresholdButton');
       const label = document.getElementById('thresholdLabel');
+      const icon = btn.querySelector('.icon');
       label.textContent = `Baraj: ${isThresholdEnabled ? 'Açık' : 'Kapalı'}`;
       btn.classList.toggle('active', isThresholdEnabled);
+      const isLightMode = document.documentElement.classList.contains('light-mode');
+      if (isLightMode && !isThresholdEnabled) {
+        icon.src = 'icon/token-light.svg';
+      } else {
+        icon.src = 'icon/token.svg';
+      }
+    }
+
+    /* Bağımsız Aday Limit butonu görünümünü (ikon + metin + sınıf) tek yerden yönet */
+    function renderLimitedIndependentButton(){
+      const btn = document.getElementById('limitedIndependentButton');
+      const label = document.getElementById('limitedIndependentLabel');
+      const icon = btn.querySelector('.icon');
+      label.textContent = `Bağımsız Limit: ${isLimitedIndependentEnabled ? 'Açık' : 'Kapalı'}`;
+      btn.classList.toggle('active', isLimitedIndependentEnabled);
+      const isLightMode = document.documentElement.classList.contains('light-mode');
+      if (isLightMode && !isLimitedIndependentEnabled) {
+        icon.src = 'icon/token-light.svg';
+      } else {
+        icon.src = 'icon/token.svg';
+      }
     }
 
     // ==== Olaylar & Başlangıç ====
@@ -793,6 +867,13 @@
         calculate();
       });
 
+      // Bağımsız Aday Limit
+      document.getElementById('limitedIndependentButton').addEventListener('click', ()=>{
+        isLimitedIndependentEnabled = !isLimitedIndependentEnabled;
+        renderLimitedIndependentButton();
+        calculate();
+      });
+
       // Form
       document.getElementById('totalSeats').addEventListener('input',calculate);
       document.getElementById('thresholdInput').addEventListener('input',calculate);
@@ -807,8 +888,9 @@
       document.getElementById('ulBtn').addEventListener('click',()=>document.getElementById('fileInput').click());
       document.getElementById('fileInput').addEventListener('change',uploadResults);
 
-      // Başlangıçta baraj butonu görünümünü kur
+      // Başlangıçta baraj ve limit butonu görünümünü kur
       renderThresholdButton();
+      renderLimitedIndependentButton();
     });
   </script>
 </body>
