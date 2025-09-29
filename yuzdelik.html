@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Oy Yüzdesi Hesaplayıcı</title>
+  <style>
+    @font-face{font-family:'Product Sans';src:url('font/ProductSans-Regular.ttf') format('truetype');font-weight:400;font-style:normal}
+    *{font-family:'Product Sans',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,sans-serif}
+    button,input,select,textarea{font:inherit}
+
+    :root{
+      --bg-color:#ffffff; --card-bg:#ffffff;
+      --primary-color:#900C3F;
+      --secondary-color:#C70039;
+      --accent-orange:#FF5733;
+      --accent-yellow:#FFC300;
+      --text-color:#10121a; --border-color:rgba(0,0,0,.15);
+      --input-bg:#f5f5f5; --result-bg:#f9f9f9;
+    }
+
+    body{
+      background:var(--bg-color); color:var(--text-color);
+      min-height:100vh; display:flex; justify-content:center; align-items:center;
+      padding:20px; margin:0; transition:background-color .25s,color .25s;
+      overflow-y: hidden;
+    }
+
+    .container{
+      background:var(--card-bg); border-radius:20px; padding:32px; border:1px solid var(--border-color);
+      box-shadow:0 8px 25px rgba(0,0,0,.1); width:100%; max-width:500px; animation:fadeIn .45s ease
+    }
+    @keyframes fadeIn{from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)}}
+
+    h1{
+      font-weight:700; text-align:center; font-size:2.75em; margin:0 0 24px;
+      background:linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-orange), var(--accent-yellow));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent
+    }
+
+    input[type="text"]{
+      padding:12px; border:1px solid var(--border-color); border-radius:10px; background:var(--input-bg);
+      color:var(--text-color); box-sizing:border-box; font-size:1em; transition:all .2s; width:100%;
+    }
+    input::placeholder{color:var(--text-color); opacity:.4}
+    input:focus{outline:none; box-shadow:0 0 0 3px color-mix(in oklab, var(--secondary-color) 35%, transparent); border-color:var(--secondary-color)}
+
+    .party-entry{margin-bottom:12px; display:flex; align-items:center; gap:10px}
+    .party-name{flex:3}
+    .party-votes{flex:1.5}
+
+    .delete-btn{
+      background:var(--accent-yellow);
+      color:var(--text-color);
+      border:none; padding:8px 10px; border-radius:8px; width:38px; height:38px;
+      display:flex; justify-content:center; align-items:center; cursor:pointer; transition:transform .15s, filter .2s;
+    }
+    .delete-btn:hover{transform:scale(1.05); filter:brightness(0.95)}
+
+    .icon{width:16px; height:16px; vertical-align:middle; filter: invert(1);}
+
+    .delete-btn img{
+        filter: none;
+    }
+
+    .action-buttons{display:flex; gap:10px; margin-top:10px;}
+    .action-buttons button{
+      width:100%; background:var(--secondary-color); color:#fff; border:none; padding:12px; border-radius:10px;
+      cursor:pointer; font-size:1em; font-weight:600; transition:transform .15s, filter .2s; display:flex; justify-content:center; align-items:center; gap:8px;
+    }
+    .action-buttons button:hover{transform:translateY(-1px); filter:brightness(1.05)}
+    .action-buttons button img{filter: invert(1);}
+
+    .results{margin-top:20px; background:var(--result-bg); padding:16px; border-radius:12px; border:1px solid var(--border-color); box-shadow:0 2px 5px rgba(0,0,0,.05)}
+    .results h2{
+      margin:0 0 10px; font-size:1.5em; text-align:center;
+      background:linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-orange));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent
+    }
+    .results ul{list-style:none; padding:0; margin:0}
+    .results li{
+      background:var(--input-bg); padding:12px; border-radius:8px; margin-bottom:8px; display:flex;
+      justify-content:space-between; align-items:center; transition:transform .1s; border-left:4px solid var(--primary-color);
+      box-shadow:0 1px 3px rgba(0,0,0,.05);
+    }
+    .percentage{font-weight:700; font-size:1.1em; color:var(--primary-color)}
+    .total-votes-display{text-align:center; opacity:.7; font-size:.9em; margin-top:10px}
+
+    .fixed-link {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 15px;
+      background: var(--secondary-color);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: background-color .2s, transform .2s;
+      z-index: 1000;
+      font-size: 0.9em;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .fixed-link:hover {
+      background: color-mix(in oklab, var(--secondary-color), #000 10%);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width:640px){
+      .container{padding:20px 15px}
+      h1{font-size:2.2em}
+      .party-entry{flex-direction:column; align-items:stretch; gap:8px}
+      .delete-btn{width:100%; height:auto; padding:10px 0}
+      .action-buttons{flex-direction:column}
+      .fixed-link {
+        bottom: 10px;
+        right: 10px;
+        padding: 8px 12px;
+        font-size: 0.8em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<a href="index.html" class="fixed-link">Koltuk Hesaplayıcı</a>
+
+<div class="container">
+  <h1>Oy Yüzdesi Hesaplayıcı</h1>
+
+  <div id="main-container"></div>
+
+  <div class="action-buttons">
+    <button id="addPartyBtn">
+      <img src="icon/add-light.svg" alt="Ekle" class="icon">
+      Parti Ekle
+    </button>
+  </div>
+
+  <div id="output" class="results"></div>
+</div>
+
+<script>
+  const $ = sel => document.querySelector(sel);
+  const mainContainer = $('#main-container');
+
+  function parseVoteValue(v){
+    if(typeof v==='string'){
+      v=v.replace(/[\.,]/g,'');
+      v=v.replace(/[^0-9]/g,'');
+    }
+    return parseInt(v) || 0;
+  }
+
+  function addParty(name='', votes=''){
+    const div = document.createElement('div');
+    div.className = 'party-entry';
+    div.dataset.type = 'party';
+
+    div.innerHTML = `
+      <input type="text" placeholder="Parti Adı" value="${name}" class="party-name">
+      <input type="text" placeholder="Oy Sayısı" value="${votes.toLocaleString('tr-TR')}" class="party-votes" inputmode="numeric">
+      <button type="button" class="delete-btn" title="Kaldır">
+        <img src="icon/remove.svg" alt="Kaldır" class="icon">
+      </button>
+    `;
+
+    div.querySelectorAll('input').forEach(i => {
+      i.addEventListener('input', calculate);
+      if (i.classList.contains('party-votes')) {
+        i.addEventListener('focus', () => i.value = parseVoteValue(i.value) || '');
+        i.addEventListener('blur', () => i.value = parseVoteValue(i.value).toLocaleString('tr-TR'));
+      }
+    });
+    div.querySelector('.delete-btn').addEventListener('click', () => { div.remove(); calculate(); });
+
+    mainContainer.appendChild(div);
+    calculate();
+  }
+
+  function calculate(){
+    const allEntries = Array.from(document.querySelectorAll('.party-entry'));
+    const totalVotes = allEntries.reduce((sum, entry) => {
+      const votes = parseVoteValue(entry.querySelector('.party-votes').value);
+      return sum + votes;
+    }, 0);
+
+    const outputDiv = $('#output');
+    if(totalVotes === 0 || allEntries.length === 0){
+      outputDiv.innerHTML = '<p class="total-votes-display">Lütfen parti ekleyip oy sayılarını girin.</p>';
+      return;
+    }
+
+    const results = [];
+
+    allEntries.forEach(entry => {
+      const name = entry.querySelector('.party-name').value.trim() || 'Parti';
+      const votes = parseVoteValue(entry.querySelector('.party-votes').value);
+
+      if (votes > 0) {
+        const percentage = ((votes / totalVotes) * 100).toFixed(2);
+        results.push({ name, votes, percentage });
+      }
+    });
+
+    results.sort((a, b) => b.votes - a.votes);
+
+    let out = '<h2>Yüzdelik Dağılım</h2><ul>';
+
+    for (const r of results) {
+      out += `<li>
+                <div><strong>${r.name}</strong></div>
+                <span class="percentage">${r.percentage}%</span>
+              </li>`;
+    }
+
+    out += '</ul>';
+    out += `<div class="total-votes-display">Toplam Geçerli Oy: ${totalVotes.toLocaleString('tr-TR')}</div>`;
+    outputDiv.innerHTML = out;
+  }
+
+  document.addEventListener('DOMContentLoaded', ()=>{
+    document.getElementById('addPartyBtn').addEventListener('click', () => addParty());
+    calculate();
+  });
+</script>
+</body>
+</html>
