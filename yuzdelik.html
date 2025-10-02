@@ -9,23 +9,48 @@
     *{font-family:'Product Sans',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,sans-serif}
     button,input,select,textarea{font:inherit}
 
+    /* Koyu Mod Varsayılan Değerleri (Kırmızı Dominant) */
     :root{
-      --bg-color:#ffffff; --card-bg:#ffffff;
-      --primary-color:#900C3F; /* Bordo Kırmızı (Vurgu) */
-      --secondary-color:#C70039; /* Kırmızı (Buton) */
-      --accent-orange:#FF5733; /* Turuncu */
-      --accent-yellow:#FFC300; /* Sarı */
-      --text-color:#10121a; --border-color:rgba(0,0,0,.15);
-      --input-bg:#f5f5f5; --result-bg:#f9f9f9;
+      --bg-color:#100508; /* Koyu Bordo Arkaplan */
+      --card-bg:rgba(30,15,20,.92); /* Koyu Bordo Kart */
+      --primary-color:#C70039; /* Kırmızı (Dominant Vurgu, Sonuçlar, Silme Butonu) */
+      --secondary-color:#900C3F; /* BORDO (Butonlar, Fixed Link) */
+      --tertiary-color:#FF5733; /* Turuncu (Gradient Stop) */
+      --text-color:#fff0f0; --border-color:rgba(255,255,255,.15);
+      --input-bg:rgba(255,255,255,.07); --result-bg:rgba(255,255,255,.05);
+      --button-bg:#30181A; --button-hover-bg:#452A2C;
+      --light-mode-secondary-text:#10121a;
+    }
+
+    /* Açık Mod Sınıfı */
+    :root.light-mode{
+      /* Değişkenler JS tarafından ayarlanır, burası sadece fallback/ek ayarlar için. */
     }
 
     body{
       background:var(--bg-color); color:var(--text-color);
       min-height:100vh; display:flex; justify-content:center;
-      /* PC odaklı, dikey ortalanmış stil */
       align-items:center;
       padding:20px; margin:0; transition:background-color .25s,color .25s
     }
+
+    /* Üst Bar Stilleri */
+    .top-bar{
+      position:fixed; top:20px; left:20px; right:20px; z-index:1000;
+      display:flex; justify-content:flex-start; align-items:center; gap:12px;
+      pointer-events:none;
+    }
+    .top-left,.top-right{display:flex; align-items:center; gap:10px; pointer-events:auto}
+    .top-btn{
+      padding:10px 14px; border-radius:12px; background:var(--button-bg); color:var(--text-color);
+      border:1px solid var(--border-color); font-size:1em; cursor:pointer; transition:background-color .25s, transform .15s;
+      position:relative; z-index:1001; display:inline-flex; align-items:center; gap:8px;
+    }
+    .top-btn:hover{background:var(--button-hover-bg); transform:translateY(-1px)}
+    .icon{
+      width:20px; height:20px;
+    }
+    .btn-with-icon{display:inline-flex; align-items:center; gap:8px}
 
     .container{
       background:var(--card-bg); border-radius:20px; padding:32px; border:1px solid var(--border-color);
@@ -35,7 +60,8 @@
 
     h1{
       font-weight:700; text-align:center; font-size:2.5em; margin:0 0 24px;
-      background:linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-orange), var(--accent-yellow));
+      /* Gradient: Primary (Kırmızı) -> Tertiary (Bordo/Turuncu) */
+      background:linear-gradient(45deg, var(--primary-color), var(--tertiary-color));
       -webkit-background-clip:text; -webkit-text-fill-color:transparent
     }
 
@@ -44,38 +70,52 @@
       color:var(--text-color); box-sizing:border-box; font-size:1em; transition:all .2s; width:100%;
     }
     input::placeholder{color:var(--text-color); opacity:.4}
-    input:focus{outline:none; box-shadow:0 0 0 3px color-mix(in oklab, var(--secondary-color) 35%, transparent); border-color:var(--secondary-color)}
+    input:focus{outline:none; box-shadow:0 0 0 3px color-mix(in oklab, var(--primary-color) 35%, transparent); border-color:var(--primary-color)}
 
     .party-entry{margin-bottom:12px; display:flex; align-items:center; gap:10px}
     .party-name{flex:3}
     .party-votes{flex:1.5}
 
     .delete-btn{
-      background:var(--accent-yellow); /* Sarı renk */
+      background:var(--primary-color); /* Kırmızı */
       color:var(--text-color);
       border:none; padding:8px 10px; border-radius:8px; width:38px; height:38px;
-      display:flex; justify-content:center; align-items:center; cursor:pointer; transition:transform .15s, filter .2s;
+      display:flex; justify-content:center; align-items:center; cursor:pointer;
+      transition:transform .15s, filter .2s;
     }
-    .delete-btn:hover{transform:scale(1.05); filter:brightness(0.95)} /* Açık renk için hover efekti */
-
-    .icon{width:16px; height:16px; vertical-align:middle; filter: invert(1);} /* Varsayılan koyu butonlar için beyaz ikon */
-
-    .delete-btn img{
-        filter: none; /* Sarı zemin üzerinde ikonun siyah görünmesini sağlar (ikonun orijinal renginin siyah/koyu olduğunu varsayarak) */
+    .delete-btn:hover{
+      transform:scale(1.05); filter:brightness(1.1);
+    }
+    /* Koyu temada ikonun rengini ters çevirerek beyaz yap */
+    :root .delete-btn img {
+        filter: invert(1);
+    }
+    /* Açık temada ikon rengini doğal bırak */
+    :root.light-mode .delete-btn img {
+        filter: invert(0);
     }
 
+
+    .icon{width:16px; height:16px; vertical-align:middle;}
     .action-buttons{display:flex; gap:10px; margin-top:10px;}
     .action-buttons button{
       width:100%; background:var(--secondary-color); color:#fff; border:none; padding:12px; border-radius:10px;
       cursor:pointer; font-size:1em; font-weight:600; transition:transform .15s, filter .2s; display:flex; justify-content:center; align-items:center; gap:8px;
     }
     .action-buttons button:hover{transform:translateY(-1px); filter:brightness(1.05)}
-    .action-buttons button img{filter: invert(1);} /* Kırmızı zemin üzerinde beyaz ikon */
+    .action-buttons button img{filter: invert(1);} /* Koyu mod butonda beyaz ikon */
+    :root.light-mode .action-buttons button img {
+        filter: invert(0); /* Açık mod butonda siyah ikon */
+    }
+    :root.light-mode .action-buttons button {
+        color: var(--light-mode-secondary-text);
+    }
+
 
     .results{margin-top:20px; background:var(--result-bg); padding:16px; border-radius:12px; border:1px solid var(--border-color); box-shadow:0 2px 5px rgba(0,0,0,.05)}
     .results h2{
       margin:0 0 10px; font-size:1.5em; text-align:center;
-      background:linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-orange));
+      background:linear-gradient(45deg, var(--primary-color), var(--tertiary-color));
       -webkit-background-clip:text; -webkit-text-fill-color:transparent
     }
     .results ul{list-style:none; padding:0; margin:0}
@@ -87,12 +127,20 @@
     .percentage{font-weight:700; font-size:1.1em; color:var(--primary-color)}
     .total-votes-display{text-align:center; opacity:.7; font-size:.9em; margin-top:10px}
 
+    .github-button{
+      position:fixed; bottom:20px; left:20px; padding:10px 14px; border-radius:10px; background:var(--button-bg);
+      color:var(--text-color); border:1px solid var(--border-color); font-size:1em; cursor:pointer;
+      transition:background-color .2s, transform .15s, box-shadow .2s; text-decoration:none; display:flex; align-items:center; gap:8px;
+      z-index:999
+    }
+    .github-button:hover{background:var(--button-hover-bg); transform:translateY(-1px); box-shadow:0 2px 8px rgba(0,0,0,.2)}
+
     .fixed-link {
       position: fixed;
       bottom: 20px;
       right: 20px;
       padding: 10px 15px;
-      background: var(--secondary-color);
+      background: var(--secondary-color); /* BORDO */
       color: #fff;
       text-decoration: none;
       border-radius: 10px;
@@ -107,9 +155,18 @@
       background: color-mix(in oklab, var(--secondary-color), #000 10%);
       transform: translateY(-2px);
     }
+    .fixed-link img {filter: invert(1); width: 18px; height: 18px;}
   </style>
 </head>
 <body>
+
+<div class="top-bar">
+  <div class="top-left">
+    <button id="themeButton" class="top-btn btn-with-icon" title="Tema">
+      <img src="icon/theme.svg" alt="" class="icon" data-icon-name="theme"><span>Sistem Varsayılanı</span>
+    </button>
+  </div>
+</div>
 
 <a href="index.html" class="fixed-link">Koltuk Hesaplayıcı</a>
 
@@ -120,7 +177,7 @@
 
   <div class="action-buttons">
     <button id="addPartyBtn">
-      <img src="icon/add-light.svg" alt="Ekle" class="icon">
+      <img src="icon/add.svg" alt="Ekle" class="icon" data-icon-name="add">
       Parti Ekle
     </button>
   </div>
@@ -128,7 +185,104 @@
   <div id="output" class="results"></div>
 </div>
 
+<a href="https://github.com/TriQue06/koltuk-hesap" target="_blank" class="github-button btn-with-icon" rel="noopener">
+  <img src="icon/github.svg" alt="GitHub" class="icon" data-icon-name="github">
+  GitHub
+</a>
+
 <script>
+  const THEME_LABELS = {
+    system:'Sistem Varsayılanı', light:'Açık', dark:'Koyu',
+  };
+
+  const THEMES = [
+    {key:"system", tone:"system", vars:{}},
+    {key:"light", tone:"light", vars:{
+      // Açık Mod: Bordo Dominant
+      bg:"#ffffff", card:"#ffffff",
+      pri:"#900C3F", // Bordo (Dominant Accent, Result Bar)
+      sec:"#C70039", // Kırmızı (Button, Link)
+      ter:"#FF5733", // Turuncu (Gradient Stop)
+      text:"#10121a",
+      border:"rgba(0,0,0,.15)",
+      input:"#f5f5f5",
+      result:"#f9f9f9",
+      btn:"#e6e7ef", btnH:"#d8d9e6",
+      light_mode_secondary_text:"#10121a"
+    }},
+    {key:"dark", tone:"dark", vars:{
+      // Koyu Mod: Kırmızı Dominant, Butonlar Bordo
+      bg:"#100508", card:"rgba(30,15,20,.92)",
+      pri:"#C70039", // Kırmızı (Dominant Accent, Result Bar, Silme Butonu)
+      sec:"#900C3F", // BORDO (Button, Link)
+      ter:"#FF5733", // Turuncu (Gradient Stop)
+      text:"#fff0f0",
+      border:"rgba(255,255,255,.15)",
+      input:"rgba(255,255,255,.07)",
+      result:"rgba(255,255,255,.05)",
+      btn:"#30181A", btnH:"#452A2C",
+      light_mode_secondary_text:"#10121a"
+    }},
+  ];
+
+  let themeIndex = 0;
+  const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)');
+
+  function getSystemThemeColors(){
+    const isDark = prefersDark?.matches;
+    const key = isDark ? 'dark' : 'light';
+    const systemTheme = THEMES.find(t => t.key === key);
+    return systemTheme ? systemTheme.vars : THEMES.find(t => t.key === 'dark').vars;
+  }
+
+  function setCSSVars(vars){
+    const r=document.documentElement.style;
+    r.setProperty('--bg-color', vars.bg);
+    r.setProperty('--card-bg', vars.card);
+    r.setProperty('--primary-color', vars.pri);
+    r.setProperty('--secondary-color', vars.sec);
+    r.setProperty('--tertiary-color', vars.ter);
+    r.setProperty('--text-color', vars.text);
+    r.setProperty('--border-color', vars.border);
+    r.setProperty('--input-bg', vars.input);
+    r.setProperty('--result-bg', vars.result);
+    r.setProperty('--button-bg', vars.btn);
+    r.setProperty('--button-hover-bg', vars.btnH);
+    r.setProperty('--light-mode-secondary-text', vars.light_mode_secondary_text || '#10121a');
+  }
+
+  function updateIcons(isLightMode) {
+    const iconPath = `icon/`;
+    const themeSuffix = isLightMode ? '-light.svg' : '.svg';
+    document.querySelectorAll('.icon').forEach(icon => {
+      const iconName = icon.dataset.iconName;
+      if (iconName && iconName !== 'theme') {
+        icon.src = `${iconPath}${iconName}${themeSuffix}`;
+      }
+    });
+  }
+
+  function applyThemeByIndex(idx){
+    const t = THEMES[(idx+THEMES.length)%THEMES.length];
+    let finalVars = t.vars;
+    let currentTone = t.tone;
+
+    if (t.key === 'system') {
+      finalVars = getSystemThemeColors();
+      const isSystemDark = prefersDark?.matches;
+      currentTone = isSystemDark ? 'dark' : 'light';
+    }
+
+    setCSSVars(finalVars);
+
+    const isLightMode = currentTone === 'light';
+    document.documentElement.classList.toggle('light-mode', isLightMode);
+
+    updateIcons(isLightMode);
+    document.getElementById('themeButton').querySelector('span').textContent = THEME_LABELS[t.key] || t.key;
+    calculate();
+  }
+
   const $ = sel => document.querySelector(sel);
   const mainContainer = $('#main-container');
 
@@ -149,7 +303,7 @@
       <input type="text" placeholder="Parti Adı" value="${name}" class="party-name">
       <input type="text" placeholder="Oy Sayısı" value="${votes.toLocaleString('tr-TR')}" class="party-votes" inputmode="numeric">
       <button type="button" class="delete-btn" title="Kaldır">
-        <img src="icon/remove.svg" alt="Kaldır" class="icon">
+        <img src="icon/remove.svg" alt="Kaldır" class="icon" data-icon-name="remove">
       </button>
     `;
 
@@ -163,6 +317,7 @@
     div.querySelector('.delete-btn').addEventListener('click', () => { div.remove(); calculate(); });
 
     mainContainer.appendChild(div);
+    applyThemeByIndex(themeIndex);
     calculate();
   }
 
@@ -209,6 +364,13 @@
 
   document.addEventListener('DOMContentLoaded', ()=>{
     document.getElementById('addPartyBtn').addEventListener('click', () => addParty());
+
+    document.getElementById('themeButton').addEventListener('click',()=>{
+      themeIndex=(themeIndex+1)%THEMES.length;
+      applyThemeByIndex(themeIndex);
+    });
+
+    applyThemeByIndex(themeIndex);
     calculate();
   });
 </script>

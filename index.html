@@ -13,20 +13,16 @@
     button,input,select,textarea{font:inherit}
 
     :root{
-      --bg-color:#10121a; --card-bg:rgba(18,20,32,.92);
-      --primary-color:#6a11cb; --secondary-color:#2575fc;
-      --text-color:#f2f3f7; --border-color:rgba(255,255,255,.18);
-      --input-bg:rgba(255,255,255,.08); --result-bg:rgba(255,255,255,.05);
-      --button-bg:#3a3a58; --button-hover-bg:#4a4a6f;
+      --bg-color:#0f1118; --card-bg:rgba(20,22,32,.92);
+      --primary-color:#7d5fff; --secondary-color:#15aabf;
+      --text-color:#eef1ff; --border-color:rgba(255,255,255,.16);
+      --input-bg:rgba(255,255,255,.07); --result-bg:rgba(255,255,255,.05);
+      --button-bg:#2a2e3f; --button-hover-bg:#343955;
+      --light-mode-secondary-text:#000;
     }
 
     :root.light-mode{
-      --light-mode-secondary-text:#000;
-      --bg-color:#f7f7fb; --card-bg:rgba(255,255,255,.92);
-      --primary-color:#4e54c8; --secondary-color:#8f94fb;
-      --text-color:#1a1a1a; --border-color:rgba(0,0,0,.12);
-      --input-bg:rgba(0,0,0,.06); --result-bg:rgba(0,0,0,.03);
-      --button-bg:#e6e7ef; --button-hover-bg:#d8d9e6;
+
     }
 
     body{
@@ -42,163 +38,132 @@
     }
     .top-left,.top-right{display:flex; align-items:center; gap:10px; pointer-events:auto}
     .top-btn{
-      padding:8px 12px; border-radius:10px; background:var(--button-bg); color:var(--text-color);
-      border:1px solid var(--border-color); font-size:.95em; cursor:pointer; transition:background-color .25s, transform .15s;
+      padding:10px 14px; border-radius:12px; background:var(--button-bg); color:var(--text-color);
+      border:1px solid var(--border-color); font-size:1em; cursor:pointer; transition:background-color .25s, transform .15s;
       position:relative; z-index:1001; display:inline-flex; align-items:center; gap:8px;
     }
     .top-btn:hover{background:var(--button-hover-bg); transform:translateY(-1px)}
     .icon{
-      width:18px; height:18px;
+      width:20px; height:20px;
     }
     .btn-with-icon{display:inline-flex; align-items:center; gap:8px}
 
-    .threshold-control{display:flex; align-items:center; gap:10px}
-    .threshold-input{width:80px; padding:14px; font-size:1.05em; box-sizing:border-box}
+    .threshold-control{display:flex; align-items:center; gap:15px} /* gap 10px'ten 15px'e çıkarıldı */
+    .threshold-input{width:80px; padding:12px; font-size:1em; box-sizing:border-box}
     .threshold-button{
-      padding:14px; border:1px solid var(--border-color); border-radius:10px; background:var(--input-bg);
-      color:var(--text-color); font-weight:600; cursor:pointer; transition:background-color .25s,border-color .25s; font-size:1.05em;
+      padding:12px 16px; border:1px solid var(--border-color); border-radius:12px; background:var(--input-bg);
+      color:var(--text-color); font-weight:600; cursor:pointer; transition:background-color .25s,border-color .25s; font-size:1em;
       display:inline-flex; align-items:center; gap:8px; justify-content:center;
     }
     .threshold-button span{
       white-space: nowrap;
     }
+    /* Baraj Butonu Genişliği Sabitlendi */
+    #thresholdButton {
+      width: 150px;
+    }
+    /* Bağımsız Aday Limiti Butonu Genişliği */
     #limitedIndependentButton{
-      width:220px;
+      width: 200px;
     }
     .threshold-button.active{background:var(--primary-color); border-color:var(--primary-color); color:#fff}
     .threshold-input:disabled{opacity:.55; cursor:not-allowed}
 
     .container{
-      background:var(--card-bg); border-radius:20px; padding:44px; border:1px solid var(--border-color);
-      box-shadow:0 15px 40px rgba(0,0,0,.35); width:100%; max-width:980px; animation:fadeIn .45s ease
+      background:var(--card-bg); border-radius:20px; padding:30px; border:1px solid var(--border-color);
+      box-shadow:0 15px 40px rgba(0,0,0,.35); width:100%; max-width:650px;
+      animation:fadeIn .45s ease
     }
     @keyframes fadeIn{from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)}}
 
     h1{
-      font-weight:800; text-align:center; font-size:3.1em; margin:0 0 6px;
+      font-weight:800; text-align:center; font-size:3em; margin:0 0 8px;
       background:linear-gradient(45deg,var(--primary-color),var(--secondary-color));
       -webkit-background-clip:text; -webkit-text-fill-color:transparent
     }
-    .subtitle{text-align:center; margin-bottom:32px; opacity:.8; font-size:1.05em}
+    .subtitle{text-align:center; margin-bottom:28px; opacity:.8; font-size:1.1em}
 
-    .input-group{margin-bottom:26px}
-    .seats-threshold-group{display:flex; align-items:center; gap:10px}
-    .seats-threshold-group input[type="text"]{flex:1}
+    .input-group{margin-bottom:20px}
+    .seats-threshold-group{display:flex; align-items:center; gap:15px}
+
+    /* Koltuk Sayısı girişinin genişliği %50 artırılarak 173px'e sabitlendi */
+    #totalSeats {
+      width: 173px;
+      padding:12px; font-size:1.05em;
+      box-sizing: border-box;
+    }
 
     input[type="text"], input[type="number"]{
-      padding:14px; border:1px solid var(--border-color); border-radius:12px; background:var(--input-bg);
+      padding:12px; border:1px solid var(--border-color); border-radius:12px; background:var(--input-bg);
       color:var(--text-color); box-sizing:border-box; font-size:1.05em; transition:all .2s
     }
     input::placeholder{color:var(--text-color); opacity:.5}
     input:focus{outline:none; box-shadow:0 0 0 3px color-mix(in oklab, var(--secondary-color) 35%, transparent); border-color:var(--secondary-color)}
 
-    .alliance-entry,.party-entry,.independent-entry{margin-bottom:16px; display:flex; align-items:center; gap:12px}
+    .alliance-entry,.party-entry,.independent-entry{margin-bottom:14px; display:flex; align-items:center; gap:12px}
     .alliance-entry{
-      flex-direction:column; align-items:stretch; padding:16px; border:2px dashed var(--border-color);
-      border-radius:14px; background:rgba(255,255,255,.03)
+      flex-direction:column; align-items:stretch; padding:18px; border:2px dashed var(--border-color);
+      border-radius:15px; background:rgba(255,255,255,.03)
     }
-    .alliance-header{display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; gap:10px}
-    .alliance-header input{flex:1; font-weight:700; font-size:1.05em}
-    .alliance-parties-container{min-height:48px; display:flex; flex-direction:column; gap:10px}
+    .alliance-header{display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; gap:12px}
+    .alliance-header input{flex:1; font-weight:600; font-size:1.1em}
+    .alliance-parties-container{min-height:30px; display:flex; flex-direction:column; gap:10px}
 
-    .party-name{flex:3}
-    .party-votes{flex:1.5}
-    .party-color-group{display:flex; gap:6px; align-items:center}
-    .party-color-hex{width:110px; padding:12px; text-align:center}
+    .party-name{flex:2} /* Genişlik 3'ten 2'ye düşürüldü */
+    .party-votes{flex:1.5} /* Genişlik korunuyor */
 
-    input[type="color"] {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      width: 42px;
-      height: 42px;
-      padding: 0;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      background: var(--input-bg);
-      border: 1px solid var(--border-color);
-      transition: all 0.2s ease;
-    }
-
-    input[type="color"]::-webkit-color-swatch-wrapper {
-      padding: 0;
-      border-radius: 10px;
-    }
-
-    input[type="color"]::-webkit-color-swatch {
-      border: none;
-      border-radius: 10px;
-    }
-
-    input[type="color"]::-moz-color-swatch-wrapper {
-        padding: 0;
-        border-radius: 10px;
-    }
-    input[type="color"]::-moz-color-swatch {
-        border: none;
-        border-radius: 10px;
-    }
-
-    input[type="color"]:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
-
-
-    .move-control{width:30px; height:48px; display:flex; flex-direction:column; justify-content:center; align-items:center; border:1px solid var(--border-color); border-radius:10px; background:var(--button-bg)}
+    .move-control{width:44px; height:44px; display:flex; flex-direction:column; justify-content:center; align-items:center; border:1px solid var(--border-color); border-radius:12px; background:var(--button-bg)}
     .move-control-up,.move-control-down{flex:1; display:flex; align-items:center; justify-content:center; cursor:pointer; width:100%; color:#fff; font-size:1.1em}
     .move-control-up{border-radius:10px 10px 0 0}
     .move-control-down{border-radius:0 0 10px 10px}
     .move-control-up img,.move-control-down img{width:18px; height:18px;}
 
     .delete-btn{
-      background:var(--primary-color); color:#fff; border:none; padding:10px 12px; border-radius:10px; width:42px; height:42px;
+      background:var(--primary-color); color:#fff; border:none; padding:10px; border-radius:12px; width:44px; height:44px;
       display:flex; justify-content:center; align-items:center; cursor:pointer; transition:transform .15s, filter .2s, background .2s
     }
     .delete-btn:hover{transform:scale(1.05); filter:brightness(1.05)}
 
     .add-party-btn,.add-independent-btn,.add-alliance-btn{
-      width:100%; background:var(--secondary-color); color:#fff; border:none; padding:14px; border-radius:12px;
-      cursor:pointer; font-size:1.05em; font-weight:700; transition:transform .15s, filter .2s; margin-top:8px;
-      display:inline-flex; align-items:center; gap:8px; justify-content:center;
+      width:100%; background:var(--secondary-color); color:#fff; border:none; padding:12px; border-radius:12px;
+      cursor:pointer; font-size:1.1em; font-weight:600; transition:transform .15s, filter .2s; margin-top:12px;
+      display:inline-flex; align-items:center; gap:10px; justify-content:center;
     }
-    .add-party-btn:hover,.add-independent-btn:hover,.add-alliance-btn:hover{transform:translateY(-2px); filter:brightness(1.05)}
+    .add-party-btn:hover,.add-independent-btn:hover,.add-alliance-btn:hover{transform:translateY(-1px); filter:brightness(1.05)}
     :root.light-mode .add-party-btn, :root.light-mode .add-independent-btn, :root.light-mode .add-alliance-btn {
       color: var(--light-mode-secondary-text);
     }
 
-    .results{margin-top:30px; background:var(--result-bg); padding:24px; border-radius:14px; border:1px solid var(--border-color); box-shadow:10px 10px 22px rgba(0,0,0,.22)}
+    .results{margin-top:28px; background:var(--result-bg); padding:25px; border-radius:15px; border:1px solid var(--border-color); box-shadow:10px 10px 22px rgba(0,0,0,.22)}
     .results h2{
-      margin:0 0 14px; font-size:1.7em; text-align:center;
+      margin:0 0 14px; font-size:1.8em; text-align:center;
       background:linear-gradient(45deg,var(--primary-color),var(--secondary-color));
       -webkit-background-clip:text; -webkit-text-fill-color:transparent
     }
     .results ul{list-style:none; padding:0; margin:0}
     .results li{
       background:var(--input-bg); padding:16px; border-radius:12px; margin-bottom:12px; display:flex;
-      justify-content:space-between; align-items:center; transition:transform .2s; border-left:5px solid
+      justify-content:space-between; align-items:center; transition:transform .2s; border-left:5px solid var(--primary-color);
     }
     .party-info{display:flex; align-items:center; gap:12px}
-    .party-initial{width:38px; height:38px; border-radius:50%; display:flex; justify-content:center; align-items:center; font-weight:800; font-size:1.2em; text-transform:uppercase; border:2px solid var(--border-color); flex-shrink:0}
-    .seat-count{font-weight:800; font-size:1.25em; color:var(--primary-color)}
-    .total-votes{text-align:right; opacity:.7; font-size:.98em; margin-top:12px}
+    .seat-count{font-weight:700; font-size:1.4em; color:var(--primary-color)}
+    .total-votes{text-align:right; opacity:.7; font-size:1em; margin-top:15px}
 
-    .file-buttons{display:flex; justify-content:center; gap:10px; margin-top:18px}
+    .file-buttons{display:flex; justify-content:center; gap:15px; margin-top:20px}
     .file-buttons button{
-      padding:12px 18px; border-radius:10px; background:var(--button-bg); color:var(--text-color); border:1px solid var(--border-color);
-      font-size:.98em; cursor:pointer; transition:background-color .2s, transform .15s; display:inline-flex; align-items:center; gap:8px;
+      padding:12px 18px; border-radius:12px; background:var(--button-bg); color:var(--text-color); border:1px solid var(--border-color);
+      font-size:1em; cursor:pointer; transition:background-color .2s, transform .15s; display:inline-flex; align-items:center; gap:10px;
     }
-    .file-buttons button:hover{background:var(--button-hover-bg); transform:translateY(-2px)}
+    .file-buttons button:hover{background:var(--button-hover-bg); transform:translateY(-1px)}
     .file-buttons input{display:none}
 
     .github-button{
       position:fixed; bottom:20px; left:20px; padding:10px 14px; border-radius:10px; background:var(--button-bg);
-      color:var(--text-color); border:1px solid var(--border-color); font-size:.98em; cursor:pointer;
+      color:var(--text-color); border:1px solid var(--border-color); font-size:1em; cursor:pointer;
       transition:background-color .2s, transform .15s, box-shadow .2s; text-decoration:none; display:flex; align-items:center; gap:8px;
       z-index:999
     }
-    .github-button:hover{background:var(--button-hover-bg); transform:translateY(-2px); box-shadow:0 4px 10px rgba(0,0,0,.2)}
+    .github-button:hover{background:var(--button-hover-bg); transform:translateY(-1px); box-shadow:0 2px 8px rgba(0,0,0,.2)}
 
     .fixed-bottom-right{
       position:fixed;
@@ -209,8 +174,8 @@
       background:var(--secondary-color);
       color:var(--text-color);
       border:1px solid var(--border-color);
-      font-size:.98em;
-      font-weight:700;
+      font-size:1em;
+      font-weight:600;
       cursor:pointer;
       transition:background-color .2s, transform .15s, box-shadow .2s;
       text-decoration:none;
@@ -218,8 +183,8 @@
     }
     .fixed-bottom-right:hover{
       background:color-mix(in srgb, var(--secondary-color), black 10%);
-      transform:translateY(-2px);
-      box-shadow:0 4px 10px rgba(0,0,0,.2);
+      transform:translateY(-1px);
+      box-shadow:0 2px 8px rgba(0,0,0,.2);
     }
   </style>
 </head>
@@ -227,7 +192,7 @@
 <div class="top-bar">
   <div class="top-left">
     <button id="themeButton" class="top-btn btn-with-icon" title="Tema">
-      <img src="icon/theme.svg" alt="" class="icon" data-icon-name="theme"><span>Tema</span>
+      <img src="icon/theme.svg" alt="" class="icon" data-icon-name="theme"><span>Sistem Varsayılanı</span>
     </button>
   </div>
   <div class="top-right">
@@ -258,7 +223,7 @@
 
   <div id="main-container"></div>
 
-  <div class="action-buttons" style="display:flex; gap:10px; margin-top:10px;">
+  <div class="action-buttons" style="display:flex; gap:15px; margin-top:15px;">
     <button id="addPartyBtn" class="add-party-btn">
       <img src="icon/add.svg" alt="" class="icon" data-icon-name="add"><span>Parti Ekle</span>
     </button>
@@ -290,11 +255,12 @@
 
 <script>
   const THEME_LABELS = {
-    light:'Açık', dark:'Koyu', retro:'Retro', vaporwave:'Vaporwave', forest:'Orman',
-    ocean:'Okyanus', crimson:'Kızıl', sunset:'Gün Batımı', bal:'Bal'
+    system:'Sistem Varsayılanı', light:'Açık', dark:'Koyu',
+    murdum:'Mürdüm', gece:'Gece (Mavi)', dawn:'Şafak (Mor)',
   };
 
   const THEMES = [
+    {key:"system", tone:"system", vars:{}},
     {key:"light", tone:"light", vars:{
       bg:"#f7f7fb", card:"rgba(255,255,255,.92)", pri:"#4e54c8", sec:"#8f94fb", text:"#1a1a1a",
       border:"rgba(0,0,0,.12)", input:"rgba(0,0,0,.06)", result:"rgba(0,0,0,.03)", btn:"#e6e7ef", btnH:"#d8d9e6"
@@ -303,38 +269,29 @@
       bg:"#0f1118", card:"rgba(20,22,32,.92)", pri:"#7d5fff", sec:"#15aabf", text:"#eef1ff",
       border:"rgba(255,255,255,.16)", input:"rgba(255,255,255,.07)", result:"rgba(255,255,255,.05)", btn:"#2a2e3f", btnH:"#343955"
     }},
-    {key:"retro", tone:"dark", vars:{
-      bg:"#1a2430", card:"rgba(24,36,48,.92)", pri:"#f39c12", sec:"#e74c3c", text:"#fef9e7",
-      border:"rgba(255,200,150,.2)", input:"rgba(255,200,150,.12)", result:"rgba(255,200,150,.08)", btn:"#3c3d47", btnH:"#4a4b58"
+    {key:"murdum", tone:"dark", vars:{
+      bg:"#1B0616", card:"rgba(35,15,40,.92)", pri:"#E91E63", sec:"#9C27B0", text:"#FAE3FF",
+      border:"rgba(255,255,255,.12)", input:"rgba(255,255,255,.06)", result:"rgba(255,255,255,.04)", btn:"#FF9800", btnH:"#FFB300"
     }},
-    {key:"vaporwave", tone:"dark", vars:{
-      bg:"#2e1b3f", card:"rgba(40,20,65,.92)", pri:"#ff77e9", sec:"#00bbf9", text:"#fff0ff",
-      border:"rgba(255,150,255,.22)", input:"rgba(255,150,255,.10)", result:"rgba(255,150,255,.08)", btn:"#4a275f", btnH:"#5c2f76"
+    {key:"gece", tone:"dark", vars:{
+      bg:"#050B14", card:"rgba(15,25,40,.92)", pri:"#4ADEDE", sec:"#00BFFF", text:"#E0F7FA",
+      border:"rgba(255,255,255,.15)", input:"rgba(255,255,255,.08)", result:"rgba(255,255,255,.05)", btn:"#203348", btnH:"#2A4461"
     }},
-    {key:"forest", tone:"dark", vars:{
-      bg:"#0f1a14", card:"rgba(20,34,26,.9)", pri:"#2ecc71", sec:"#1abc9c", text:"#e9fff2",
-      border:"rgba(200,255,230,.18)", input:"rgba(200,255,230,.08)", result:"rgba(200,255,230,.06)", btn:"#1f3a2d", btnH:"#29513f"
+    {key:"dawn", tone:"dark", vars:{
+      bg:"#140a1c", card:"rgba(25,15,35,.92)", pri:"#8c1bab", sec:"#e0529d", text:"#fae6ff",
+      border:"rgba(255,255,255,.14)", input:"rgba(255,255,255,.06)", result:"rgba(255,255,255,.04)", btn:"#332047", btnH:"#4a3068"
     }},
-    {key:"ocean", tone:"dark", vars:{
-      bg:"#0e1b2b", card:"rgba(16,34,54,.9)", pri:"#00b4d8", sec:"#48cae4", text:"#eaf6ff",
-      border:"rgba(200,230,255,.18)", input:"rgba(200,230,255,.08)", result:"rgba(200,230,255,.06)", btn:"#163249", btnH:"#1f435f"
-    }},
-    {key:"crimson", tone:"dark", vars:{
-      bg:"#2b0f14", card:"rgba(44,16,22,.92)", pri:"#ff4d6d", sec:"#ff8fab", text:"#fff0f3",
-      border:"rgba(255,160,180,.22)", input:"rgba(255,160,180,.10)", result:"rgba(255,160,180,.08)", btn:"#4a1f28", btnH:"#5c2833"
-    }},
-    {key:"sunset", tone:"dark", vars:{
-      bg:"#1b1220", card:"rgba(36,20,44,.9)", pri:"#ff7e5f", sec:"#feb47b", text:"#fff3ef",
-      border:"rgba(255,200,180,.2)", input:"rgba(255,180,150,.1)", result:"rgba(255,160,130,.08)", btn:"#5c2b3a", btnH:"#6c3444"
-    }},
-    {key:"bal", tone:"dark", vars:{
-      bg:"#361408", card:"rgba(54,20,8,.92)", pri:"#ff7b00", sec:"#f5b700", text:"#fff",
-      border:"rgba(255,255,255,.18)", input:"rgba(255,255,255,.08)", result:"rgba(255,255,255,.05)", btn:"#6a3d16", btnH:"#8f531d"
-    }}
   ];
 
   let themeIndex = 0;
   const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)');
+
+  function getSystemThemeColors(){
+    const isDark = prefersDark?.matches;
+    const key = isDark ? 'dark' : 'light';
+    const systemTheme = THEMES.find(t => t.key === key);
+    return systemTheme ? systemTheme.vars : THEMES.find(t => t.key === 'dark').vars;
+  }
 
   function setCSSVars(vars){
     const r=document.documentElement.style;
@@ -368,9 +325,20 @@
 
   function applyThemeByIndex(idx){
     const t = THEMES[(idx+THEMES.length)%THEMES.length];
-    const isLightMode = t.tone === 'light';
-    setCSSVars(t.vars);
+    let finalVars = t.vars;
+    let currentTone = t.tone;
+
+    if (t.key === 'system') {
+      finalVars = getSystemThemeColors();
+      const isSystemDark = prefersDark?.matches;
+      currentTone = isSystemDark ? 'dark' : 'light';
+    }
+
+    setCSSVars(finalVars);
+
+    const isLightMode = currentTone === 'light';
     document.documentElement.classList.toggle('light-mode', isLightMode);
+
     updateIcons(isLightMode);
     document.getElementById('themeButton').querySelector('span').textContent = THEME_LABELS[t.key] || t.key;
     calculate();
@@ -385,13 +353,8 @@
   let isLimitedIndependentEnabled = false;
 
   const $ = sel => document.querySelector(sel);
-  function getContrastColor(hex){
-    const r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
-    const L=(0.299*r+0.587*g+0.114*b)/255; return L>0.5?'black':'white';
-  }
   function parseVoteValue(v){ if(typeof v==='string'){ v=v.replace(/[\.,]/g,'') } return parseInt(v) }
   function parseThresholdValue(v){ if(typeof v==='string'){ v=v.replace(',','.').replace('%','') } return parseFloat(v) }
-  function generateRandomColor(){ const letters='0123456789ABCDEF'; let c='#'; for(let i=0;i<6;i++){ c+=letters[Math.floor(Math.random()*16)] } return c }
 
   function moveElement(element,direction){
     const mainContainer = $('#main-container');
@@ -455,7 +418,7 @@
     calculate();
   }
 
-  function addIndependent(name='',votes='',color=generateRandomColor()){
+  function addIndependent(name='',votes=''){
     const div=document.createElement('div');
     div.className='independent-entry'; div.dataset.type='independent';
     div.innerHTML=`
@@ -465,10 +428,6 @@
       </div>
       <input type="text" placeholder="Bağımsız Aday Adı" value="${name}" class="party-name">
       <input type="text" placeholder="Oy Sayısı" value="${votes}" class="party-votes">
-      <div class="party-color-group">
-        <input type="color" class="party-color-picker" value="${color}">
-        <input type="text" class="party-color-hex" value="${color}" placeholder="#RRGGBB" maxlength="7">
-      </div>
       <button type="button" class="delete-btn" title="Kaldır">
         <img src="icon/remove.svg" alt="" class="icon" data-icon-name="remove">
       </button>
@@ -478,19 +437,12 @@
     div.querySelector('.move-control-up').addEventListener('click',()=>moveElement(div,'up'));
     div.querySelector('.move-control-down').addEventListener('click',()=>moveElement(div,'down'));
 
-    const picker=div.querySelector('.party-color-picker'), hex=div.querySelector('.party-color-hex');
-    picker.addEventListener('input',()=>{ hex.value=picker.value; calculate() });
-    hex.addEventListener('input',()=>{
-      let val=hex.value.trim(); if(!val.startsWith('#')) val='#'+val;
-      if(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(val)){ picker.value=val; calculate() }
-    });
-
     $('#main-container').appendChild(div);
     applyThemeByIndex(themeIndex);
     calculate();
   }
 
-  function addParty(name='',votes='',color=generateRandomColor(),parentId=null){
+  function addParty(name='',votes='',parentId=null){
     if(parentId==='null' || !parentId) parentId=null;
     const div=document.createElement('div');
     div.className='party-entry'; div.dataset.allianceId=parentId; div.dataset.type='party';
@@ -501,10 +453,6 @@
       </div>
       <input type="text" placeholder="Parti Adı" value="${name}" class="party-name">
       <input type="text" placeholder="Oy Sayısı" value="${votes}" class="party-votes">
-      <div class="party-color-group">
-        <input type="color" class="party-color-picker" value="${color}">
-        <input type="text" class="party-color-hex" value="${color}" placeholder="#RRGGBB" maxlength="7">
-      </div>
       <button type="button" class="delete-btn" title="Kaldır">
         <img src="icon/remove.svg" alt="" class="icon" data-icon-name="remove">
       </button>
@@ -513,13 +461,6 @@
     div.querySelector('.delete-btn').addEventListener('click',()=>{ div.remove(); calculate(); });
     div.querySelector('.move-control-up').addEventListener('click',()=>moveElement(div,'up'));
     div.querySelector('.move-control-down').addEventListener('click',()=>moveElement(div,'down'));
-
-    const picker=div.querySelector('.party-color-picker'), hex=div.querySelector('.party-color-hex');
-    picker.addEventListener('input',()=>{ hex.value=picker.value; calculate() });
-    hex.addEventListener('input',()=>{
-      let val=hex.value.trim(); if(!val.startsWith('#')) val='#'+val;
-      if(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(val)){ picker.value=val; calculate() }
-    });
 
     const parentContainer = parentId ? document.getElementById(parentId).querySelector('.alliance-parties-container')
                                      : $('#main-container');
@@ -581,26 +522,24 @@
     const eligibleParties = [];
     const allCandidates = [];
 
-    document.querySelectorAll('.party-entry').forEach(entry=>{
-      const name=entry.querySelector('.party-name').value.trim();
-      const votes=parseVoteValue(entry.querySelector('.party-votes').value);
-      const color=entry.querySelector('.party-color-picker').value;
-      const allianceId=entry.dataset.allianceId;
-      if(name && !isNaN(votes) && votes>=0){ allCandidates.push({name,votes,color,seats:0,allianceId,type:'party'}) }
-    });
-
-    document.querySelectorAll('.independent-entry').forEach(entry=>{
-      const name=entry.querySelector('.party-name').value.trim();
-      const votes=parseVoteValue(entry.querySelector('.party-votes').value);
-      const color=entry.querySelector('.party-color-picker').value;
-      if(name && !isNaN(votes) && votes>=0){ allCandidates.push({name,votes,color,seats:0,type:'independent'}) }
-    });
-
     const alliances={};
     document.querySelectorAll('.alliance-entry').forEach(allianceDiv=>{
       const id=allianceDiv.dataset.allianceId;
       const name=allianceDiv.querySelector('.alliance-name').value.trim();
       alliances[id]={name,votes:0,parties:[]};
+    });
+
+    document.querySelectorAll('.party-entry').forEach(entry=>{
+      const name=entry.querySelector('.party-name').value.trim();
+      const votes=parseVoteValue(entry.querySelector('.party-votes').value);
+      const allianceId=entry.dataset.allianceId;
+      if(name && !isNaN(votes) && votes>=0){ allCandidates.push({name,votes,seats:0,allianceId,type:'party'}) }
+    });
+
+    document.querySelectorAll('.independent-entry').forEach(entry=>{
+      const name=entry.querySelector('.party-name').value.trim();
+      const votes=parseVoteValue(entry.querySelector('.party-votes').value);
+      if(name && !isNaN(votes) && votes>=0){ allCandidates.push({name,votes,seats:0,type:'independent'}) }
     });
 
     allCandidates.forEach(p=>{
@@ -649,12 +588,19 @@
 
     for(const r of sorted){
       const percentage=((r.votes/totalVotes)*100).toFixed(2);
-      const initial=r.name.charAt(0).toUpperCase();
-      const initialColor=getContrastColor(r.color);
-      out+=`<li style="border-left:5px solid ${r.color};">
+
+      let partyDisplay = `<strong>${r.name}</strong> (${percentage}%)`;
+
+      // İttifak adını parantez içinde ekle
+      if (r.type === 'party' && r.allianceId && r.allianceId !== 'null' && alliances[r.allianceId]) {
+          const allianceName = alliances[r.allianceId].name;
+          // Format: Parti Adı (İttifak Adı) (Yüzdelik%)
+          partyDisplay = `<strong>${r.name}</strong> (${allianceName}) (${percentage}%)`;
+      }
+
+      out+=`<li style="border-left:5px solid var(--primary-color);">
               <div class="party-info">
-                <div class="party-initial" style="background-color:${r.color};color:${initialColor};">${initial}</div>
-                <span><strong>${r.name}</strong> (${percentage}%)</span>
+                <span>${partyDisplay}</span>
               </div>
               <span class="seat-count">${r.seats} Koltuk</span>
             </li>`;
@@ -722,19 +668,16 @@
         container.querySelectorAll('.party-entry').forEach(entry=>{
           const name=entry.querySelector('.party-name').value.trim();
           const votes=entry.querySelector('.party-votes').value;
-          const color=entry.querySelector('.party-color-picker').value;
-          if(name && votes){ content+=`  Party|${name}|${votes}|${color}|${allianceId}\n` }
+          if(name && votes){ content+=`  Party|${name}|${votes}|${allianceId}\n` }
         });
       }else if(container.classList.contains('party-entry')){
         const name=container.querySelector('.party-name').value.trim();
         const votes=container.querySelector('.party-votes').value;
-        const color=container.querySelector('.party-color-picker').value;
-        if(name && votes){ content+=`Party|${name}|${votes}|${color}\n` }
+        if(name && votes){ content+=`Party|${name}|${votes}\n` }
       }else if(container.classList.contains('independent-entry')){
         const name=container.querySelector('.party-name').value.trim();
         const votes=container.querySelector('.party-votes').value;
-        const color=container.querySelector('.party-color-picker').value;
-        if(name && votes){ content+=`Independent|${name}|${votes}|${color}\n` }
+        if(name && votes){ content+=`Independent|${name}|${votes}\n` }
       }
     });
 
@@ -779,7 +722,7 @@
       if(lines.length>0 && lines[0].startsWith('Tema:')){
         const themeName = lines.shift().split(':')[1].trim();
         const idx = THEMES.findIndex(t=> t.key === themeName);
-        if(idx>=0){ themeIndex=idx; applyThemeByIndex(themeIndex) }
+        if(idx>=0){ themeIndex=idx; applyThemeByIndex(idx) }
       }
       if(lines.length>0 && lines[0]==='---'){ lines.shift() }
 
@@ -789,13 +732,18 @@
           const allianceName=parts[1]; const allianceId=parts[2];
           const allianceDiv = addAlliance(allianceName,allianceId);
           alliances[allianceId] = allianceDiv;
-        } else if(parts[0]==='Party' && parts.length>=4){
-          const name=parts[1]; const votes=parts[2]; const color=parts[3]||'#808080';
-          const allianceId = parts.length > 4 ? parts[4] : null;
-          addParty(name, votes, color, allianceId);
-        } else if(parts[0]==='Independent' && parts.length>=4){
-          const name=parts[1]; const votes=parts[2]; const color=parts[3]||'#808080';
-          addIndependent(name,votes,color);
+        } else if(parts[0]==='Party' && parts.length>=3){
+          const name=parts[1]; const votes=parts[2];
+          let allianceId = null;
+          if (parts[0].length === 5) { // '  Party' for alliance
+              allianceId = parts[parts.length - 1];
+          } else if (parts.length > 3) { // old format compatibility (Party|name|votes|color|allianceId)
+              allianceId = parts.length > 3 ? parts[3] : null;
+          }
+          addParty(name, votes, allianceId);
+        } else if(parts[0]==='Independent' && parts.length>=3){
+          const name=parts[1]; const votes=parts[2];
+          addIndependent(name,votes);
         }
       });
 
@@ -837,6 +785,7 @@
       themeIndex=(themeIndex+1)%THEMES.length;
       applyThemeByIndex(themeIndex);
     });
+
     applyThemeByIndex(themeIndex);
 
     document.getElementById('methodButton').addEventListener('click', ()=>{
